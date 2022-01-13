@@ -13,7 +13,7 @@
 
 ### 客户端使用  
 
-暂无提供、后续可能提供WebClip供iOS、ipadOS、或者其他方式供用户使用。  
+在您的ios上安装webClip下的描述文件  
 
 ### 加入我们  
 
@@ -21,3 +21,12 @@
 
 ### 使用效果截图  
 
+<div align="center">
+
+![alt 属性文本](readme/images/IMG_0188.PNG)
+
+![alt 属性文本](readme/images/IMG_0189.PNG)
+
+![alt 属性文本](readme/images/IMG_0190.PNG)
+
+</div> 

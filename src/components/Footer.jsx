@@ -3,19 +3,53 @@ import styled from "styled-components";
 import tableIcon from "../assets/svg/table.svg";
 import homeIcon from "../assets/svg/home.svg";
 import { Link } from "react-router-dom";
+import ArticleIcon from "@mui/icons-material/Article";
+import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
+import ClassIcon from "@mui/icons-material/Class";
+import ClassOutlinedIcon from "@mui/icons-material/ClassOutlined";
 
-function Footer() {
+function FooterIconConfig(props) {
+  let { index, fill } = { ...props };
+  return (
+    <React.Fragment>
+      {index === 0 && (
+        <React.Fragment>
+          {fill === "table" && <ArticleIcon style={{ color: "#0066cc" }} />}
+          {fill !== "table" && (
+            <ArticleOutlinedIcon style={{ color: "#0066cc" }} />
+          )}
+        </React.Fragment>
+      )}
+      {index === 1 && (
+        <React.Fragment>
+          {fill === "week" && <ClassIcon style={{ color: "#0066cc" }} />}
+          {fill !== "week" && (
+            <ClassOutlinedIcon style={{ color: "#0066cc" }} />
+          )}
+        </React.Fragment>
+      )}
+    </React.Fragment>
+  );
+}
+
+/**
+ *
+ * @param {fill:string} props
+ * @returns
+ */
+function Footer(props) {
+  let fill = props.fill;
   return (
     <Container>
       <Row>
         <div>
           <Link to="/table">
-            <Icon src={tableIcon} />
+            <FooterIconConfig fill={fill} index={0} />
           </Link>
         </div>
         <div>
           <Link to="/week">
-            <Icon src={homeIcon} />
+            <FooterIconConfig fill={fill} index={1} />
           </Link>
         </div>
       </Row>
@@ -42,11 +76,11 @@ const Row = styled.div`
   width: 100%;
 `;
 
-const Icon = styled.img`
-  width: 2rem;
-  height: 2rem;
-  border-radius: 1rem;
-  cursor: pointer;
-`;
+// const Icon = styled(AccessAlarmIcon)`
+//   width: 2.6rem;
+//   height: 2.6rem;
+//   border-radius: 1.3rem;
+//   cursor: pointer;
+// `;
 
 export default Footer;

@@ -23,10 +23,12 @@
 
 <div align="center">
 
-![alt 属性文本](readme/images/IMG_0188.PNG)
+![alt 属性文本](readme/images/IMG_0192.PNG)
 
-![alt 属性文本](readme/images/IMG_0189.PNG)
+![alt 属性文本](readme/images/IMG_0193.PNG)
 
-![alt 属性文本](readme/images/IMG_0190.PNG)
+![alt 属性文本](readme/images/IMG_0195.PNG)
+
+![alt 属性文本](readme/images/IMG_0194.PNG)
 
 </div> 

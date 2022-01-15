@@ -37,7 +37,7 @@ class CourseBaseFatory {
     }
     /*现在为第几周*/
     nowWeek(data) {
-        return 1;
+        return 7;
     }
     /*开学日期*/
     terminalStart(data) {
@@ -54,6 +54,7 @@ class CourseBaseFatory {
         let stuCourse = this.stuTable().data.filter(item => {
             return item.startweek <= index && item.endweek >= index;
         });
+        //console.log(stuCourse);
         let labCourse = this.labTable().data.map(item => {
             return {
                 startweek: item.zc,

@@ -6,10 +6,11 @@ import courseBase from "../data/courseBase";
 import PlanCard from "../components/PlanCard";
 import Footer from "../components/Footer";
 import SettingsIcon from "@mui/icons-material/Settings";
+import Tooltip from "@mui/material/Tooltip";
 
 function DayView() {
   let dayCourses = courseBase.dayViewFormat();
-  console.log(dayCourses);
+  //console.log(dayCourses);
   return (
     <React.Fragment>
       <Container className="animate__animated animate__slideInLeft animate__faster">
@@ -19,7 +20,9 @@ function DayView() {
               <strong>{courseBase.nowTime().toString()}</strong>
             </DateText>
             <Link to="/more">
-              <Setting />
+              <Tooltip title="更多" placement="left">
+                <More />
+              </Tooltip>
             </Link>
           </TitleHeader>
           <div>今日课程</div>
@@ -58,7 +61,7 @@ const TitleHeader = styled.div`
   align-items: center;
 `;
 
-const Setting = styled(SettingsIcon)`
+const More = styled(SettingsIcon)`
   width: 1.8rem;
   height: 1.8rem;
   object-fit: cover;

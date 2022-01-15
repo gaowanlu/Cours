@@ -7,7 +7,9 @@ import ArticleIcon from "@mui/icons-material/Article";
 import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
+import Tooltip from "@mui/material/Tooltip";
 
+/*根据所在页面 选择不同的icon*/
 function FooterIconConfig(props) {
   let { index, fill } = { ...props };
   let iconStyle = {
@@ -42,16 +44,21 @@ function Footer(props) {
   return (
     <Container>
       <Row>
-        <IconBox>
-          <Link to="/table">
-            <FooterIconConfig fill={fill} index={0} />
-          </Link>
-        </IconBox>
-        <IconBox>
-          <Link to="/week">
-            <FooterIconConfig fill={fill} index={1} />
-          </Link>
-        </IconBox>
+        <Tooltip title="日课表" placement="top">
+          <IconBox>
+            <Link to="/table">
+              <FooterIconConfig fill={fill} index={0} />
+            </Link>
+          </IconBox>
+        </Tooltip>
+
+        <Tooltip title="周课表" placement="top">
+          <IconBox>
+            <Link to="/week">
+              <FooterIconConfig fill={fill} index={1} />
+            </Link>
+          </IconBox>
+        </Tooltip>
       </Row>
     </Container>
   );

@@ -66,6 +66,7 @@ const Card = styled.div`
   width: 100%;
   height: 80vh;
   background-color: #fafafa;
+  background: linear-gradient(to bottom, #f3d1be, 38%, #4ec5d6);
   box-shadow: 0px 0px 10px 2px #61606023;
   border-top-left-radius: 1.2rem;
   border-top-right-radius: 1.2rem;

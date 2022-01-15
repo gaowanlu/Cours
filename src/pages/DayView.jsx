@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import courseBase from "../data/courseBase";
 import PlanCard from "../components/PlanCard";
 import Footer from "../components/Footer";
-import SettingsIcon from "@mui/icons-material/Settings";
+
+import MoreIcon from "@mui/icons-material/More";
 import Tooltip from "@mui/material/Tooltip";
 
 function DayView() {
@@ -61,14 +62,13 @@ const TitleHeader = styled.div`
   align-items: center;
 `;
 
-const More = styled(SettingsIcon)`
+const More = styled(MoreIcon)`
   width: 1.8rem;
   height: 1.8rem;
   object-fit: cover;
-  border-radius: 0.9rem;
   cursor: pointer;
   margin-right: 1rem;
-  color: #0066cc;
+  color: #ff8364;
 `;
 
 const DateText = styled.div`

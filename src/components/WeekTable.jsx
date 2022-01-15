@@ -130,7 +130,7 @@ const ColTagBox = styled.div`
   border-radius: 5px;
   text-align: center;
   overflow: hidden;
-  color: #0066cc;
+  color: #ff8364;
   font-size: 0.7rem;
   cursor: pointer;
 `;
@@ -144,7 +144,7 @@ const RowTagBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #0066cc;
+  color: #ff8364;
   cursor: pointer;
 `;
 

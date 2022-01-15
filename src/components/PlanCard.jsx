@@ -30,7 +30,7 @@ const Card = styled.div`
   font-weight: lighter;
   cursor: pointer;
   &:hover {
-    background-color: #e7f1f8;
+    background-color: #e9e8e8;
   }
 `;
 export default PlanCard;

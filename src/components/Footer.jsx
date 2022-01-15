@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 function FooterIconConfig(props) {
   let { index, fill } = { ...props };
   let iconStyle = {
-    color: "#0066cc",
+    color: "#ff8364",
     fontSize: "2rem",
   };
   return (

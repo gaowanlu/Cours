@@ -15,20 +15,19 @@
 
 在您的ios上安装webClip下的描述文件  
 
-### 加入我们  
+### 贡献  
 
 如果您对此项目感兴趣、非常欢迎您进行技术交流、以及共同改进等等。  
 
-### 使用效果截图  
+### WebClip运行截图  
 
 <div align="center">
 
-![alt 属性文本](readme/images/IMG_0192.PNG)
-
-![alt 属性文本](readme/images/IMG_0193.PNG)
-
-![alt 属性文本](readme/images/IMG_0195.PNG)
-
-![alt 属性文本](readme/images/IMG_0194.PNG)
+<img src="readme/images/IMG_0196.PNG" width="300px" float="left"/>
+<img src="readme/images/IMG_0197.PNG" width="300px" float="left"/>
+<img src="readme/images/IMG_0198.PNG" width="300px" float="left"/>
+<img src="readme/images/IMG_0199.PNG" width="300px" float="left"/>
+<img src="readme/images/IMG_0200.PNG" width="300px" float="left"/>
+<img src="readme/images/IMG_0201.PNG" width="300px" float="left"/>
 
 </div> 

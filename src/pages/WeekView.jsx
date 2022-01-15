@@ -1,17 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import WeekTable from "../components/WeekTable";
+import DialogWindow from "../components/DialogWindow";
 
 function WeekView() {
+  const [dialogShow, setDialogShow] = useState(false);
+  let dialogClose = () => {
+    setDialogShow(false);
+  };
   return (
     <React.Fragment>
-      <Container>
+      <Container className="animate__animated animate__slideInRight  animate__faster">
         <Content>
-          <WeekTable />
+          <WeekTable
+            courseClick={() => {
+              setDialogShow(true);
+            }}
+          />
         </Content>
       </Container>
       <Footer fill="week" />
+      {/* 弹窗 */}
+      {dialogShow && (
+        <DialogWindow close={dialogClose}>HELLO WORLD</DialogWindow>
+      )}
     </React.Fragment>
   );
 }

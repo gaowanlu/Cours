@@ -8,7 +8,7 @@ import styled from "styled-components";
  */
 function InfoList(props) {
   return (
-    <Card className="animate__animated animate__bounceInUp">
+    <Card>
       <Title>{props.title}</Title>
       {props.rows.map((item, index) => {
         return (

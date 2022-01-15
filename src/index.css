@@ -11,3 +11,11 @@ body {
   margin: 0px;
   padding: 0px;
 }
+html {
+  background-color: #f2f2f6;
+}
+
+#root {
+  width: 100%;
+  overflow-x: hidden;
+}

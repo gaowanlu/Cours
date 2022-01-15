@@ -22,7 +22,6 @@ function randomBackground() {
     color2 = (color2 + 1) % (colors.length - 1); //color next
   }
   let result = [colors[color1], colors[color2]];
-  console.log(result);
   return result;
 }
 
@@ -46,7 +45,12 @@ const Coordinate = {
   },
 };
 
-function WeekTable() {
+/**
+ *
+ * @param {courseClick:call back function} props
+ * @returns
+ */
+function WeekTable(props) {
   /*获取第1周课表数据*/
   let nowWeek = courseBase.nowWeek();
   let weekCourse = courseBase.weekViewFormat(nowWeek);
@@ -75,7 +79,7 @@ function WeekTable() {
     { id: 9, style: Coordinate.top(9), text: "10" },
   ];
   return (
-    <Card className="animate__animated animate__bounceInRight">
+    <Card>
       {colTags.map((item) => {
         return (
           <ColTagBox style={item.style} key={item.id}>
@@ -99,6 +103,7 @@ function WeekTable() {
             bg2={randomBackground()[1]}
             key={index}
             style={Coordinate.courseBoxStyle(item.x, item.y * 2, 2)}
+            onClick={props.courseClick}
           >
             <p>{item.text}</p>
           </CourseBox>
@@ -164,7 +169,7 @@ const CourseBox = styled.div`
 
   border-radius: 10px;
   padding: 6px;
-  font-size: 0.5rem;
+  font-size: 0.6rem;
   box-sizing: border-box;
   color: #464646;
   min-height: calc(10% - 0.14rem);

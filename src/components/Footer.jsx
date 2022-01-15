@@ -5,27 +5,27 @@ import homeIcon from "../assets/svg/home.svg";
 import { Link } from "react-router-dom";
 import ArticleIcon from "@mui/icons-material/Article";
 import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
-import ClassIcon from "@mui/icons-material/Class";
-import ClassOutlinedIcon from "@mui/icons-material/ClassOutlined";
+import AssessmentIcon from "@mui/icons-material/Assessment";
+import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 
 function FooterIconConfig(props) {
   let { index, fill } = { ...props };
+  let iconStyle = {
+    color: "#0066cc",
+    fontSize: "2rem",
+  };
   return (
     <React.Fragment>
       {index === 0 && (
         <React.Fragment>
-          {fill === "table" && <ArticleIcon style={{ color: "#0066cc" }} />}
-          {fill !== "table" && (
-            <ArticleOutlinedIcon style={{ color: "#0066cc" }} />
-          )}
+          {fill === "table" && <ArticleIcon style={iconStyle} />}
+          {fill !== "table" && <ArticleOutlinedIcon style={iconStyle} />}
         </React.Fragment>
       )}
       {index === 1 && (
         <React.Fragment>
-          {fill === "week" && <ClassIcon style={{ color: "#0066cc" }} />}
-          {fill !== "week" && (
-            <ClassOutlinedIcon style={{ color: "#0066cc" }} />
-          )}
+          {fill === "week" && <AssessmentIcon style={iconStyle} />}
+          {fill !== "week" && <AssessmentOutlinedIcon style={iconStyle} />}
         </React.Fragment>
       )}
     </React.Fragment>
@@ -42,16 +42,16 @@ function Footer(props) {
   return (
     <Container>
       <Row>
-        <div>
+        <IconBox>
           <Link to="/table">
             <FooterIconConfig fill={fill} index={0} />
           </Link>
-        </div>
-        <div>
+        </IconBox>
+        <IconBox>
           <Link to="/week">
             <FooterIconConfig fill={fill} index={1} />
           </Link>
-        </div>
+        </IconBox>
       </Row>
     </Container>
   );
@@ -67,7 +67,7 @@ const Container = styled.footer`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  box-shadow: 0px 0px 10px 1px #d1cfcf;
+  box-shadow: 0px 0px 10px 1px #d1cfcf57;
 `;
 
 const Row = styled.div`
@@ -76,11 +76,8 @@ const Row = styled.div`
   width: 100%;
 `;
 
-// const Icon = styled(AccessAlarmIcon)`
-//   width: 2.6rem;
-//   height: 2.6rem;
-//   border-radius: 1.3rem;
-//   cursor: pointer;
-// `;
+const IconBox = styled.div`
+  width: 2rem;
+`;
 
 export default Footer;

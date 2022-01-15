@@ -12,7 +12,7 @@ function DayView() {
   console.log(dayCourses);
   return (
     <React.Fragment>
-      <Container className="animate__animated animate__bounceInLeft">
+      <Container className="animate__animated animate__slideInLeft animate__faster">
         <Title>
           <TitleHeader>
             <DateText>
@@ -49,7 +49,7 @@ const Title = styled.div`
   height: 5rem;
   padding-left: 1rem;
   padding-top: 2rem;
-  padding-bottom:1rem;
+  padding-bottom: 1rem;
 `;
 
 const TitleHeader = styled.div`

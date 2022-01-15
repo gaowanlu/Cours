@@ -19,7 +19,7 @@ function SelfInfoView() {
     ],
   };
   return (
-    <Container>
+    <Container className="animate__animated animate__bounceInUp  animate__faster">
       <InfoList {...list} />
     </Container>
   );
@@ -27,7 +27,7 @@ function SelfInfoView() {
 
 const Container = styled.div`
   padding: 1rem;
-  padding-top:2rem;
+  padding-top: 2rem;
   background-color: #f2f2f6;
 `;
 

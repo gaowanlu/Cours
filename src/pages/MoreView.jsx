@@ -5,7 +5,7 @@ import ChooseList from "../components/ChooseList";
 
 function MoreView() {
   return (
-    <Container className="animate__animated animate__bounceInUp">
+    <Container className="animate__animated animate__bounceInDown animate__faster">
       <Header>
         <p>更多</p>
       </Header>

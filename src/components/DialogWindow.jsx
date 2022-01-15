@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
 
 /*窗口关闭回调*/
 function DialogWindow(props) {
-  const [onWindow, setOnWindow] = useState(true);
   const [windowClass, setWindowClass] = useState(
     "animate__animated animate__slideInUp  animate__faster"
   );
@@ -16,32 +16,19 @@ function DialogWindow(props) {
       document.getElementById("root").style.overflow = "visible";
     };
   }, []);
-  let mouseOutEvent = (e) => {
-    setOnWindow(false);
-  };
-  let mouseEnterEvent = (e) => {
-    setOnWindow(true);
-  };
+
   let clickEvent = (e) => {
-    if (onWindow === false) {
-      setWindowClass(
-        "animate__animated animate__slideOutDown  animate__faster"
-      );
-      //有关闭动画500ms
-      setTimeout(() => {
-        props.close(); //组件消失回调
-      }, 400);
-    }
+    setWindowClass("animate__animated animate__slideOutDown  animate__faster");
+    //有关闭动画500ms
+    setTimeout(() => {
+      props.close(); //组件消失回调
+    }, 400);
   };
   return (
-    <Container onClick={clickEvent}>
-      <Card
-        onMouseOut={mouseOutEvent}
-        onMouseEnter={mouseEnterEvent}
-        className={windowClass}
-      >
-        {props.children}
-      </Card>
+    <Container>
+      <ClickAwayListener onClickAway={clickEvent}>
+        <Card className={windowClass}>{props.children}</Card>
+      </ClickAwayListener>
     </Container>
   );
 }

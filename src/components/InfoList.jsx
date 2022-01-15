@@ -32,7 +32,7 @@ const Card = styled.div`
   padding-bottom: 5rem;
 `;
 const Title = styled.div`
-  font-size: 2rem;
+  font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 1rem;
 `;
@@ -42,18 +42,23 @@ const Row = styled.div`
   font-size: 0.8rem;
 `;
 const RowContent = styled.div`
-  background-color: #edeff1a6;
+  background-color: #f5f5f5;
   border-radius: 5px;
   padding: 5px;
   height: 2rem;
   line-height: 2rem;
+  cursor: pointer;
+  &:hover {
+    background-color: #e9e8e8;
+  }
+  transition-duration: 0.2s;
 `;
 
 const Alter = styled.div`
   margin-top: 2rem;
-  color:#707070;
-  font-weight:lighter;
-  text-align:right;
+  color: #707070;
+  font-weight: lighter;
+  text-align: right;
 `;
 
 export default InfoList;

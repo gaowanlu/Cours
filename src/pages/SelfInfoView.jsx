@@ -2,10 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import courseBase from "../data/courseBase";
 import InfoList from "../components/InfoList";
+import { Header, Container } from "./MoreView";
 
 function SelfInfoView() {
   let list = {
-    title: "个人信息",
+    title: "在校信息",
     rows: [
       { title: "姓名", content: courseBase.selfInfo().data.name },
       { title: "生日", content: courseBase.selfInfo().data.birthday },
@@ -20,15 +21,12 @@ function SelfInfoView() {
   };
   return (
     <Container className="animate__animated animate__bounceInUp  animate__faster">
+      <Header>
+        <p>个人信息</p>
+      </Header>
       <InfoList {...list} />
     </Container>
   );
 }
-
-const Container = styled.div`
-  padding: 1rem;
-  padding-top: 2rem;
-  background-color: #f2f2f6;
-`;
 
 export default SelfInfoView;

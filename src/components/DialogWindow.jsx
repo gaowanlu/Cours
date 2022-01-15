@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 /*窗口关闭回调*/
 function DialogWindow(props) {
-  const [onWindow, setOnWindow] = useState(false);
+  const [onWindow, setOnWindow] = useState(true);
   const [windowClass, setWindowClass] = useState(
     "animate__animated animate__slideInUp  animate__faster"
   );

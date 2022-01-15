@@ -5,7 +5,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 /**
  *
- * @param {list:[{Icon:Compnent,to:path(can null),text:string}]} props
+ * @param {list:[{Icon:Compnent,to:path(can null),text:string,clickCallBack:function}]} props
  * @returns
  */
 function ChooseList(props) {
@@ -14,7 +14,7 @@ function ChooseList(props) {
       {props.list.map((item) => {
         let Icon = item.Icon;
         return (
-          <Link to={item.to}>
+          <Link to={item.to} key={item.text} onClick={item.clickCallBack}>
             <li>
               <ListIconBox>
                 <Icon />

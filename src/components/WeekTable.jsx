@@ -169,7 +169,7 @@ const CourseBox = styled.div`
 
   border-radius: 10px;
   padding: 6px;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   box-sizing: border-box;
   color: #464646;
   min-height: calc(10% - 0.14rem);

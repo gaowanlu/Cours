@@ -1,16 +1,24 @@
 /*
+import setting from './setting';
  * 声明:本工具禁止传播 传播者与使用者造成后果自负  
  */
 
 const https = require('https');
 const colors = require('colors');
+const link = require('./utils/link.js')();
+
+const {
+    username,
+    password
+} = require('./setting.js');
+
+//link.get().post().before().after().after().before();
 
 
 const USER_AGENT = 'Mozilla / 5.0(Windows NT 10.0; Win64; x64) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 96.0 .4664 .55 Safari / 537.36 Edg / 96.0 .1054 .34';
 
 let counter = 0;
-const username = "1901420313";
-const password = "";
+
 
 
 //-----------------------------------------------登录过程
@@ -38,6 +46,7 @@ function login(wengine_vpn_ticket, show_vpn) {
         res.on('data', (data) => {
             //console.log(data);
         });
+        //console.log(res.headers);
         let rpHeader = res.headers['location'];
         getST(wengine_vpn_ticket, show_vpn, rpHeader);
     });
@@ -639,7 +648,7 @@ function getSctCourse(wengine_vpn_ticket, show_vpn, ST) {
         });
     });
     req.on('close', () => {
-
+        //init();
     });
     req.on('error', (e) => {
         console.log(e.message);
@@ -654,7 +663,8 @@ function getSctCourse(wengine_vpn_ticket, show_vpn, ST) {
 初始化cookie*/
 function init() {
     console.log(`${counter++}>>尝试初始化`);
-    https.get({
+
+    let req = https.get({
         hostname: 'v.guet.edu.cn',
         path: '/login',
         userAgent: USER_AGENT,

@@ -10,7 +10,6 @@
   "license": "MIT",
   "dependencies": {
     "color.js": "^1.2.0",
-    "colors": "^1.4.0",
-    "request": "^2.88.2"
+    "colors": "^1.4.0"
   }
 }

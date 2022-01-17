@@ -14,7 +14,7 @@
 本项目不不承担任何责任、使用者后果自付。  
 如有侵犯您的权益请及时联系我们。   
 
-```json
+```code
 PS C:\Users\gaowanlu\Desktop\MyProject\courses\service> node "c:\Users\gaowanlu\Desktop\MyProject\courses\service\index.js"
 0>>尝试初始化
 wengine_vpn_ticket :5ee8c8582daaf977

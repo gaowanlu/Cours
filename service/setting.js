@@ -1,8 +1,12 @@
+const cas = require("./cas.js");
+require("colors");
+
 const setting = {
     username: '1901420313',
-    password: ''
+    password: cas('')
 };
-(() => {
-    console.log('Loading Setting'.bgGreen.red);
-})();
-module.exports = setting;
+
+
+module.exports = {
+    ...setting
+};

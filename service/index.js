@@ -2,22 +2,22 @@
 import setting from './setting';
  * 声明:本工具禁止传播 传播者与使用者造成后果自负  
  */
-
+require('colors');
 const https = require('https');
-const colors = require('colors');
 const link = require('./utils/link.js')();
+
 
 const {
     username,
     password
 } = require('./setting.js');
 
-//link.get().post().before().after().after().before();
+
+console.log(`username ${username}`.green);
+console.log(`pwd ${password}`.green);
 
 
 const USER_AGENT = 'Mozilla / 5.0(Windows NT 10.0; Win64; x64) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 96.0 .4664 .55 Safari / 537.36 Edg / 96.0 .1054 .34';
-
-let counter = 0;
 
 
 
@@ -47,8 +47,8 @@ function login(wengine_vpn_ticket, show_vpn) {
             //console.log(data);
         });
         //console.log(res.headers);
-        let rpHeader = res.headers['location'];
-        getST(wengine_vpn_ticket, show_vpn, rpHeader);
+        let location = res.headers['location'];
+        getST(wengine_vpn_ticket, show_vpn, location);
     });
     req.write(requestBody);
     req.end();
@@ -62,15 +62,10 @@ function login(wengine_vpn_ticket, show_vpn) {
 */
 function getST(wengine_vpn_ticket, show_vpn, path) {
     path = path.replace("https://v.guet.edu.cn", "");
-    /*获取TGT*/
-    path = path.split("/");
-    path = path[path.length - 1];
-    let TGT = path;
-    console.log(`${counter++}>>TGT ${TGT}`.green);
-    let req = https.request({
+    const req = https.request({
         method: 'POST',
         host: 'v.guet.edu.cn',
-        path: `/https/77726476706e69737468656265737421f3f652d220256d44300d8db9d6562d/cas/v1/tickets/${TGT}`,
+        path,
         headers: {
             'user-agent': USER_AGENT,
             'content-type': 'application/x-www-form-urlencoded;charset="UTF-8"',
@@ -79,9 +74,8 @@ function getST(wengine_vpn_ticket, show_vpn, path) {
         },
     }, (res) => {
         res.setEncoding('utf8');
-        res.on('data', (data) => {
-            console.log(`${counter++}>>ST ${data}`.green);
-            const ST = data;
+        res.on('data', (ST) => {
+            console.log(`ST ${ST}`.green);
             getToken(wengine_vpn_ticket, show_vpn, ST);
         });
     });
@@ -103,10 +97,10 @@ function getToken(wengine_vpn_ticket, show_vpn, ST) {
     }, (res) => {
         res.setEncoding("UTF-8");
         console.log("statusCode", res.statusCode);
-        console.log(res.headers['location'].green);
+        console.log(`location ${res.headers['location']}`.green);
         /*获取token*/
         const token = res.headers['location'].split('=')[1];
-        console.log(`${counter++}>>token ${token}`.red);
+        console.log(`token ${token}`.green);
         tokenTryLogin(wengine_vpn_ticket, show_vpn, token, ST);
     });
 }
@@ -123,10 +117,10 @@ function tokenTryLogin(wengine_vpn_ticket, show_vpn, token, ST) {
     }, (res) => {
         res.setEncoding("UTF-8");
         console.log("statusCode", res.statusCode);
-        console.log(res.headers['location'].green);
+        console.log(`location ${res.headers['location']}`.green);
         /*获取token*/
         const token_new = res.headers['location'].split('=')[1];
-        console.log(`${counter++}>>token ${token_new}`.red);
+        console.log(`new token ${token_new}`.green);
         tokenLogin(wengine_vpn_ticket, show_vpn, token_new, ST);
     });
 }
@@ -141,15 +135,20 @@ function tokenLogin(wengine_vpn_ticket, show_vpn, token, ST) {
             'Referer': 'https://v.guet.edu.cn/https/77726476706e69737468656265737421f3f652d220256d44300d8db9d6562d/cas/login?service=https%3A%2F%2Fv.guet.edu.cn%2Flogin%3Fcas_login%3Dtrue',
         }
     }, (res) => {
-        console.log(`${counter++}>> tokenlogin success`.blue);
-        reviewRoot(wengine_vpn_ticket, show_vpn);
+        if (res.headers['location'] && res.headers['location'] === '/') {
+            console.log(`tokenlogin success`.green);
+            console.log(`location res.headers['location']`.green);
+            reviewRoot(wengine_vpn_ticket, show_vpn);
+        } else {
+            console.log(`login error: tokenLogin`.red);
+        }
     });
 }
 
 
 
 
-//----------------------------------------------重新来一遍 得到已经为登陆身份的ST,用于访问教务系统
+//----------------------------------------------进入webvpn导航界面
 function reviewRoot(wengine_vpn_ticket, show_vpn) {
     https.get({
         hostname: 'v.guet.edu.cn',
@@ -160,12 +159,56 @@ function reviewRoot(wengine_vpn_ticket, show_vpn) {
             'Referer': 'https://v.guet.edu.cn/https/77726476706e69737468656265737421f3f652d220256d44300d8db9d6562d/cas/login?service=https%3A%2F%2Fv.guet.edu.cn%2Flogin%3Fcas_login%3Dtrue',
         }
     }, (res) => {
-        //console.log(`${counter++}>> ${res.headers}`.blue);
+        res.setEncoding("utf-8");
         //console.log(res.headers);
-        console.log(`${counter++} >> review Root over`.magenta);
-        regetTGT(wengine_vpn_ticket, show_vpn);
+        console.log(`review Root over`.magenta);
+        let rawData = '';
+        res.on('data', (chunk) => {
+            rawData += chunk;
+        });
+        res.on('end', () => {
+            try {
+                getNavData(wengine_vpn_ticket, show_vpn);
+            } catch (e) {
+                console.error(e.message);
+            }
+        });
     });
 }
+
+
+function getNavData(wengine_vpn_ticket, show_vpn) {
+    https.get({
+        hostname: 'v.guet.edu.cn',
+        path: `/user/portal_groups`,
+        headers: {
+            'User-Agent': USER_AGENT,
+            'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=${show_vpn}`,
+            'Referer': 'https://v.guet.edu.cn/',
+        }
+    }, (res) => {
+        res.setEncoding("utf-8");
+        //console.log(res.headers);
+        console.log(`review Root over`.magenta);
+        let rawData = '';
+        res.on('data', (chunk) => {
+            rawData += chunk;
+        });
+        res.on('end', () => {
+            try {
+                let nav = JSON.parse(rawData);
+                //console.log(rawData.yellow);
+                console.log("桂林电子科技大学WebVPN导航进入成功".blue.bgYellow);
+                regetTGT(wengine_vpn_ticket, show_vpn);
+            } catch (e) {
+                console.error(e.message.red);
+            }
+        });
+    });
+}
+
+
+//进入教务系统
 
 function regetTGT(wengine_vpn_ticket, show_vpn) {
     const reqBody = `loginType=&password=${password}&service=http://172.16.13.22&username=${username}`;
@@ -183,7 +226,7 @@ function regetTGT(wengine_vpn_ticket, show_vpn) {
         res.setEncoding('utf8');
         let tempList = res.headers['location'].split('/');
         const TGT = tempList[tempList.length - 1];
-        console.log(`${counter++} >> 教务系统TGT ${TGT}`.blue);
+        console.log(`教务系统TGT ${TGT}`.green);
         regetST(wengine_vpn_ticket, show_vpn, TGT);
     });
     req.write(reqBody);
@@ -191,7 +234,7 @@ function regetTGT(wengine_vpn_ticket, show_vpn) {
 }
 
 function regetST(wengine_vpn_ticket, show_vpn, TGT) {
-    console.log(`${counter++}>>TGT ${TGT}`.green);
+    console.log(`TGT ${TGT}`.green);
     let req = https.request({
         method: 'POST',
         host: 'v.guet.edu.cn',
@@ -204,13 +247,12 @@ function regetST(wengine_vpn_ticket, show_vpn, TGT) {
         },
     }, (res) => {
         res.setEncoding('utf8');
-        res.on('data', (data) => {
-            console.log(`${counter++}>>教务系统 ST ${data}`.green);
-            const ST = data;
+        res.on('data', (ST) => {
+            console.log(`教务系统 ST ${ST}`.green);
             postTicket(wengine_vpn_ticket, show_vpn, ST);
         });
     });
-    req.write("service=http://172.16.13.22");
+    req.write("service=http://172.16.13.22"); //
     req.end();
 }
 
@@ -225,28 +267,32 @@ function postTicket(wengine_vpn_ticket, show_vpn, ST) {
     }, (res) => {
         res.setEncoding("UTF-8");
         let location = res.headers['location'];
-        //console.log(location.green);
-        toTargetRoot(wengine_vpn_ticket, show_vpn, ST);
+        console.log(location.green);
+        toTargetRoot(wengine_vpn_ticket, show_vpn, location);
     });
 }
 
 //访问教务系统根
-function toTargetRoot(wengine_vpn_ticket, show_vpn, ST) {
-    https.get({
+function toTargetRoot(wengine_vpn_ticket, show_vpn, path) {
+    let ST = path.split('=');
+    ST = ST[ST.length - 1];
+    let req = https.get({
         hostname: 'v.guet.edu.cn',
-        path: `/http/77726476706e69737468656265737421a1a013d2766626012d46dbfe/?ticket=${ST}`,
+        path,
         headers: {
             'User-Agent': USER_AGENT,
             'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=${show_vpn}`
         }
     }, (res) => {
         res.setEncoding("UTF-8");
-        console.log(`${counter++}>>教务系统 访问成功`.yellow.bgGreen);
-        console.log(`${counter++}>>尝试获取数据`.red);
+        console.log(`教务系统 访问成功`.yellow.bgGreen);
+        res.on('data', (data) => {
+            console.log(data);
+        });
+    });
+    req.on('close', () => {
+        console.log("开始尝试获取个人信息");
         getPerson(wengine_vpn_ticket, show_vpn, ST);
-        // res.on('data', (data) => {
-        //console.log(data);
-        // });
     });
 }
 
@@ -266,7 +312,7 @@ function getPerson(wengine_vpn_ticket, show_vpn, ST) {
         res.on('data', (data) => {
             let obj = JSON.parse(data);
             //console.log(obj);
-            console.log(`${counter++}>>获取个人信息成功 你好 ${obj.data.name}`.red);
+            console.log(`获取个人信息成功 你好 ${obj.data.name}`.red);
             //console.log(data);
             getTermTime(wengine_vpn_ticket, show_vpn, ST);
         });
@@ -292,7 +338,7 @@ function getTermTime(wengine_vpn_ticket, show_vpn, ST) {
         res.on('end', () => {
             try {
                 const parsedData = JSON.parse(rawData);
-                console.log(`${counter++}>>获取学期时间对照成功 ${parsedData.data[0].termname}`.red);
+                console.log(`获取学期时间对照成功 ${parsedData.data[0].termname}`.red);
                 //console.log(parsedData);
             } catch (e) {
                 console.error(e.message);
@@ -326,7 +372,7 @@ function getAllStuCourse(wengine_vpn_ticket, show_vpn, ST) {
         res.on('end', () => {
             try {
                 const parsedData = JSON.parse(rawData);
-                console.log(`${counter++}>>获取所有课程课表成功`.red);
+                console.log(`获取所有课程课表成功`.red);
                 //console.log(parsedData);
             } catch (e) {
                 console.error(e.message);
@@ -365,7 +411,7 @@ function genstufee(wengine_vpn_ticket, show_vpn, ST) {
         res.on('end', () => {
             try {
                 const parsedData = JSON.parse(rawData);
-                console.log(`${counter++}>>获取费用信息成功 ${parsedData.msg}`.red);
+                console.log(`获取费用信息成功 ${parsedData.msg}`.red);
                 //console.log(parsedData);
             } catch (e) {
                 console.error(e.message);
@@ -398,7 +444,7 @@ function getyxxf(wengine_vpn_ticket, show_vpn, ST) {
         res.on('end', () => {
             try {
                 const parsedData = JSON.parse(rawData);
-                console.log(`${counter++}>>获取已修课程情况成功`.red);
+                console.log(`获取已修课程情况成功`.red);
                 //console.log(parsedData);
             } catch (e) {
                 console.error(e.message);
@@ -432,7 +478,7 @@ function getplancj(wengine_vpn_ticket, show_vpn, ST) {
         res.on('end', () => {
             try {
                 const parsedData = JSON.parse(rawData);
-                console.log(`${counter++}>>获取专业课程计划成功`.red);
+                console.log(`获取专业课程计划成功`.red);
                 //console.log(parsedData);
             } catch (e) {
                 console.error(e.message);
@@ -466,7 +512,7 @@ function gethours(wengine_vpn_ticket, show_vpn, ST) {
         res.on('end', () => {
             try {
                 const parsedData = JSON.parse(rawData);
-                console.log(`${counter++}>>获取上课时间成功`.red);
+                console.log(`获取上课时间成功`.red);
                 //console.log(parsedData);
             } catch (e) {
                 console.error(e.message);
@@ -500,7 +546,7 @@ function getStuScore(wengine_vpn_ticket, show_vpn, ST) {
         res.on('end', () => {
             try {
                 const parsedData = JSON.parse(rawData);
-                console.log(`${counter++}>>获取课程成绩成功`.red);
+                console.log(`获取课程成绩成功`.red);
                 //console.log(parsedData);
             } catch (e) {
                 console.error(e.message);
@@ -534,7 +580,7 @@ function getexamap(wengine_vpn_ticket, show_vpn, ST) {
         res.on('end', () => {
             try {
                 const parsedData = JSON.parse(rawData);
-                console.log(`${counter++}>>获取考试安排成功`.red);
+                console.log(`获取考试安排成功`.red);
                 //console.log(parsedData);
             } catch (e) {
                 console.error(e.message);
@@ -568,7 +614,7 @@ function getbk(wengine_vpn_ticket, show_vpn, ST) {
         res.on('end', () => {
             try {
                 const parsedData = JSON.parse(rawData);
-                console.log(`${counter++}>>获取getbk 成功`.red);
+                console.log(`获取getbk 成功`.red);
                 //console.log(parsedData);
             } catch (e) {
                 console.error(e.message);
@@ -602,7 +648,7 @@ function getlabtable(wengine_vpn_ticket, show_vpn, ST) {
         res.on('end', () => {
             try {
                 const parsedData = JSON.parse(rawData);
-                console.log(`${counter++}>>根据学期 获取实验课程表成功`.red);
+                console.log(`根据学期 获取实验课程表成功`.red);
                 //console.log(rawData);
                 //console.log(parsedData);
             } catch (e) {
@@ -639,7 +685,7 @@ function getSctCourse(wengine_vpn_ticket, show_vpn, ST) {
         res.on('end', () => {
             try {
                 const parsedData = JSON.parse(rawData);
-                console.log(`${counter++}>>根据学期范围 获取已修通识课成功`.red);
+                console.log(`根据学期范围 获取已修通识课成功`.red);
                 //console.log(rawData);
                 //console.log(parsedData);
             } catch (e) {
@@ -662,7 +708,7 @@ function getSctCourse(wengine_vpn_ticket, show_vpn, ST) {
 第1步
 初始化cookie*/
 function init() {
-    console.log(`${counter++}>>尝试初始化`);
+    console.log(`尝试初始化`.green);
 
     let req = https.get({
         hostname: 'v.guet.edu.cn',

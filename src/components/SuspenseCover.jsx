@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import loadingSVG from "../assets/svg/loading.svg";
+import { useSelector } from "react-redux";
+import { selectTheme } from "../features/theme/themeSlice";
 
 function SuspenseCover() {
+  const theme = useSelector(selectTheme);
   return (
-    <Container>
+    <Container theme={theme}>
       <Loading src={loadingSVG}></Loading>
     </Container>
   );
@@ -18,6 +21,13 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  ${(props) => {
+    return props.theme.color
+      ? `
+    background-color:${props.theme.color.background}
+  `
+      : null;
+  }}
 `;
 
 const Loading = styled.img`

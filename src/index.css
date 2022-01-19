@@ -7,12 +7,32 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+:root {
+  /*主题色*/
+  --color-primary: #ff8364;
+  /*背景色*/
+  --color-background: #f2f2f6;
+  --color-background-dark: #1d1d1f;
+  /*前景色*/
+  --color-background-front: #fafafa;
+  --color-background-front-dark: #363636;
+  /*字体颜色*/
+  --color-color: #1d1d1f;
+  --color-color-grey: #707070;
+  --color-color-dark: #f2f2f6;
+  /*卡片布局boxshadow*/
+  --box-shadow: 0px 0px 10px 1px #f0f0f0;
+  --box-shadow-dark: 0px 0px 10px 1px #333333a9;
+}
+
+html {
+  background-color: #e6e6e6;
+}
+
 * {
   margin: 0px;
   padding: 0px;
-}
-html {
-  background-color: #f2f2f6;
 }
 
 #root {

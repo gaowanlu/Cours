@@ -17,7 +17,7 @@ function DialogWindow(props) {
     };
   }, []);
 
-  let clickEvent = (e) => {
+  const clickEvent = (e) => {
     setWindowClass("animate__animated animate__slideOutDown  animate__faster");
     //有关闭动画500ms
     setTimeout(() => {
@@ -27,7 +27,9 @@ function DialogWindow(props) {
   return (
     <Container>
       <ClickAwayListener onClickAway={clickEvent}>
-        <Card className={windowClass}>{props.children}</Card>
+        <Card className={windowClass} theme={props.theme}>
+          {props.children}
+        </Card>
       </ClickAwayListener>
     </Container>
   );
@@ -36,14 +38,13 @@ function DialogWindow(props) {
 const Container = styled.div`
   width: 100%;
   height: 100vh;
-  background-color: #ffffff3;
   position: fixed;
   z-index: 999999;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.25);
+  /* background: rgba(255, 255, 255, 0.25); */
   backdrop-filter: blur(2px);
   padding: 0.5rem;
   box-sizing: border-box;
@@ -53,7 +54,6 @@ const Card = styled.div`
   width: 100%;
   height: 80vh;
   background-color: #fafafa;
-  /* background: linear-gradient(to bottom, #f3d1be, 38%, #4ec5d6); */
   box-shadow: 0px 0px 10px 2px #61606023;
   border-top-left-radius: 1.2rem;
   border-top-right-radius: 1.2rem;
@@ -63,6 +63,11 @@ const Card = styled.div`
   overflow-x: hidden;
   overflow-y: auto;
   text-align: justify;
+  ${(props) => {
+    return props.theme.color !== undefined
+      ? `background-color: ${props.theme.color.frontBackground}`
+      : "";
+  }}
 `;
 
 export default DialogWindow;

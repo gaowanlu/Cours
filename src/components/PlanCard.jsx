@@ -7,8 +7,11 @@ import styled from "styled-components";
  * @returns
  */
 function PlanCard(props) {
+  const cardClick = (e) => {
+    props.onClick("show", props);
+  };
   return (
-    <Card>
+    <Card onClick={cardClick} theme={props.theme}>
       <div>
         {props.seq} {props.cname}
       </div>
@@ -25,12 +28,16 @@ const Card = styled.div`
   div {
     margin: 0.3rem;
   }
-  box-shadow: 0px 0px 10px 2px #f0f0f0;
-  /* color:#1d1d1f; */
+  box-shadow: 0px 0px 10px 1px #f0f0f0;
   font-weight: lighter;
   cursor: pointer;
-  &:hover {
-    background-color: #e9e8e8;
-  }
+  ${(props) => {
+    return props.theme&&props.theme.color
+      ? `background-color: ${props.theme.color.frontBackground};
+         color:${props.theme.color.color};
+         box-shadow: ${props.theme.box.boxShadow};
+         `
+      : "";
+  }}
 `;
 export default PlanCard;

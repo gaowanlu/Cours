@@ -3,6 +3,8 @@ import styled from "styled-components";
 import courseBase from "../data/courseBase";
 import InfoList from "../components/InfoList";
 import { Header, Container } from "./MoreView";
+import { useSelector} from "react-redux";
+import { selectTheme } from "../features/theme/themeSlice";
 
 function SelfInfoView() {
   let list = {
@@ -19,12 +21,13 @@ function SelfInfoView() {
       { title: "级别", content: courseBase.selfInfo().data.grade },
     ],
   };
+  const theme = useSelector(selectTheme);
   return (
-    <Container className="animate__animated animate__bounceInUp  animate__faster">
-      <Header>
+    <Container theme={theme} className="animate__animated animate__bounceInUp  animate__faster">
+      <Header theme={theme}>
         <p>个人信息</p>
       </Header>
-      <InfoList {...list} />
+      <InfoList {...list} theme={theme} />
     </Container>
   );
 }

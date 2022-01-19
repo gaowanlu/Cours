@@ -8,13 +8,13 @@ import styled from "styled-components";
  */
 function InfoList(props) {
   return (
-    <Card>
+    <Card theme={props.theme}>
       <Title>{props.title}</Title>
       {props.rows.map((item, index) => {
         return (
           <React.Fragment key={index}>
             <Row>{item.title}</Row>
-            <RowContent>{item.content}</RowContent>
+            <RowContent theme={props.theme}>{item.content}</RowContent>
           </React.Fragment>
         );
       })}
@@ -30,6 +30,14 @@ const Card = styled.div`
   padding: 1rem;
   color: #1d1d1f;
   padding-bottom: 5rem;
+  ${(props) => {
+    return props.theme
+      ? `
+      background-color: ${props.theme.color.frontBackground};
+      color:${props.theme.color.color}
+  `
+      : null;
+  }}
 `;
 const Title = styled.div`
   font-size: 1.2rem;
@@ -43,20 +51,25 @@ const Row = styled.div`
 `;
 const RowContent = styled.div`
   background-color: #f5f5f5;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   padding: 5px;
   height: 2rem;
   line-height: 2rem;
   cursor: pointer;
-  &:hover {
-    background-color: #e9e8e8;
-  }
   transition-duration: 0.2s;
+  letter-spacing: 0.1rem;
+  ${(props) => {
+    return props.theme
+      ? `
+      background-color: ${props.theme.color.background};
+      color:${props.theme.color.color}
+  `
+      : null;
+  }}
 `;
 
 const Alter = styled.div`
   margin-top: 2rem;
-  color: #707070;
   font-weight: lighter;
   text-align: right;
 `;

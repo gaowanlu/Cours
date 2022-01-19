@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 function FooterIconConfig(props) {
   let { index, fill } = { ...props };
   let iconStyle = {
-    color: "#ff8364",
+    color: "var(--color-primary)",
     fontSize: "2rem",
   };
   return (
@@ -42,7 +42,7 @@ function FooterIconConfig(props) {
 function Footer(props) {
   let fill = props.fill;
   return (
-    <Container>
+    <Container theme={props.theme}>
       <Row>
         <Tooltip title="日课表" placement="top">
           <IconBox>
@@ -66,15 +66,15 @@ function Footer(props) {
 
 const Container = styled.footer`
   height: 4rem;
-  background-color: #fafafa;
-  color: #fafafa;
+  background-color: ${(props) => props.theme.color.background};
+  color: ${(props) => props.theme.color.color};
   position: fixed;
   width: 100vw;
   bottom: 0;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  box-shadow: 0px 0px 10px 1px #d1cfcf57;
+  box-shadow: ${(props) => props.theme.box.boxShadow};
 `;
 
 const Row = styled.div`

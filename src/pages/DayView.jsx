@@ -1,21 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import avatar from "../assets/svg/avatar.svg";
 import { Link } from "react-router-dom";
 import courseBase from "../data/courseBase";
 import PlanCard from "../components/PlanCard";
 import Footer from "../components/Footer";
+import DialogWindow from "../components/DialogWindow";
+import { useSelector } from "react-redux";
+import { selectTheme } from "../features/theme/themeSlice";
 
 import MoreIcon from "@mui/icons-material/More";
 import Tooltip from "@mui/material/Tooltip";
 
 function DayView() {
+  /*获取日课表数据*/
   let dayCourses = courseBase.dayViewFormat();
-  //console.log(dayCourses);
+  /*获取主题配置*/
+  const theme = useSelector(selectTheme);
+
+  const [dialogShow, setDialogShow] = useState({
+    showState: false,
+    course: {},
+  });
+
+  /*窗口状态改变*/
+  const dialogChange = (mode, course) => {
+    if (mode === "close") {
+      setDialogShow({ ...dialogShow, showState: false });
+    } else if (mode === "show") {
+      setDialogShow({ showState: true, course });
+    }
+  };
+
   return (
     <React.Fragment>
-      <Container className="animate__animated animate__slideInLeft animate__faster">
-        <Title>
+      <Container
+        theme={theme}
+        className="animate__animated animate__slideInLeft animate__faster"
+      >
+        <Title theme={theme}>
           <TitleHeader>
             <DateText>
               <strong>{courseBase.nowTime().toString()}</strong>
@@ -28,13 +51,32 @@ function DayView() {
           </TitleHeader>
           <div>今日课程</div>
         </Title>
+
         <Content>
           {dayCourses.map((item, index) => {
-            return <PlanCard {...item} key={index} />; //key这样写是错误的 但对于此情况 没有关系 无忧状态关联
+            return (
+              <PlanCard
+                {...item}
+                theme={theme}
+                key={index}
+                onClick={dialogChange}
+              />
+            ); //key这样写是错误的 但对于此情况 没有关系 无忧状态关联
           })}
         </Content>
       </Container>
-      <Footer fill="table" />
+
+      {/* 底部导航栏 */}
+      <Footer fill="table" theme={theme} />
+      {/* 弹窗 */}
+      {dialogShow.showState && (
+        <DialogWindow close={() => dialogChange("close")} theme={theme}>
+          <p>{dialogShow.course.seq}</p>
+          <p>{dialogShow.course.cname}</p>
+          <p>{dialogShow.course.room}</p>
+          <p>{dialogShow.course.teacher}</p>
+        </DialogWindow>
+      )}
     </React.Fragment>
   );
 }
@@ -42,14 +84,14 @@ function DayView() {
 const Container = styled.div`
   width: 100%;
   min-height: 100vh;
-  background-color: #f2f2f6;
+  background-color: ${(props) => props.theme.color.background};
   margin-bottom: 4rem;
 `;
 
 const Title = styled.div`
   font-size: 2rem;
   font-weight: bold;
-  color: #1d1d1f;
+  color: ${(props) => props.theme.color.color};
   height: 5rem;
   padding-left: 1rem;
   padding-top: 2rem;
@@ -68,7 +110,7 @@ const More = styled(MoreIcon)`
   object-fit: cover;
   cursor: pointer;
   margin-right: 1rem;
-  color: #ff8364;
+  color: var(--color-primary);
 `;
 
 const DateText = styled.div`

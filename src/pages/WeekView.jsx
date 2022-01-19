@@ -3,28 +3,41 @@ import styled from "styled-components";
 import Footer from "../components/Footer";
 import WeekTable from "../components/WeekTable";
 import DialogWindow from "../components/DialogWindow";
+import { useSelector, useDispatch } from "react-redux";
+import { selectTheme } from "../features/theme/themeSlice";
 
 function WeekView() {
   const [dialogShow, setDialogShow] = useState(false);
-  let dialogClose = () => {
-    setDialogShow(false);
-  };
+  /*获取主题配置*/
+  const theme = useSelector(selectTheme);
   return (
     <React.Fragment>
-      <Container className="animate__animated animate__slideInRight  animate__faster">
+      <Container
+        theme={theme}
+        className="animate__animated animate__slideInRight  animate__faster"
+      >
         <Content>
           <WeekTable
             courseClick={() => {
               setDialogShow(true);
             }}
+            theme={theme}
           />
         </Content>
       </Container>
-      <Footer fill="week" />
       {/* 弹窗 */}
       {dialogShow && (
-        <DialogWindow close={dialogClose}>HELLO WORLD</DialogWindow>
+        <DialogWindow
+          close={() => {
+            setDialogShow(false);
+          }}
+          theme={theme}
+        >
+          HELLO WORLD
+        </DialogWindow>
       )}
+      {/* 底部导航栏 */}
+      <Footer fill="week" theme={{ ...theme }} />
     </React.Fragment>
   );
 }
@@ -32,7 +45,7 @@ function WeekView() {
 const Container = styled.div`
   /* width: 100vw; */
   min-height: 100vh;
-  background-color: #f2f2f6;
+  background-color: ${(props) => props.theme.color.background};
 `;
 const Content = styled.div`
   padding: 1rem;

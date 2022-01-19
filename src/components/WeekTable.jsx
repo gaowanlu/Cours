@@ -79,7 +79,7 @@ function WeekTable(props) {
     { id: 9, style: Coordinate.top(9), text: "10" },
   ];
   return (
-    <Card>
+    <Card theme={props.theme}>
       {colTags.map((item) => {
         return (
           <ColTagBox style={item.style} key={item.id}>
@@ -121,16 +121,20 @@ const Card = styled.div`
   height: calc(100vh - 7rem);
   overflow: hidden;
   position: relative;
+  ${(props) => {
+    return props.theme.color !== undefined
+      ? `background-color: ${props.theme.color.frontBackground}`
+      : null;
+  }}
 `;
 const ColTagBox = styled.div`
   position: absolute;
   width: calc(12.5% - 0.1rem);
   height: 1rem;
-  /* background-color: #f2f2f6; */
   border-radius: 5px;
   text-align: center;
   overflow: hidden;
-  color: #ff8364;
+  color: var(--color-primary);
   font-size: 0.7rem;
   cursor: pointer;
 `;
@@ -144,7 +148,7 @@ const RowTagBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #ff8364;
+  color: var(--color-primary);
   cursor: pointer;
 `;
 

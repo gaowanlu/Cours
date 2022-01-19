@@ -2,20 +2,21 @@ import React from "react";
 import { Header, Container } from "./MoreView";
 import CardLayout from "./../components/CardLayout";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { selectTheme } from "../features/theme/themeSlice";
 
 function UserTermView() {
+  const theme = useSelector(selectTheme);
   return (
-    <Container className="animate__animated animate__bounceInUp animate__faster">
+    <Container theme={theme} className="animate__animated animate__bounceInUp animate__faster">
       <Header>
         <p>用户条款</p>
       </Header>
-      <Card>HELLO WORLD</Card>
+      <CardLayout theme={theme}>HELLO WORLD</CardLayout>
     </Container>
   );
 }
 
-const Card = styled(CardLayout)`
-  background-color: #ffffff;
-`;
+
 
 export default UserTermView;

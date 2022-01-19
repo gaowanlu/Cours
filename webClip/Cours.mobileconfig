@@ -20,30 +20,30 @@
       <key>PayloadDisplayName</key>
       <string>Web Clip</string>
       <key>PayloadIdentifier</key>
-      <string>com.apple.webClip.managed.57FE2290-FF6F-4F80-9551-95A6A08A92D1</string>
+      <string>com.apple.webClip.managed.033C069E-7603-4DC6-90F4-1DA97CB57801</string>
       <key>PayloadType</key>
       <string>com.apple.webClip.managed</string>
       <key>PayloadUUID</key>
-      <string>57FE2290-FF6F-4F80-9551-95A6A08A92D1</string>
+      <string>033C069E-7603-4DC6-90F4-1DA97CB57801</string>
       <key>PayloadVersion</key>
       <integer>1</integer>
       <key>Precomposed</key>
       <true></true>
       <key>URL</key>
-      <string>http://61.171.51.135:3000/</string>
+      <string>https://cours.vercel.app/</string>
       
     </dict>
   </array>
   <key>PayloadDisplayName</key>
   <string>Cours的描述文件</string>
   <key>PayloadIdentifier</key>
-  <string>CoderWGBDeMacBook-Pro.3A6031D2-18C7-4D8A-BD6E-F70E138D2C60</string>
+  <string>CoderWGBDeMacBook-Pro.8D7765BE-436D-47C6-ABA4-74C41FE3D3FD</string>
   <key>PayloadRemovalDisallowed</key>
   <false></false>
   <key>PayloadType</key>
   <string>Configuration</string>
   <key>PayloadUUID</key>
-  <string>2AC4AC05-12E5-4AAD-B602-C0D5A73D5573</string>
+  <string>935463E6-6A9A-425E-A9EF-7DAD07B7797E</string>
   <key>PayloadVersion</key>
   <integer>1</integer>
 </dict>

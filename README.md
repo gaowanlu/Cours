@@ -16,6 +16,12 @@ EC2 Proxy http://linkway.site:5557/
 本项目起因也是作者自己使用ios无处寻找、哎 那就自己写一个吧。关于ios方面，校方暂无应用支持。目前由个人开发者提供的Android版本、则ios、ipadOS使用则较为不方便。为了个人使用方便等 开发此应用。本作者没有mac、使用的`ipad Air 3`、`iPhone SE2`。如果出现界面兼容问题欢迎您提交issue或者改进它。在您的Apple设备上安装webClip下的描述文件。  \ `安卓`可能会构建webview项目  \  `网页版`后续推出  
 
 
+### WebClip  
+下载地址 https://wwu.lanzout.com/iROctz04qch  
+密码 `cours`   
+
+<img src="readme/images/WebClipQR.png" width="20%"/>
+
 ### UI 截图  
 
 #### 浅色模式  

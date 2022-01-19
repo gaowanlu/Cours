@@ -31,17 +31,26 @@
 <img src="readme/images/IMG_0215.PNG" width="23%" float="left"/>
 </div> 
 
-### 桂电 WebVPN (node project)  
+### 桂电 WebVPN Proxy Request (node project)  
 
 代理工具node项目 在 `service` 文件夹下 
 本项目不不承担任何责任、使用者后果自付。  
 如有侵犯您的权益请及时联系我们。   
+代理请求服务器监听端口为8080  
+发起任意 GET/POST 请求 (暂无API 仅仅实验)    
 
 ```shell
-$ node index.js
+$ node server.js &  
  ```  
 
-<img src="readme/images/042753.jpg" width="100%"/>
+ 浏览器访问  
+ ```url
+ 127.0.0.1:8080  
+ ```
+
+ 响应  
+
+<img src="readme/images/2022-01-19231044.jpg" width="100%"/>
 
 
 ### 服务运行  

@@ -8,6 +8,29 @@
 #### 兼容性   
 本项目起因也是作者自己使用ios无处寻找、哎 那就自己写一个吧。关于ios方面，校方暂无应用支持。目前由个人开发者提供的Android版本、则ios、ipadOS使用则较为不方便。为了个人使用方便等 开发此应用。本作者没有mac、使用的`ipad Air 3`、`iPhone SE2`。如果出现界面兼容问题欢迎您提交issue或者改进它。在您的Apple设备上安装webClip下的描述文件。  \ `安卓`可能会构建webview项目  \  `网页版`后续推出  
 
+
+### UI 截图  
+
+#### 浅色模式  
+
+<div align="center">
+
+<img src="readme/images/IMG_0196.PNG" width="30%" float="left"/>
+<img src="readme/images/IMG_0197.PNG" width="30%" float="left"/>
+<img src="readme/images/IMG_0198.PNG" width="30%" float="left"/>
+
+</div> 
+
+#### 深色模式  
+
+<div align="center">
+
+<img src="readme/images/IMG_0210.PNG" width="23%" float="left"/>
+<img src="readme/images/IMG_0211.PNG" width="23%" float="left"/>
+<img src="readme/images/IMG_0213.PNG" width="23%" float="left"/>
+<img src="readme/images/IMG_0215.PNG" width="23%" float="left"/>
+</div> 
+
 ### 桂电 WebVPN (node project)  
 
 代理工具node项目 在 `service` 文件夹下 
@@ -19,20 +42,6 @@ $ node index.js
  ```  
 
 <img src="readme/images/042753.jpg" width="100%"/>
-
-
-### WebClip运行截图  
-
-<div align="center">
-
-<img src="readme/images/IMG_0196.PNG" width="300px" float="left"/>
-<img src="readme/images/IMG_0197.PNG" width="300px" float="left"/>
-<img src="readme/images/IMG_0198.PNG" width="300px" float="left"/>
-<img src="readme/images/IMG_0199.PNG" width="300px" float="left"/>
-<img src="readme/images/IMG_0200.PNG" width="300px" float="left"/>
-<img src="readme/images/IMG_0201.PNG" width="300px" float="left"/>
-
-</div> 
 
 
 ### 服务运行  

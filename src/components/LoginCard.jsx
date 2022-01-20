@@ -14,7 +14,7 @@ const alertConfig = (type, open) => {
       type,
       title: "更新错误",
       message:
-        "请检查账号密码是否正确 若多次出错请联系开发者 heizuboriyo@gmail.com",
+        `请检查账号密码是否正确 若多次出错请联系开发者 heizuboriyo@gmail.com 最近更新时间 ${new Date().toString()}`,
     };
   } else if (type === "success") {
     return {

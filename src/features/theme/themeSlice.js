@@ -2,7 +2,10 @@ import {
     createSlice
 } from '@reduxjs/toolkit';
 
+/*切换到夜间模式*/
 function darkState(state) {
+    /*切换html的背景色*/
+    document.getElementsByTagName('html')[0].style.backgroundColor = 'var(--color-background-dark)';
     state.darkMode = true;
     state.color = {};
     state.color.background = 'var(--color-background-dark)';
@@ -14,7 +17,9 @@ function darkState(state) {
     return state;
 }
 
+/*切换正常浅色模式*/
 function normalState(state) {
+    document.getElementsByTagName('html')[0].style.backgroundColor = 'var(--color-background)';
     state.darkMode = false;
     state.color = {};
     state.color.background = 'var(--color-background)';

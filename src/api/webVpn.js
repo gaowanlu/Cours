@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const webVpn = async (username, password, callback) => {
-    let rp = await axios.post('/backend/', {
+    let rp = await axios.post('https://linkway.site:5557/', {
         username,
         password
     }, {

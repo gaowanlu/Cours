@@ -1,13 +1,21 @@
-const http = require('http');
 const webVpnService = require('./service/webVpnService.js');
 const setting = require('./utils/setting.js');
 const ResponseEntity = require('./entity/responseEntity');
 const url = require('url')
 const checkContentType = require('./utils/checkContentType');
 const requestJson = require('./utils/requestJson');
+const https = require('https');
+const fs = require('fs');
+
+const OPTIONS_SSL = {
+    pfx: fs.readFileSync('./linkway.site.pfx'),
+    passphrase: fs.readFileSync('./keystorePass.txt'),
+}
+console.log(OPTIONS_SSL);
+
 
 /*创建http server*/
-const app = http.createServer();
+const app = https.createServer(OPTIONS_SSL);
 
 
 /*代理请求*/

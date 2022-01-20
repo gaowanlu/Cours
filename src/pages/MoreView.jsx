@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectTheme, darkModeChange } from "../features/theme/themeSlice";
 import Switch from "@mui/material/Switch";
 import store from "../app/store";
+import LoginCard from "../components/LoginCard";
 
 function MoreView() {
   const [loginDialogShow, setLoginDialogShow] = useState(false); //登录弹窗显示状态
@@ -111,7 +112,7 @@ function MoreView() {
             dialogClose("login");
           }}
         >
-          <h1>登录</h1>
+          <LoginCard theme={theme} />
         </DialogWindow>
       )}
       {/*更新数据弹窗*/}

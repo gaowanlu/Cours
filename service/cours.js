@@ -9,6 +9,7 @@ const requestJson = require('./utils/requestJson');
 /*创建http server*/
 const app = http.createServer();
 
+
 /*代理请求*/
 const proxyHTTPSRequest = (res, json) => {
     const {
@@ -18,8 +19,7 @@ const proxyHTTPSRequest = (res, json) => {
     //代理请求服务
     webVpnService((result) => {
         res.writeHead(200, {
-            'Content-Type': 'application/json;charset=utf8',
-            'Access-Control-Allow-Origin': 'https://cours.vercel.app/*'
+            'Content-Type': 'application/json;charset=utf8'
         });
         const RESPONSE_BODY = new ResponseEntity(200, '获取成功', result).toJson();
         res.end(RESPONSE_BODY);
@@ -66,15 +66,25 @@ const map = {
     }
 };
 
-
 /*接收请求配置*/
 app.on('request', (req, res) => {
-    switch (req.method) {
-        case 'POST':
-            POSTWork(req, res);
-            break;
-        default:
-            res.end();
+    //设置允许跨域的域名，*代表允许任意域名跨域
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    //允许的header类型
+    res.setHeader("Access-Control-Allow-Headers", "content-type");
+    //跨域允许的请求方式
+    res.setHeader("Access-Control-Allow-Methods", "DELETE,PUT,POST,GET,OPTIONS");
+    if (req.method.toLowerCase() === 'options') {
+        res.statusCode = 200; //让options尝试请求快速结束
+        res.end();
+    } else {
+        switch (req.method) {
+            case 'POST':
+                POSTWork(req, res);
+                break;
+            default:
+                res.end();
+        }
     }
 });
 

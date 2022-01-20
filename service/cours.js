@@ -11,8 +11,6 @@ const OPTIONS_SSL = {
     pfx: fs.readFileSync('./linkway.site.pfx'),
     passphrase: fs.readFileSync('./keystorePass.txt'),
 }
-console.log(OPTIONS_SSL);
-
 
 /*创建http server*/
 const app = https.createServer(OPTIONS_SSL);
@@ -99,4 +97,4 @@ app.on('request', (req, res) => {
 /*监听端口*/
 app.listen(5557);
 
-console.log(`Cours Server Start`);
+console.log(`Cours Server Run On https port 5557`);

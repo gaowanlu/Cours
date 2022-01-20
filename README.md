@@ -8,7 +8,7 @@
 ### CD/CD  
 
 Vercel  https://cours.vercel.app/  
-EC2 Proxy http://linkway.site:5557/  
+EC2 Proxy https://linkway.site:5557/  
 
 
 ### 兼容性   

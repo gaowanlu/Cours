@@ -8,7 +8,10 @@ import { selectTheme } from "../features/theme/themeSlice";
 function AboutUsView() {
   const theme = useSelector(selectTheme);
   return (
-    <Container theme={theme} className="animate__animated animate__bounceInUp animate__faster">
+    <Container
+      theme={theme}
+      className="animate__animated animate__fadeInRight animate__faster"
+    >
       <Header>
         <p>关于我们</p>
       </Header>
@@ -16,6 +19,5 @@ function AboutUsView() {
     </Container>
   );
 }
-
 
 export default AboutUsView;

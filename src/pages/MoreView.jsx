@@ -68,7 +68,7 @@ function MoreView() {
   return (
     <Container
       theme={theme}
-      className="animate__animated animate__bounceInDown animate__faster"
+      className="animate__animated animate__zoomIn animate__faster"
     >
       {/*头部*/}
       <Header>

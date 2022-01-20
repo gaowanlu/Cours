@@ -3,7 +3,7 @@ import styled from "styled-components";
 import courseBase from "../data/courseBase";
 import InfoList from "../components/InfoList";
 import { Header, Container } from "./MoreView";
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import { selectTheme } from "../features/theme/themeSlice";
 
 function SelfInfoView() {
@@ -23,7 +23,10 @@ function SelfInfoView() {
   };
   const theme = useSelector(selectTheme);
   return (
-    <Container theme={theme} className="animate__animated animate__bounceInUp  animate__faster">
+    <Container
+      theme={theme}
+      className="animate__animated animate__fadeInRight  animate__faster"
+    >
       <Header theme={theme}>
         <p>个人信息</p>
       </Header>

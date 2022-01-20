@@ -8,7 +8,10 @@ import { selectTheme } from "../features/theme/themeSlice";
 function ConcatUsView() {
   const theme = useSelector(selectTheme);
   return (
-    <Container theme={theme} className="animate__animated animate__bounceInUp animate__faster">
+    <Container
+      theme={theme}
+      className="animate__animated animate__fadeInRight animate__faster"
+    >
       <Header>
         <p>联系我们</p>
       </Header>
@@ -16,7 +19,5 @@ function ConcatUsView() {
     </Container>
   );
 }
-
-
 
 export default ConcatUsView;

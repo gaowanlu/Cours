@@ -10,7 +10,7 @@ function ScoreView() {
   return (
     <Container
       theme={theme}
-      className="animate__animated animate__bounceInUp animate__faster"
+      className="animate__animated animate__fadeInRight animate__faster"
     >
       <Header theme={theme}>
         <p>成绩查询</p>

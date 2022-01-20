@@ -8,7 +8,10 @@ import { selectTheme } from "../features/theme/themeSlice";
 function DateSettingView() {
   const theme = useSelector(selectTheme);
   return (
-    <Container theme={theme} className="animate__animated animate__bounceInUp animate__faster">
+    <Container
+      theme={theme}
+      className="animate__animated animate__fadeInRight animate__faster"
+    >
       <Header>
         <p>日期设置</p>
       </Header>

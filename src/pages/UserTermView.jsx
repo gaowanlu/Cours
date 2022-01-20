@@ -8,7 +8,10 @@ import { selectTheme } from "../features/theme/themeSlice";
 function UserTermView() {
   const theme = useSelector(selectTheme);
   return (
-    <Container theme={theme} className="animate__animated animate__bounceInUp animate__faster">
+    <Container
+      theme={theme}
+      className="animate__animated animate__fadeInRight animate__faster"
+    >
       <Header>
         <p>用户条款</p>
       </Header>
@@ -16,7 +19,5 @@ function UserTermView() {
     </Container>
   );
 }
-
-
 
 export default UserTermView;

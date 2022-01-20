@@ -16,7 +16,6 @@ import store from "../app/store";
 import LoginCard from "../components/LoginCard";
 
 function MoreView() {
-  const [loginDialogShow, setLoginDialogShow] = useState(false); //登录弹窗显示状态
   const [updateDataDialogShow, setUpdateDataDialogShow] = useState(false); //更新数据弹窗显示状态
   const [checked, setChecked] = React.useState(false); //深色模式开关
   const dispatch = useDispatch();
@@ -38,9 +37,6 @@ function MoreView() {
   /*弹窗关闭回调*/
   const dialogClose = (name) => {
     switch (name) {
-      case "login":
-        setLoginDialogShow(false);
-        break;
       case "updateData":
         setUpdateDataDialogShow(false);
         break;
@@ -94,27 +90,6 @@ function MoreView() {
           <SwitchStyled checked={checked} onChange={handleChange} />
         </DarkSwitchBox>
       </Card>
-      {/*卡片4*/}
-      <Card theme={theme}>
-        <LoginButton
-          onClick={() => {
-            setLoginDialogShow(true);
-          }}
-        >
-          重新登录
-        </LoginButton>
-      </Card>
-      {/* 登录弹窗 */}
-      {loginDialogShow && (
-        <DialogWindow
-          theme={theme}
-          close={() => {
-            dialogClose("login");
-          }}
-        >
-          <LoginCard theme={theme} />
-        </DialogWindow>
-      )}
       {/*更新数据弹窗*/}
       {updateDataDialogShow && (
         <DialogWindow
@@ -123,7 +98,7 @@ function MoreView() {
             dialogClose("updateData");
           }}
         >
-          <h1>更新数据</h1>
+          <LoginCard theme={theme} />
         </DialogWindow>
       )}
     </Container>

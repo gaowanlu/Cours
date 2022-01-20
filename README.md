@@ -8,7 +8,6 @@
 ### CD/CD  
 
 Vercel  https://cours.vercel.app/  
-EC2 Front-End http://linkway.site:3000/  
 EC2 Proxy http://linkway.site:5557/  
 
 
@@ -49,21 +48,28 @@ EC2 Proxy http://linkway.site:5557/
 代理工具node项目 在 `service` 文件夹下 
 本项目不不承担任何责任、使用者后果自付。  
 如有侵犯您的权益请及时联系我们。   
-代理请求服务器监听端口为8080  
-发起任意 GET/POST 请求 (暂无API 仅仅实验)    
+代理请求服务器监听端口为5557  
+
+#### 运行代理服务
 
 ```shell
-$ node server.js &  
+$ npm install pm2 -g  
+$ cd ./service  
+$ pm2 start cours.js  
+$ pm2 monit  
  ```  
+#### API  
 
- 浏览器访问  
- ```url
- 127.0.0.1:8080  
+###### 请求格式  
+
+ 地址 `/` Content-Type `appliction/json`  
+ 
+ ```json
+{
+    "username":"学号",
+    "password":"智慧校园密码"
+}
  ```
-
- 响应  
-
-<img src="readme/images/2022-01-19231044.jpg" width="100%"/>
 
 
 ### 服务运行  

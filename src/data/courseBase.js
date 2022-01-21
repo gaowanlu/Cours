@@ -12,7 +12,7 @@ class CourseBaseFatory {
     /*校验版本*/
     versionControll() {
         let nowVersion = this.store.getItem('version');
-        if (nowVersion) { //没有版本信息
+        if (!nowVersion) { //没有版本信息
             this.clear();
             this.store.setItem('version', baseInfo.version);
         } else if (nowVersion !== baseInfo.version) { //版本信息不对应

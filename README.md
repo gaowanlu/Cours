@@ -21,27 +21,26 @@ EC2 Proxy https://linkway.site:5557/
 
 <img src="readme/images/WebClipQR.png" width="20%"/>
 
-### UI 截图  
+### UI   
 
-#### 浅色模式  
+<div align="left">
 
-<div align="center">
-
-<img src="readme/images/IMG_0196.PNG" width="30%" float="left"/>
-<img src="readme/images/IMG_0197.PNG" width="30%" float="left"/>
-<img src="readme/images/IMG_0198.PNG" width="30%" float="left"/>
+<img src="readme/images/IMG_0210.PNG" width="24%" float="left"/>
+<img src="readme/images/IMG_0211.PNG" width="24%" float="left"/>
+<img src="readme/images/IMG_0213.PNG" width="24%" float="left"/>
+<img src="readme/images/IMG_0215.PNG" width="24%" float="left"/>
 
 </div> 
 
-#### 深色模式  
+<div align="left">
 
-<div align="center">
+<img src="readme/images/posterpng.png" width="24%" float="left"/>
+<img src="readme/images/IMG_0196.png" width="24%" float="left"/>
+<img src="readme/images/IMG_0197.png" width="24%" float="left"/>
+<img src="readme/images/IMG_0199.png" width="24%" float="left"/>
 
-<img src="readme/images/IMG_0210.PNG" width="23%" float="left"/>
-<img src="readme/images/IMG_0211.PNG" width="23%" float="left"/>
-<img src="readme/images/IMG_0213.PNG" width="23%" float="left"/>
-<img src="readme/images/IMG_0215.PNG" width="23%" float="left"/>
 </div> 
+
 
 ### 桂电 WebVPN Proxy Request (node project)  
 

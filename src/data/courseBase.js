@@ -1,59 +1,40 @@
-import scoreJSON from './score.json';
-import selfInfoJSON from './selfInfo.json';
-import labTableJSON from './labtable.json';
-import stuTableJSON from './stutable.json';
-
+import baseInfo from './baseInfo.json';
 class CourseBaseFatory {
     constructor() {
-        console.log("v0.0.1 CourseBase");
-        this.store.setItem('labTable', labTableJSON);
-        this.store.setItem('score', scoreJSON);
-        this.store.setItem('selfInfo', selfInfoJSON);
-        this.store.setItem('stuTable', stuTableJSON);
-        // console.log("labTable", this.labTable());
-        // console.log("score", this.score());
-        // console.log("selfInfo", this.selfInfo());
-        // console.log("stuTable", this.stuTable());
+        console.log("v0.0.1 CoursBase");
+        console.log(baseInfo);
+        this.versionControll();
     }
-    /*实验课表*/
-    labTable(data) {
-        return this.store.getItem('labTable');
+    /*清空所有本地存储*/
+    clear() {
+        window.localStorage.clear();
     }
-    /*成绩*/
-    score(data) {
-        return this.store.getItem('score');
-    }
-    /*学生成绩*/
-    selfInfo(data) {
-        return this.store.getItem('selfInfo');
-    }
-    /*教室课程课表*/
-    stuTable(data) {
-        return this.store.getItem('stuTable');
-    }
-    /*更新数据*/
-    update(data) {
-        return "更新成功";
+    /*校验版本*/
+    versionControll() {
+        let nowVersion = this.store.getItem('version');
+        if (nowVersion) { //没有版本信息
+            this.clear();
+            this.store.setItem('version', baseInfo.version);
+        } else if (nowVersion !== baseInfo.version) { //版本信息不对应
+            this.clear();
+            this.store.setItem('version', baseInfo.version);
+        }
     }
     /*现在为第几周*/
     nowWeek(data) {
-        return 7;
+        return 1;
     }
     /*开学日期*/
     terminalStart(data) {
         return new Date();
     }
-    /*更新主题信息*/
-    style(updated) {
-        return {
-            backgroundColor: '#fafafa'
-        }
-    }
     /*获得第index周课表*/
     week(index) {
+        //普通课表
         let stuCourse = this.stuTable().data.filter(item => {
-            return item.startweek <= index && item.endweek >= index;
+            return item.startweek <= index && item.endweek >= index && item.term === this.nowTermCode();
         });
+        //实验课表
         //console.log(stuCourse);
         let labCourse = this.labTable().data.map(item => {
             return {
@@ -65,7 +46,7 @@ class CourseBaseFatory {
                 ...item
             };
         }).filter(item => {
-            return item.startweek <= index && item.endweek >= index;
+            return item.startweek <= index && item.endweek >= index && item.term === this.nowTermCode();
         });
         return [...stuCourse, ...labCourse];
     }
@@ -136,7 +117,7 @@ class CourseBaseFatory {
                 if (result[x][Number(weekCourse[x][y].seq) - 1] === undefined) {
                     result[x][Number(weekCourse[x][y].seq) - 1] = cname + "@" + weekCourse[x][y].croomno;
                 } else { //课程冲突
-                    result[x][Number(weekCourse[x][y].seq) - 1] = result[x][Number(weekCourse[x][y].seq) - 1] + "<br/>" + cname + "@" + weekCourse[x][y].croomno;
+                    result[x][Number(weekCourse[x][y].seq) - 1] = result[x][Number(weekCourse[x][y].seq) - 1] + " " + cname + "@" + weekCourse[x][y].croomno;
                 }
             }
         }
@@ -174,16 +155,89 @@ class CourseBaseFatory {
     /*本地存储*/
     store = {
         setItem(key, obj) {
+            localStorage.removeItem(key);
             if (typeof (obj) === 'object')
                 localStorage.setItem(key, JSON.stringify(obj));
             else if (typeof (obj) === 'string')
                 localStorage.setItem(key, obj);
         },
         getItem(key) {
-            return JSON.parse(localStorage.getItem(key));
+            const result = localStorage.getItem(key);
+            try {
+                if (result)
+                    return JSON.parse(result);
+            } catch (e) {
+                return result;
+            }
+        }
+    }
+
+    /**
+     * 更新从教务系统获取到的数据
+     * @param {*} data 接口返回的data部分
+     */
+    update = async (data) => {
+        this.store.setItem('stuTable', JSON.stringify(data.stuTable));
+        this.store.setItem('labTable', JSON.stringify(data.labTable));
+        this.store.setItem('score', JSON.stringify(data.stuScore));
+        this.store.setItem('selfInfo', JSON.stringify(data.personInfo));
+        this.store.setItem('hours', JSON.stringify(data.hours));
+        this.store.setItem('bk', JSON.stringify(data.bk));
+        this.store.setItem('examap', JSON.stringify(data.examap));
+        this.store.setItem('fee', JSON.stringify(data.fee));
+        this.store.setItem('plancj', JSON.stringify(data.plancj));
+        this.store.setItem('sctCourse', JSON.stringify(data.sctCours));
+        this.store.setItem('terTime', JSON.stringify(data.terTime));
+        this.store.setItem('yxxf', JSON.stringify(data.yxxf));
+        console.log("更新从教务系统获取到的数据完毕");
+    }
+
+    /*实验课表*/
+    labTable() {
+        let result = this.store.getItem('labTable');
+        if (result)
+            return this.store.getItem('labTable');
+        return {
+            data: []
+        };
+    }
+    /*成绩*/
+    score() {
+        let result = this.store.getItem('score');
+        if (result)
+            return this.store.getItem('score');
+        return {
+            data: []
+        };
+    }
+    /*学生成绩*/
+    selfInfo() {
+        let result = this.store.getItem('selfInfo');
+        if (result) {
+            return this.store.getItem('selfInfo');
+        }
+        return {
+            data: []
+        };
+    }
+    /*教室课程课表*/
+    stuTable() {
+        let result = this.store.getItem('stuTable');
+        if (result)
+            return this.store.getItem('stuTable');
+        return {
+            data: []
+        };
+    }
+    /*获取现在的学期编号*/
+    nowTermCode() {
+        let term = this.store.getItem('terTime');
+        if (term) {
+            return term.data[0].term;
         }
     }
 };
 
 const courseBase = new CourseBaseFatory();
+console.log('现在的学期编号为', courseBase.nowTermCode());
 export default courseBase;

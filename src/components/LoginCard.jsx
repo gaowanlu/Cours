@@ -6,15 +6,21 @@ import Button from "@mui/material/Button";
 import LoginModal from "./LoginModal";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
+import courseBase from "../data/courseBase";
 
+/**
+ * @mui 提示组件
+ * @param {*} type success or error
+ * @param {*} open false or true
+ * @returns
+ */
 const alertConfig = (type, open) => {
   if (type === "error") {
     return {
       open,
       type,
       title: "更新错误",
-      message:
-        `请检查账号密码是否正确 若多次出错请联系开发者 heizuboriyo@gmail.com 最近更新时间 ${new Date().toString()}`,
+      message: `请检查账号密码是否正确 若多次出错请联系开发者 heizuboriyo@gmail.com 最近更新时间 ${new Date().toString()}`,
     };
   } else if (type === "success") {
     return {
@@ -26,6 +32,11 @@ const alertConfig = (type, open) => {
   }
 };
 
+/**
+ * 登录获取数据组件
+ * @param {*} props
+ * @returns
+ */
 function LoginCard(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -40,6 +51,8 @@ function LoginCard(props) {
       //显示alert成功
       if (rp.status === 200 && rp.data.data.e === undefined) {
         setAlertOpen(alertConfig("success", true));
+        //更新localStorage
+        courseBase.update(rp.data.data);
       } else {
         setAlertOpen(alertConfig("error", true));
       }

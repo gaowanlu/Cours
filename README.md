@@ -35,9 +35,9 @@ EC2 Proxy https://linkway.site:5557/
 <div align="left">
 
 <img src="readme/images/posterpng.png" width="24%" float="left"/>
-<img src="readme/images/IMG_0196.png" width="24%" float="left"/>
-<img src="readme/images/IMG_0197.png" width="24%" float="left"/>
-<img src="readme/images/IMG_0199.png" width="24%" float="left"/>
+<img src="readme/images/IMG_0196.PNG" width="24%" float="left"/>
+<img src="readme/images/IMG_0197.PNG" width="24%" float="left"/>
+<img src="readme/images/IMG_0199.PNG" width="24%" float="left"/>
 
 </div> 
 

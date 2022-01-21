@@ -119,13 +119,13 @@ const Content = styled.div`
 
 const UserNameInput = styled(TextField)`
   width: 100%;
-  & .css-cio0x1-MuiInputBase-root-MuiFilledInput-root:after {
+  & > .css-cio0x1-MuiInputBase-root-MuiFilledInput-root:after {
     border-color: var(--color-primary) !important;
   }
   label {
     color: var(--color-primary) !important;
   }
-  .css-cio0x1-MuiInputBase-root-MuiFilledInput-root.Mui-fcoused {
+  & input {
     color: var(--color-primary) !important;
   }
 `;
@@ -133,13 +133,13 @@ const UserNameInput = styled(TextField)`
 const PasswordInput = styled(TextField)`
   width: 100%;
   margin-top: 1rem !important;
-  & .css-cio0x1-MuiInputBase-root-MuiFilledInput-root:after {
+  & > .css-cio0x1-MuiInputBase-root-MuiFilledInput-root:after {
     border-color: var(--color-primary) !important;
   }
   label {
     color: var(--color-primary) !important;
   }
-  .css-cio0x1-MuiInputBase-root-MuiFilledInput-root.Mui-fcoused {
+  & input {
     color: var(--color-primary) !important;
   }
 `;

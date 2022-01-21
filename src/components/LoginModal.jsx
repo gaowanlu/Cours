@@ -15,7 +15,7 @@ function LoginModal(props) {
         <Content>
           <CircularProgress />
           <Title theme={props.theme}>
-            大约等待8s 请耐心等待 如2min没有成功则请重试
+            大约8s 请耐心等待 如2min没有成功则请重试
           </Title>
         </Content>
       </Modal>

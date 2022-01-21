@@ -7,7 +7,6 @@ import ScoreIcon from "@mui/icons-material/Score";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import BusinessIcon from "@mui/icons-material/Business";
-import PodcastsIcon from "@mui/icons-material/Podcasts";
 import EmailIcon from "@mui/icons-material/Email";
 import { useSelector, useDispatch } from "react-redux";
 import { selectTheme, darkModeChange } from "../features/theme/themeSlice";
@@ -61,7 +60,6 @@ function MoreView() {
   /*选择列表2*/
   const card2 = [
     { Icon: BusinessIcon, text: "关于我们", to: "/aboutUs" },
-    { Icon: PodcastsIcon, text: "用户条款", to: "/userTerm" },
     { Icon: EmailIcon, text: "联系我们", to: "/concatUs" },
   ];
 

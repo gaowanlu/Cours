@@ -73,7 +73,7 @@ function LoginCard(props) {
   };
   return (
     <div>
-      <Title>更新数据</Title>
+      <Title>芜湖起飞</Title>
       <Content>
         <UserNameInput
           required
@@ -96,7 +96,7 @@ function LoginCard(props) {
           defaultValue={password}
         />
         {/*登录按钮*/}
-        <SubmitButton onClick={clickHandle}>登录</SubmitButton>
+        <SubmitButton onClick={clickHandle}>起飞</SubmitButton>
         {/*modal*/}
         {modalOpen && <LoginModal theme={props.theme} />}
         {/*alert提示*/}
@@ -127,6 +127,7 @@ const UserNameInput = styled(TextField)`
   }
   & input {
     color: var(--color-primary) !important;
+    height: 1.5rem;
   }
 `;
 
@@ -141,6 +142,7 @@ const PasswordInput = styled(TextField)`
   }
   & input {
     color: var(--color-primary) !important;
+    height: 1.5rem;
   }
 `;
 
@@ -155,6 +157,8 @@ const SubmitButton = styled(Button)`
   color: #fafafa !important;
   /* margin: 0.5rem !important; */
   margin-top: 1rem !important;
+  height: 3rem;
+  border-radius: 1.5rem !important;
 `;
 
 const UpdateResultAlert = styled(Alert)`

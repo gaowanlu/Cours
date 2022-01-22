@@ -38,8 +38,9 @@ const RowContent = styled.div`
   background-color: #f5f5f5;
   border-radius: 0.5rem;
   padding: 5px;
-  min-height: 2rem;
-  line-height: 2rem;
+  /* min-height: 2rem; */
+  /* line-height: 2rem; */
+  padding: 0.7rem;
   cursor: pointer;
   transition-duration: 0.2s;
   font-size: 0.9rem;

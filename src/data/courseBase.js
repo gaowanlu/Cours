@@ -1,9 +1,9 @@
 import baseInfo from './baseInfo.json';
 class CourseBaseFatory {
     constructor() {
-        console.log("v0.0.1 CoursBase");
+        console.log("CoursBase");
         console.log(baseInfo);
-        this.versionControll();
+        this.versionControll(); //版本校验与管理
     }
     /*清空所有本地存储*/
     clear() {
@@ -21,12 +21,34 @@ class CourseBaseFatory {
         }
     }
     /*现在为第几周*/
-    nowWeek(data) {
-        return 1;
+    nowWeek(newWeek) {
+        return this.storeCheckBack('nowWeek', '1', newWeek);
     }
-    /*开学日期*/
-    terminalStart(data) {
-        return new Date();
+    /*现在那个学习年*/
+    nowYear(newYear) {
+        return this.storeCheckBack('nowYear', new Date().getFullYear().toString(), newYear);
+    }
+    /*那个学期 0 1 2*/
+    nowTerm(newTerm) {
+        return this.storeCheckBack('nowTerm', '0', newTerm);
+    }
+    /*存储并返回 带有检查机制*/
+    storeCheckBack(key, defaultValue, data) {
+        if (data) { //赋值
+            //console.log("周数赋值");
+            //更新周数并返回
+            this.store.setItem(key, data.toString());
+            return data;
+        }
+        if (this.store.getItem(key)) {
+            //console.log("读取周数");
+            return this.store.getItem(key);
+        } else { //返回默认
+            //console.log("返回默认周数");
+            //console.log(defaultValue);
+            this.store.setItem(key, defaultValue);
+            return defaultValue;
+        }
     }
     /*获得第index周课表*/
     week(index) {

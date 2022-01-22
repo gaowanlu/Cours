@@ -55,7 +55,7 @@ function MoreView() {
         setUpdateDataDialogShow(true);
       },
     },
-    { Icon: DateRangeIcon, text: "日期设置", to: "/dateSetting" },
+    { Icon: DateRangeIcon, text: "时间设置", to: "/dateSetting" },
   ];
   /*选择列表2*/
   const card2 = [

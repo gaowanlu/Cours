@@ -39,7 +39,7 @@ const Container = styled.div`
   width: 100%;
   height: 100vh;
   position: fixed;
-  z-index: 999999;
+  z-index: 9999;
   top: 0;
   bottom: 0;
   left: 0;

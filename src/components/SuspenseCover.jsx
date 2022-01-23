@@ -19,8 +19,11 @@ const Container = styled.div`
   height: 100vh;
   padding: 1rem;
   display: flex;
+  position: fixed;
   justify-content: center;
   align-items: center;
+  z-index: 9998;
+  top: 0;
   ${(props) => {
     return props.theme.color
       ? `

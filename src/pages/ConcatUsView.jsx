@@ -1,10 +1,14 @@
 import React from "react";
 import { Header, Container } from "./MoreView";
-import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { selectTheme } from "../features/theme/themeSlice";
 import InfoList from "../components/InfoList";
+import PageNavigationBar from "../components/PageNavigationBar";
 
+/**
+ * 联系我们页面
+ * @returns
+ */
 function ConcatUsView() {
   const theme = useSelector(selectTheme);
   const list1 = {
@@ -29,17 +33,24 @@ function ConcatUsView() {
     ],
   };
   return (
-    <Container
-      theme={theme}
-      className="animate__animated animate__fadeInRight animate__faster"
-    >
-      <Header>
-        <p>联系我们</p>
-      </Header>
-      <InfoList {...list1} theme={theme} bottomAlert="" />
-      <InfoList {...list2} theme={theme} bottomAlert="" />
-      <InfoList {...list3} theme={theme} bottomAlert="" />
-    </Container>
+    <React.Fragment>
+      {/*导航栏*/}
+      <PageNavigationBar
+        theme={theme}
+        title="联系我们"
+        backTitle="更多"
+        backPath="/more"
+      />
+      <Container
+        theme={theme}
+        className="animate__animated animate__fadeInRight animate__faster"
+      >
+        <Header title="联系我们" />
+        <InfoList {...list1} theme={theme} bottomAlert="" />
+        <InfoList {...list2} theme={theme} bottomAlert="" />
+        <InfoList {...list3} theme={theme} bottomAlert="" />
+      </Container>
+    </React.Fragment>
   );
 }
 

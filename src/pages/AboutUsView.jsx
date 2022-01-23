@@ -6,7 +6,12 @@ import { useSelector } from "react-redux";
 import { selectTheme } from "../features/theme/themeSlice";
 import LogoPNG from "../assets/png/logo.png";
 import InfoList from "../components/InfoList";
+import PageNavigationBar from "../components/PageNavigationBar";
 
+/**
+ * 关于我们页面
+ * @returns
+ */
 function AboutUsView() {
   const theme = useSelector(selectTheme);
   let projectInfoList = {
@@ -43,22 +48,29 @@ function AboutUsView() {
     ],
   };
   return (
-    <Container
-      theme={theme}
-      className="animate__animated animate__fadeInRight animate__faster"
-    >
-      <Header>
-        <p>关于我们</p>
-      </Header>
-      <CardLayout theme={theme}>
-        <LogoContainer>
-          <img src={LogoPNG} alt="" />
-          <p>Cours</p>
-        </LogoContainer>
-      </CardLayout>
-      <InfoList {...projectInfoList} theme={theme} bottomAlert="" />
-      <InfoList {...wishInfoList} theme={theme} bottomAlert="" />
-    </Container>
+    <React.Fragment>
+      {/*导航栏*/}
+      <PageNavigationBar
+        theme={theme}
+        title="关于我们"
+        backTitle="更多"
+        backPath="/more"
+      />
+      <Container
+        theme={theme}
+        className="animate__animated animate__fadeInRight animate__faster"
+      >
+        <Header title="关于我们" />
+        <CardLayout theme={theme}>
+          <LogoContainer>
+            <img src={LogoPNG} alt="" />
+            <p>Cours</p>
+          </LogoContainer>
+        </CardLayout>
+        <InfoList {...projectInfoList} theme={theme} bottomAlert="" />
+        <InfoList {...wishInfoList} theme={theme} bottomAlert="" />
+      </Container>
+    </React.Fragment>
   );
 }
 

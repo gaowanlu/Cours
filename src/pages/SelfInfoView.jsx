@@ -1,10 +1,10 @@
 import React from "react";
-import styled from "styled-components";
 import courseBase from "../data/courseBase";
 import InfoList from "../components/InfoList";
-import { Header, Container } from "./MoreView";
+import { Header, Container } from "./MoreView"; //与MoreView同步
 import { useSelector } from "react-redux";
 import { selectTheme } from "../features/theme/themeSlice";
+import PageNavigationBar from "../components/PageNavigationBar";
 
 function SelfInfoView() {
   let list1 = {
@@ -13,7 +13,7 @@ function SelfInfoView() {
       { title: "姓名", content: courseBase.selfInfo().data.name },
       { title: "性别", content: courseBase.selfInfo().data.sex },
       { title: "生日", content: courseBase.selfInfo().data.birthday },
-      { title: "类别", content: courseBase.selfInfo().data.stype }
+      { title: "类别", content: courseBase.selfInfo().data.stype },
     ],
   };
   let list2 = {
@@ -28,20 +28,27 @@ function SelfInfoView() {
   };
   const theme = useSelector(selectTheme);
   return (
-    <Container
-      theme={theme}
-      className="animate__animated animate__fadeInRight  animate__faster"
-    >
-      <Header theme={theme}>
-        <p>个人信息</p>
-      </Header>
-      <InfoList {...list1} theme={theme} bottomAlert="" />
-      <InfoList
-        {...list2}
+    <React.Fragment>
+      {/*导航栏*/}
+      <PageNavigationBar
         theme={theme}
-        bottomAlert="声明:我们在服务器中不会记录您的个人信息包括账号密码。"
+        title="个人信息"
+        backTitle="更多"
+        backPath="/more"
       />
-    </Container>
+      <Container
+        theme={theme}
+        className="animate__animated animate__fadeInRight  animate__faster"
+      >
+        <Header theme={theme} title={"个人信息"} />
+        <InfoList {...list1} theme={theme} bottomAlert="" />
+        <InfoList
+          {...list2}
+          theme={theme}
+          bottomAlert="声明:我们在服务器中不会记录您的个人信息包括账号密码。"
+        />
+      </Container>
+    </React.Fragment>
   );
 }
 

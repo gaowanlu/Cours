@@ -10,9 +10,12 @@ import BusinessIcon from "@mui/icons-material/Business";
 import EmailIcon from "@mui/icons-material/Email";
 import { useSelector, useDispatch } from "react-redux";
 import { selectTheme, darkModeChange } from "../features/theme/themeSlice";
-import Switch from "@mui/material/Switch";
 import store from "../app/store";
 import LoginCard from "../components/LoginCard";
+import SwitchCard from "../components/SwitchCard";
+import PageContainer from "./../components/PageContainer";
+import PageHeader from "../components/PageHeader";
+import PageNavigationBar from "../components/PageNavigationBar";
 
 function MoreView() {
   const [updateDataDialogShow, setUpdateDataDialogShow] = useState(false); //更新数据弹窗显示状态
@@ -64,69 +67,50 @@ function MoreView() {
   ];
 
   return (
-    <Container
-      theme={theme}
-      className="animate__animated animate__zoomIn animate__faster"
-    >
-      {/*头部*/}
-      <Header>
-        <p>更多</p>
-      </Header>
-      {/*卡片1*/}
-      <Card theme={theme}>
-        <ChooseList list={card1} theme={theme} />
-      </Card>
-      {/*卡片2*/}
-      <Card theme={theme}>
-        <ChooseList list={card2} theme={theme} />
-      </Card>
-      {/*卡片3*/}
-      <Card theme={theme}>
-        {/*深色模式开关*/}
-        <DarkSwitchBox>
-          <span>深色模式</span>
-          <SwitchStyled checked={checked} onChange={handleChange} />
-        </DarkSwitchBox>
-      </Card>
-      {/*更新数据弹窗*/}
-      {updateDataDialogShow && (
-        <DialogWindow
+    <React.Fragment>
+      {/*导航栏*/}
+      <PageNavigationBar
+        theme={theme}
+        title="更多"
+        backTitle="日课表"
+        backPath="/"
+      />
+      <PageContainer
+        theme={theme}
+        className="animate__animated animate__zoomIn animate__faster"
+      >
+        {/*头部*/}
+        <PageHeader title={"更多"} />
+        {/*卡片1*/}
+        <Card theme={theme}>
+          <ChooseList list={card1} theme={theme} />
+        </Card>
+        {/*卡片2*/}
+        <Card theme={theme}>
+          <ChooseList list={card2} theme={theme} />
+        </Card>
+        {/*卡片3*/}
+        <SwitchCard
           theme={theme}
-          close={() => {
-            dialogClose("updateData");
-          }}
-        >
-          <LoginCard theme={theme} />
-        </DialogWindow>
-      )}
-    </Container>
+          checked={checked}
+          onChange={handleChange}
+          title="深色模式"
+        />
+        {/*更新数据弹窗*/}
+        {updateDataDialogShow && (
+          <DialogWindow
+            theme={theme}
+            close={() => {
+              dialogClose("updateData");
+            }}
+          >
+            <LoginCard theme={theme} />
+          </DialogWindow>
+        )}
+      </PageContainer>
+    </React.Fragment>
   );
 }
-const Container = styled.div`
-  width: 100%;
-  min-height: 100vh;
-  background-color: #f2f2f6;
-  color: #1d1d1f;
-  box-sizing: border-box;
-  padding: 1rem;
-  padding-top: 2rem;
-  ${(props) => {
-    return props.theme.color
-      ? `
-      background-color: ${props.theme.color.background};
-      color: ${props.theme.color.color};
-  `
-      : null;
-  }}
-`;
-
-const Header = styled.div`
-  margin-bottom: 1.5rem;
-  p {
-    font-size: 2rem;
-    font-weight: bold;
-  }
-`;
 
 const Card = styled.div`
   border-radius: 12px;
@@ -139,37 +123,8 @@ const Card = styled.div`
   }
 `;
 
-const LoginButton = styled.button`
-  width: 100%;
-  height: 3rem;
-  color: #fafafa;
-  background-color: var(--color-primary);
-  border-radius: 1.5rem;
-  cursor: pointer;
-  font-size: 1.1rem;
-  border: 0px;
-  transition-duration: 0.2s;
-`;
-
-const DarkSwitchBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-/*重写开关样式*/
-const SwitchStyled = styled(Switch)`
-  span {
-    color: var(--color-primary) !important;
-  }
-  .css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked
-    + .MuiSwitch-track {
-    background-color: var(--color-primary) !important;
-  }
-  input {
-    color: red !important;
-  }
-`;
+const Container = PageContainer;
+const Header = PageHeader;
 
 export { Header, Container };
 export default MoreView;

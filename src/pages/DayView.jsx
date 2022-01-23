@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import avatar from "../assets/svg/avatar.svg";
 import { Link } from "react-router-dom";
 import courseBase from "../data/courseBase";
 import PlanCard from "../components/PlanCard";

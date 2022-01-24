@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer";
-import WeekTable from "../components/WeekTable";
+import WeekTable from "../components/WeekTable.tsx";
 import DialogWindow from "../components/DialogWindow";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectTheme } from "../features/theme/themeSlice";
 
 function WeekView() {

@@ -13,7 +13,7 @@ import { selectTheme, darkModeChange } from "../features/theme/themeSlice";
 import store from "../app/store";
 import LoginCard from "../components/LoginCard";
 import SwitchCard from "../components/SwitchCard";
-import PageContainer from "./../components/PageContainer";
+import PageContainer from "../components/PageContainer";
 import PageHeader from "../components/PageHeader";
 import PageNavigationBar from "../components/PageNavigationBar";
 

@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import tableIcon from "../assets/svg/table.svg";
-import homeIcon from "../assets/svg/home.svg";
 import { Link } from "react-router-dom";
 import ArticleIcon from "@mui/icons-material/Article";
 import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";

@@ -1,8 +1,9 @@
 import baseInfo from './baseInfo.json';
+import hello from './welcome.ts';
+
 class CourseBaseFatory {
     constructor() {
-        console.log("CoursBase");
-        console.log(baseInfo);
+        hello();
         this.versionControll(); //版本校验与管理
     }
     /*清空所有本地存储*/

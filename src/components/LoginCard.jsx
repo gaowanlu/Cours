@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import webVpn from "./../api/webVpn";
+import webVpn from "../api/webVpn";
 import TextField from "@mui/material/TextField";
 import styled from "styled-components";
 import Button from "@mui/material/Button";
@@ -69,6 +69,7 @@ function LoginCard(props) {
       case "password":
         setPassword(e.target.value.replace(" ", ""));
         break;
+      default:
     }
   };
   return (
@@ -88,7 +89,6 @@ function LoginCard(props) {
           required
           name="password"
           label="密码"
-          defaultValue=""
           variant="filled"
           type="password"
           size="small"

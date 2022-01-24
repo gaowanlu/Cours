@@ -1,6 +1,6 @@
 import React from "react";
 import { Header, Container } from "./MoreView";
-import CardLayout from "./../components/CardLayout";
+import CardLayout from "../components/CardLayout";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { selectTheme } from "../features/theme/themeSlice";

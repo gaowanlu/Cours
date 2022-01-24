@@ -11,14 +11,15 @@ function InfoList(props) {
   return (
     <CardLayout theme={props.theme}>
       <Title>{props.title}</Title>
-      {props.rows.map((item, index) => {
-        return (
-          <React.Fragment key={index}>
-            <Row>{item.title}</Row>
-            <RowContent theme={props.theme}>{item.content}</RowContent>
-          </React.Fragment>
-        );
-      })}
+      {props.rows &&
+        props.rows.map((item, index) => {
+          return (
+            <React.Fragment key={index}>
+              <Row>{item.title}</Row>
+              <RowContent theme={props.theme}>{item.content}</RowContent>
+            </React.Fragment>
+          );
+        })}
       <Alter>{props.bottomAlert}</Alter>
     </CardLayout>
   );
@@ -37,10 +38,8 @@ const Row = styled.div`
 const RowContent = styled.div`
   background-color: #f5f5f5;
   border-radius: 0.5rem;
-  padding: 5px;
-  /* min-height: 2rem; */
-  /* line-height: 2rem; */
   padding: 0.7rem;
+  padding-left: 0.5rem;
   cursor: pointer;
   transition-duration: 0.2s;
   font-size: 0.9rem;

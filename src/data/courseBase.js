@@ -225,13 +225,14 @@ class CourseBaseFatory {
         };
     }
     /*成绩*/
-    score() {
+    async score(callback) {
         let result = this.store.getItem('score');
         if (result)
-            return this.store.getItem('score');
-        return {
-            data: []
-        };
+            callback(this.store.getItem('score'));
+        else
+            callback({
+                data: []
+            });
     }
     /*学生成绩*/
     selfInfo() {

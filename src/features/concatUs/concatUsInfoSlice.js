@@ -13,22 +13,14 @@ const initialState = {
                     title: "CSDN",
                     content: "blog.csdn.net/qq_45812941"
                 },
-            ],
-        },
-        {
-            title: "社交平台",
-            rows: [{
-                    title: "QQ",
-                    content: "2209120827"
-                },
                 {
-                    title: "微信",
-                    content: "WanluGao"
-                },
+                    title: "QQ交流群",
+                    content: "787280986"
+                }
             ],
         },
         {
-            title: "其他",
+            title: "工作",
             rows: [{
                     title: "工作邮箱",
                     content: "heizuboriyo@gmail.com"
@@ -36,6 +28,18 @@ const initialState = {
                 {
                     title: "地址",
                     content: "桂林电子科技大学(花江校区)"
+                },
+            ],
+        },
+        {
+            title: "开发者",
+            rows: [{
+                    title: "QQ",
+                    content: "2209120827"
+                },
+                {
+                    title: "微信",
+                    content: "WanluGao"
                 },
             ],
         }

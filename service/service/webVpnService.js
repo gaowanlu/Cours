@@ -400,6 +400,7 @@ function service(callback, username, password) {
         });
     }
 
+    /*课程课表*/
     function getAllStuCourse(wengine_vpn_ticket, show_vpn, ST) {
         var req = https.get({
             hostname: VPN_HOST,
@@ -665,7 +666,7 @@ function service(callback, username, password) {
     function getlabtable(wengine_vpn_ticket, show_vpn, ST) {
         var req = https.get({
             hostname: VPN_HOST,
-            path: `${BKJW_HTTPS_HASH()}/student/getlabtable?term=2019-2020_1&ticket=${ST}`,
+            path: `${BKJW_HTTPS_HASH()}/student/getlabtable?term=2021-2022_1&ticket=${ST}`,
             headers: {
                 'User-Agent': USER_AGENT,
                 'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=${show_vpn}`,
@@ -768,10 +769,14 @@ function service(callback, username, password) {
 }
 
 (() => {
-    //let setting=setting('','');
-    // service((res,setting.username,setting.password) => {
-    //     console.log('RETURN_RESULT', JSON.stringify(res));
-    // });
+    const {
+        username,
+        password
+    } = setting('1901420313', '');
+    //代理请求服务
+    service((result) => {
+        console.log("测试完毕");
+    }, username, password);
 })();
 
 module.exports = service;

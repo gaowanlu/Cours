@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import courseBase from "../data/courseBase";
 import PlanCard from "../components/PlanCard";
 import Footer from "../components/Footer";
-import DialogWindow from "../components/DialogWindow";
 import { useSelector } from "react-redux";
 import { selectTheme } from "../features/theme/themeSlice";
 
@@ -16,20 +15,6 @@ function DayView() {
   let dayCourses = courseBase.dayViewFormat();
   /*获取主题配置*/
   const theme = useSelector(selectTheme);
-
-  const [dialogShow, setDialogShow] = useState({
-    showState: false,
-    course: {},
-  });
-
-  /*窗口状态改变*/
-  const dialogChange = (mode, course) => {
-    if (mode === "close") {
-      setDialogShow({ ...dialogShow, showState: false });
-    } else if (mode === "show") {
-      setDialogShow({ showState: true, course });
-    }
-  };
 
   return (
     <React.Fragment>
@@ -53,29 +38,12 @@ function DayView() {
 
         <Content>
           {dayCourses.map((item, index) => {
-            return (
-              <PlanCard
-                {...item}
-                theme={theme}
-                key={index}
-                onClick={dialogChange}
-              />
-            ); //key这样写是错误的 但对于此情况 没有关系 无忧状态关联
+            return <PlanCard {...item} theme={theme} key={index} />; //key这样写是错误的 但对于此情况 没有关系 无忧状态关联
           })}
         </Content>
       </Container>
-
       {/* 底部导航栏 */}
       <Footer fill="table" theme={theme} />
-      {/* 弹窗 */}
-      {dialogShow.showState && (
-        <DialogWindow close={() => dialogChange("close")} theme={theme}>
-          <p>{dialogShow.course.seq}</p>
-          <p>{dialogShow.course.cname}</p>
-          <p>{dialogShow.course.room}</p>
-          <p>{dialogShow.course.teacher}</p>
-        </DialogWindow>
-      )}
     </React.Fragment>
   );
 }

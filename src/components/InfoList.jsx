@@ -29,6 +29,7 @@ const Title = styled.div`
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 1rem;
+  color: var(--color-primary);
 `;
 const Row = styled.div`
   margin-top: 1rem;
@@ -43,6 +44,7 @@ const RowContent = styled.div`
   cursor: pointer;
   transition-duration: 0.2s;
   font-size: 0.9rem;
+  line-height: 1.3rem;
   ${(props) => {
     return props.theme
       ? `

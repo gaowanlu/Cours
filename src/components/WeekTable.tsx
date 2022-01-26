@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import courseBase from "../data/courseBase";
 
 /*课程块随机背景色*/
 function randomBackground() {
@@ -51,9 +50,9 @@ const Coordinate = {
  * @returns
  */
 function WeekTable(props) {
-  /*获取第1周课表数据*/
-  let nowWeek = courseBase.nowWeek();
-  let weekCourse = courseBase.weekViewFormat(nowWeek);
+  const { nowWeek, weekCourse } = props ;
+  // let nowWeek = courseBase.nowWeek();//加载现在是第几周
+  // let weekCourse = courseBase.weekViewFormat(nowWeek);//获取这一周的课表
   /*列标题*/
   let colTags = [
     { id: 0, style: {}, text: `${nowWeek}周` },
@@ -78,6 +77,10 @@ function WeekTable(props) {
     { id: 8, style: Coordinate.top(8), text: "9" },
     { id: 9, style: Coordinate.top(9), text: "10" },
   ];
+  /*课程块点击*/
+  const courseClick = (e,item) => {
+    props.courseClick(e,item);
+  }
   return (
     <Card theme={props.theme}>
       {colTags.map((item) => {
@@ -103,7 +106,7 @@ function WeekTable(props) {
             bg2={randomBackground()[1]}
             key={index}
             style={Coordinate.courseBoxStyle(item.x, item.y * 2, 2)}
-            onClick={props.courseClick}
+            onClick={(e)=>courseClick(e,item)}
           >
             <p>{item.text}</p>
           </CourseBox>

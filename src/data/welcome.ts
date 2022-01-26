@@ -2,8 +2,8 @@ import baseInfo from './baseInfo.json';
 
 function welcome() {
     let version: string = baseInfo.version;
-    console.log(draw);
-    console.log("我们携起手来也许可以改变世界 2022 于桂林电子科技大学");
+    console.info(draw);
+    console.log("我们携起手来改变世界 2022 @桂林电子科技大学");
     console.log("Cours " + version);
 }
 
@@ -13,7 +13,8 @@ const draw: string =`
  | |  __| |  | | |__     | |    | |     ___  _   _ _ __ ___ 
  | | |_ | |  | |  __|    | |    | |    / _ \\| | | | '__/ __|
  | |__| | |__| | |____   | |    | |___| (_) | |_| | |  \\__ \\
-  \\_____|\\____/|______|  |_|     \\_____\\___/ \\__,_|_|  |___/
-                                                            
+  \\_____|\\____/|______|  |_|     \\_____\\___/ \\__,_|_|  |___/ 
+                                                              
+                                     Cours Design By Wanlu       
                                                             `;
 export default welcome;

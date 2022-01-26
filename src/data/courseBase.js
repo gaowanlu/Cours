@@ -132,26 +132,32 @@ class CourseBaseFatory {
     weekViewFormat(index) {
         let weekCourse = this.weekFormat(index);
         let result = [];
+        //遍历一周的内容
         for (let x = 0; x < weekCourse.length; x++) {
-            result.push([undefined, undefined, undefined, undefined, undefined]);
+            result.push([undefined, undefined, undefined, undefined, undefined]); //每天的五节任务初始化为undefined
             for (let y = 0; y < weekCourse[x].length; y++) {
-                weekCourse[x][y].cname = weekCourse[x][y].cname.replace(" ", "");
-                let cname = weekCourse[x][y].cname.length >= 6 ? weekCourse[x][y].cname.substr(0, 6) : weekCourse[x][y].cname;
+                weekCourse[x][y].cname = weekCourse[x][y].cname.replace(" ", ""); //清楚课程名空格
+                let cname = weekCourse[x][y].cname.length >= 6 ? weekCourse[x][y].cname.substr(0, 6) : weekCourse[x][y].cname; //课程名长度限制
                 if (result[x][Number(weekCourse[x][y].seq) - 1] === undefined) {
-                    result[x][Number(weekCourse[x][y].seq) - 1] = cname + "@" + weekCourse[x][y].croomno;
-                } else { //课程冲突
-                    result[x][Number(weekCourse[x][y].seq) - 1] = result[x][Number(weekCourse[x][y].seq) - 1] + " " + cname + "@" + weekCourse[x][y].croomno;
+                    result[x][Number(weekCourse[x][y].seq) - 1] = {
+                        text: cname + "@" + weekCourse[x][y].croomno,
+                        obj: [weekCourse[x][y]]
+                    };
+                } else { //课程冲突 这一节已经被占用 则进行追加
+                    result[x][Number(weekCourse[x][y].seq) - 1].text = result[x][Number(weekCourse[x][y].seq) - 1].text + " " + cname + "@" + weekCourse[x][y].croomno;
+                    result[x][Number(weekCourse[x][y].seq) - 1].obj.push(weekCourse[x][y]);
                 }
             }
         }
-        let format = [];
+        let format = []; //格式化 xy坐标将节数定位
         for (let x = 0; x < result.length; x++) {
             for (let y = 0; y < result.length; y++) {
                 if (result[x][y] !== undefined) {
                     format.push({
                         x,
                         y,
-                        text: result[x][y]
+                        text: result[x][y].text,
+                        obj: result[x][y].obj
                     });
                 }
             }
@@ -263,5 +269,4 @@ class CourseBaseFatory {
 };
 
 const courseBase = new CourseBaseFatory();
-console.log('现在的学期编号为', courseBase.nowTermCode());
 export default courseBase;

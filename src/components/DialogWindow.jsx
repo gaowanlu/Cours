@@ -45,7 +45,7 @@ const Container = styled.div`
   left: 0;
   right: 0;
   /* background: rgba(255, 255, 255, 0.25); */
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(3px);
   padding: 0.5rem;
   box-sizing: border-box;
 `;
@@ -65,7 +65,7 @@ const Card = styled.div`
   text-align: justify;
   ${(props) => {
     return props.theme.color !== undefined
-      ? `background-color: ${props.theme.color.frontBackground}`
+      ? `background-color: ${props.theme.color.background}`
       : "";
   }}
 `;

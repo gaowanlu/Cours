@@ -3,7 +3,8 @@ import { Route, Routes } from "react-router-dom";
 import DayView from "./pages/DayView";
 import WeekView from "./pages/WeekView";
 import SuspenseCover from "./components/SuspenseCover";
-
+/*调试*/
+import CourseDetailList from "./components/CourseDetailList";
 /*组件懒加载*/
 const SelfInfoView = React.lazy(() => import("./pages/SelfInfoView"));
 const MoreView = React.lazy(() => import("./pages/MoreView"));
@@ -15,7 +16,7 @@ const ConcatUsView = React.lazy(() => import("./pages/ConcatUsView"));
 function App() {
   return (
     <React.Fragment>
-      <Suspense fallback={<SuspenseCover/>}>
+      <Suspense fallback={<SuspenseCover />}>
         <Routes>
           <Route path="/table" element={<DayView />} />
           <Route path="/week" element={<WeekView />} />
@@ -26,6 +27,7 @@ function App() {
           <Route exact path="/dateSetting" element={<DateSettingView />} />
           <Route exact path="/aboutUs" element={<AboutUsView />} />
           <Route exact path="/concatUs" element={<ConcatUsView />} />
+          <Route exact path="/debug" element={<CourseDetailList />} />
           <Route index path="*" element={<DayView />} />
         </Routes>
       </Suspense>

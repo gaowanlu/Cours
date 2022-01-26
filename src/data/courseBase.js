@@ -69,7 +69,7 @@ class CourseBaseFatory {
                 ...item
             };
         }).filter(item => {
-            return item.startweek <= index && item.endweek >= index && item.term === this.nowTermCode();
+            return item.startweek <= index && item.endweek >= index; //&& item.term === this.nowTermCode();
         });
         return [...stuCourse, ...labCourse];
     }
@@ -261,12 +261,22 @@ class CourseBaseFatory {
     }
     /*获取现在的学期编号*/
     nowTermCode() {
+        //根据学年 、 春0秋1三2季 、获得学期编号 
+        const last = ['2', '1', '3']; //后缀
+        const nowYear = this.nowYear();
+        console.log("nowyear", this.nowYear());
+        console.log("nowTerm", this.nowTerm());
+        let code = String(nowYear - 1) + "-" + String(nowYear) + "_" + last[parseInt(this.nowTerm())];
+        // console.log(code);
         let term = this.store.getItem('terTime');
-        if (term) {
+        if (term && term.data) {
             return term.data[0].term;
         }
+        return code;
     }
 };
 
 const courseBase = new CourseBaseFatory();
+
+// console.log(courseBase.nowTermCode());
 export default courseBase;

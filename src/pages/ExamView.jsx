@@ -32,4 +32,6 @@ function ExamView(props) {
   );
 }
 
+export const { View } = { ExamView };
+
 export default DebugView;

@@ -1,6 +1,6 @@
 {
-  "name": "courses",
-  "version": "0.1.0",
+  "name": "cours",
+  "version": "0.0.2",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.16.0",

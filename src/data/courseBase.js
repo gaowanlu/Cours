@@ -259,6 +259,15 @@ class CourseBaseFatory {
             data: []
         };
     }
+    /*考试计划*/
+    examList() {
+        let result = this.store.getItem('examap');
+        if (result)
+            return this.store.getItem('examap');
+        return {
+            data: []
+        };
+    }
     /*获取现在的学期编号*/
     nowTermCode() {
         //根据学年 、 春0秋1三2季 、获得学期编号 

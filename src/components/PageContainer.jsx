@@ -12,7 +12,7 @@ const Container = styled.div`
   background-color: #f2f2f6;
   color: #1d1d1f;
   box-sizing: border-box;
-  padding: 1rem;
+  padding: 0.7rem;
   padding-top: 2rem;
   ${(props) => {
     return props.theme.color

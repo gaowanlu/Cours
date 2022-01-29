@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Fade from "react-reveal/Fade";
 /**
  *
  * @param {head:[string,string],rows:[[string,string]}]} props
@@ -20,11 +21,13 @@ export default function MyTable(props) {
         {rows.map((v, i) => {
           return (
             <li key={i}>
-              <TableRow>
-                {v.map((b, j) => {
-                  return <span key={j}>{b}</span>;
-                })}
-              </TableRow>
+              <Fade bottom>
+                <TableRow>
+                  {v.map((b, j) => {
+                    return <span key={j}>{b}</span>;
+                  })}
+                </TableRow>
+              </Fade>
             </li>
           );
         })}

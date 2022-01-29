@@ -16,6 +16,8 @@ import SwitchCard from "../components/SwitchCard";
 import PageContainer from "../components/PageContainer";
 import PageHeader from "../components/PageHeader";
 import PageNavigationBar from "../components/PageNavigationBar";
+import ChatIcon from "@mui/icons-material/Chat";
+import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 
 function MoreView() {
   const [updateDataDialogShow, setUpdateDataDialogShow] = useState(false); //更新数据弹窗显示状态
@@ -49,19 +51,21 @@ function MoreView() {
   const card1 = [
     { Icon: InfoIcon, text: "个人信息", to: "/selfInfo" },
     { Icon: ScoreIcon, text: "成绩查询", to: "/score" },
+    { Icon: AssignmentTurnedInIcon, text: "考试安排", to: "/exam" },
+    { Icon: ChatIcon, text: "在线交流", to: "/talk" },
+  ];
+  /*选择列表2*/
+  const card2 = [
     {
       Icon: DownloadForOfflineIcon,
       text: "更新数据",
       to: "",
       clickCallBack: (e) => {
         e.preventDefault();
-        setUpdateDataDialogShow(true);
+        setUpdateDataDialogShow(true); //弹出登陆更新卡片
       },
     },
     { Icon: DateRangeIcon, text: "时间设置", to: "/dateSetting" },
-  ];
-  /*选择列表2*/
-  const card2 = [
     { Icon: BusinessIcon, text: "关于我们", to: "/aboutUs" },
     { Icon: EmailIcon, text: "联系我们", to: "/concatUs" },
   ];

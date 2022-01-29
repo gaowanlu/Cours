@@ -1,6 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
+/**
+ *
+ * @param {size:0 or 1 or 2 or 3} props
+ * @returns
+ */
 function PageHeader(props) {
   return (
     <Header {...props}>
@@ -14,6 +19,13 @@ const Header = styled.div`
   p {
     font-size: 2rem;
     font-weight: bold;
+    ${(props) => {
+      return props.size
+        ? `
+      font-size:${["1.5rem", "1.4rem", "1.2rem", "1.1rem"][props.size]}
+    `
+        : null;
+    }}
   }
 `;
 

@@ -7,6 +7,7 @@ import PageNavigationBar from "../components/PageNavigationBar";
 import Table from "../components/Table";
 import courseBase from "../data/courseBase";
 
+
 /**
  * 个人成绩页面
  * @returns

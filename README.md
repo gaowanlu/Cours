@@ -55,20 +55,35 @@ EC2 Proxy https://linkway.site:5557/
 $ npm install pm2 -g  
 $ cd ./service  
 $ pm2 start cours.js  
-$ pm2 monit  
- ```  
+$ pm2 list  
+ ```   
+
+#### 聊天室服务  
+
+```shell
+$ pm2 start chat.js
+$ pm2 list
+```
+
 #### API  
 
-###### 请求格式  
+###### 更新数据  
 
- 地址 `/` Content-Type `appliction/json`  
+地址 `https://{}:5557/` Content-Type `appliction/json`  
  
  ```json
 {
     "username":"学号",
     "password":"智慧校园密码"
 }
- ```
+ ```  
+
+###### 聊天室  
+
+基于SocketIO  
+地址 `(ws://{}:5558)`   
+正在更新中....
+
 
 
 ### 服务运行  

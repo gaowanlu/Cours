@@ -4,14 +4,18 @@ import styled from "styled-components";
 import Tooltip from "@mui/material/Tooltip";
 
 /**
- * 气泡
+ * 气泡 {date}
  */
 function Message(props) {
-  return <MessageContainer>{props.info}</MessageContainer>;
+  return (
+    <Tooltip title={props.date || ""} placement="bottom">
+      <MessageContainer>{props.info}</MessageContainer>
+    </Tooltip>
+  );
 }
 
 /**消息
- * {info,id,date,index}
+ * {info,id,date,index,rgb}
  *
  */
 export default class MessageBubble extends Component {
@@ -22,7 +26,7 @@ export default class MessageBubble extends Component {
         <Header>
           <Avatar
             sx={{
-              backgroundColor: "var(--color-primary)",
+              backgroundColor: `rgb(${v.rgb[0]}, ${v.rgb[1]}, ${v.rgb[2]})`,
               cursor: "pointer",
               float: "left",
               margin: "0px 10px 10px 0px",
@@ -31,9 +35,7 @@ export default class MessageBubble extends Component {
             {v.id}
           </Avatar>
           <UserId>{v.id.toUpperCase()}</UserId>
-          <Tooltip title={"你好"} placement="top">
-            <Message info={this.props.info} />
-          </Tooltip>
+          <Message info={this.props.info} date={this.props.date.toString()} />
         </Header>
         <br />
       </CardLayoutStyled>

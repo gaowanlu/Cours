@@ -9,6 +9,7 @@ import { talkSocketPath } from "../api/config";
 import MessageSender from "../components/MessageSender";
 import Fade from "react-reveal/Fade";
 import MessageBubble from "../components/MessageBubble";
+import stringHashRGB from "../utils/stringHashRGB.ts";
 
 /**
  * 在线交流界面
@@ -35,8 +36,9 @@ function TalkView(props) {
   }, []);
   const recev = (data) => {
     data.forEach((v, i, a) => {
-      let str = v.date+'';
-      v.date=new Date(str.slice(0, 19));
+      let str = v.date + "";
+      v.date = new Date(str.slice(0, 19));
+      v.rgb = stringHashRGB(v.id); //hash 头像背景色
     });
     setMessageList(data);
     console.log("来消息了", data);

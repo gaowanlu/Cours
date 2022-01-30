@@ -20,7 +20,7 @@ function MessageSender(props) {
             setInput("");
           }}
         >
-          Send
+          发送
         </button>
       </form>
     </Container>
@@ -62,7 +62,7 @@ const Container = styled.div`
       border-radius: 1.2rem;
       background-color: var(--color-primary);
       color: #fafafa;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: bold;
       cursor: pointer;
       background: -webkit-linear-gradient(
@@ -72,8 +72,8 @@ const Container = styled.div`
       ); /* Chrome 10-25, Safari 5.1-6 */
       background: linear-gradient(
         to right,
-        #f1b533,
-        #d84350
+        #f8924e,
+        #f85d6a
       ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     }
   }

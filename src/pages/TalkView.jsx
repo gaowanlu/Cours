@@ -7,8 +7,8 @@ import styled from "styled-components";
 import { io } from "socket.io-client";
 import { talkSocketPath } from "../api/config";
 import MessageSender from "../components/MessageSender";
-import CardLayout from "../components/CardLayout";
 import Fade from "react-reveal/Fade";
+import MessageBubble from "../components/MessageBubble";
 
 /**
  * 在线交流界面
@@ -35,7 +35,8 @@ function TalkView(props) {
   }, []);
   const recev = (data) => {
     data.forEach((v, i, a) => {
-      v.date = Date.parse(v.date);
+      let str = v.date+'';
+      v.date=new Date(str.slice(0, 19));
     });
     setMessageList(data);
     console.log("来消息了", data);
@@ -67,12 +68,7 @@ function TalkView(props) {
             return (
               <li key={v.id + v.index}>
                 <Fade bottom>
-                  <CardLayout theme={theme}>
-                    内容:{v.info}
-                    <br /> 发送者:{v.id}
-                    <br /> 时间:{v.date} <br />
-                    缓存索引:{v.index}
-                  </CardLayout>
+                  <MessageBubble {...v} />
                 </Fade>
               </li>
             );
@@ -90,6 +86,7 @@ const ContainerStyled = styled(Container)`
   li {
     list-style: none;
   }
+  overflow-y: clip;
 `;
 
 export default TalkView;

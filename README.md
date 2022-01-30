@@ -1,9 +1,9 @@
 # 桂电课程表 (Cours Web)   
 
-关键词:Cours桂电课程表\ios支持,简单易用的桂电课表应用Web方案.
-相关技术:react\node\socketio soon...
-使用方式 `ios/ipad:webclip` 或 `Browser`  
-预览 https://cours.vercel.app 
+关键词:Cours桂电课程表\ios支持,简单易用的桂电课表应用Web方案.  
+相关技术:react\node\socketio soon...  
+使用方式 `ios/ipad:webclip` 或 `Browser`    
+预览 https://cours.vercel.app   
 
 ### 前端构建  
 

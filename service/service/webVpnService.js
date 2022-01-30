@@ -768,15 +768,15 @@ function service(callback, username, password) {
     init(); //开始执行
 }
 
-(() => {
-    const {
-        username,
-        password
-    } = setting('1901420313', '');
-    //代理请求服务
-    service((result) => {
-        console.log("测试完毕");
-    }, username, password);
-})();
+// (() => {
+//     const {
+//         username,
+//         password
+//     } = setting('1901420313', '');
+//     //代理请求服务
+//     service((result) => {
+//         console.log("测试完毕");
+//     }, username, password);
+// })();
 
 module.exports = service;

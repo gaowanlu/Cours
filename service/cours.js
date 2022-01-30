@@ -5,7 +5,9 @@ const url = require('url')
 const checkContentType = require('./utils/checkContentType');
 const requestJson = require('./utils/requestJson');
 const https = require('https');
+const http = require('http');
 const fs = require('fs');
+const HTTPS = true; //https开关
 
 const OPTIONS_SSL = {
     pfx: fs.readFileSync('./linkway.site.pfx'),
@@ -13,10 +15,76 @@ const OPTIONS_SSL = {
 }
 
 /*创建http server*/
-const app = https.createServer(OPTIONS_SSL);
+const server = HTTPS ? https.createServer(OPTIONS_SSL) : http.createServer();
+const server_talk = HTTPS ? https.createServer(OPTIONS_SSL) : http.createServer();
+
+/*创建服务端socket.io*/
+const io = require('socket.io')(server_talk, {
+    allowEIO3: true,
+    cors: {
+        origin: "*", // refer
+        methods: ["GET", "POST"]
+    }
+});
+
+/*消息缓存队列*/
+const Message = {
+    queue: [],
+    store(data) {
+        data.index = Counter.add();
+        data.date = new Date().toISOString();
+        this.queue.push(data);
+        if (this.queue.length > 50) {
+            this.queue.shift(); //大于50则删除头部元素
+        }
+    }
+};
+
+/**
+ *计数器
+ */
+const Counter = {
+    now: 0,
+    add() {
+        if (this.now > 110) {
+            this.now = 0;
+        }
+        this.now++;
+        return this.now;
+    }
+};
 
 
-/*代理请求*/
+/*当所有用户建立连接时*/
+io.on('connection', client => {
+    //console.log("用户创建连接", client.id);
+    client.send(Message.queue);
+    //为已经连接的用户注册事件
+    client.on('event', data => {
+        //console.log("事件发生");
+    });
+    client.on('message', data => {
+        try {
+            let dataType = typeof data;
+            if (dataType === 'string') {
+
+            } else {
+                data.id = client.id;
+                Message.store(data);
+                //向所有用户广播消息
+                io.emit("message", Message.queue); //会自动转json
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    });
+    client.on('disconnect', () => {
+        //console.log("用户断开连接");
+    });
+});
+
+
+/*webvpn代理请求*/
 const proxyHTTPSRequest = (res, json) => {
     const {
         username,
@@ -73,7 +141,7 @@ const map = {
 };
 
 /*接收请求配置*/
-app.on('request', (req, res) => {
+server.on('request', (req, res) => {
     //设置允许跨域的域名，*代表允许任意域名跨域
     res.setHeader("Access-Control-Allow-Origin", "*");
     //允许的header类型
@@ -95,6 +163,7 @@ app.on('request', (req, res) => {
 });
 
 /*监听端口*/
-app.listen(5557);
+server.listen(5557); //webvpn
+server_talk.listen(5558); //talk
 
-console.log(`Cours Server Run On https port 5557`);
+console.log(`Cours Server Run On port 5557 and 5558`);

@@ -52,7 +52,7 @@ function MoreView() {
     { Icon: InfoIcon, text: "个人信息", to: "/selfInfo" },
     { Icon: ScoreIcon, text: "成绩查询", to: "/score" },
     { Icon: AssignmentTurnedInIcon, text: "考试安排", to: "/exam" },
-    { Icon: ChatIcon, text: "在线交流", to: "/talk" },
+    { Icon: ChatIcon, text: "Messager", to: "/talk" },
   ];
   /*选择列表2*/
   const card2 = [

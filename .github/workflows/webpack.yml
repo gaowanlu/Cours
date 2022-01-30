@@ -21,8 +21,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-
+        registry-url: https://registry.npmjs.org/
+        
     - name: Build
       run: |
-        npm install --registry=https://registry.npm.taobao.org
+        npm install
         npm run build

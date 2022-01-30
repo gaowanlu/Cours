@@ -32,7 +32,7 @@ export default class MessageBubble extends Component {
           </Avatar>
           <UserId>{v.id.toUpperCase()}</UserId>
           <Tooltip title={"你好"} placement="top">
-            <Message info={this.props.info}/>
+            <Message info={this.props.info} />
           </Tooltip>
         </Header>
         <br />
@@ -62,6 +62,7 @@ const MessageContainer = styled.div`
   margin-top: 10px;
   padding: 0.5rem;
   position: relative;
+  word-break: break-word;
   &::after {
     content: "";
     width: 0;

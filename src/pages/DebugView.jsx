@@ -28,7 +28,7 @@ function DebugView(props) {
         className="animate__animated animate__fadeInRight animate__faster"
       >
         <Header title="考试安排" size={0} />
-        <Header title="共4项任务" size={1} />
+        <Header title="待办" size={1} />
         <Scroll>
           <Item theme={theme}>
             <CourseName>线性代数</CourseName>
@@ -119,15 +119,14 @@ const Scroll = styled.div`
   }
   margin-bottom: 3rem;
   position: relative;
-  left: -0.3rem;
-  padding-top: 1.5rem;
+  padding-top: 0.7rem;
   padding-bottom: 1.5rem;
   /* flex-wrap: wrap; */
 `;
 
 const Item = styled.section`
-  width: 16rem;
-  height: 300px;
+  width: 14rem;
+  height: 16rem;
   max-width: 80%;
   background-color: ${(props) => props.theme.color.frontBackground};
   flex: none;
@@ -138,8 +137,8 @@ const Item = styled.section`
   box-shadow: ${(props) => props.theme.box.boxShadow};
   cursor: pointer;
   &:hover {
-    transform: scale(1.05) rotate(-5deg);
-    transition: transform 200ms ease-in;
+    transform: scale(1.05);
+    transition: transform 200ms ease-in-out;
   }
   position: relative;
 `;
@@ -161,7 +160,7 @@ const DeadLine = styled.p`
   font-size: 3rem;
   font-weight: bold;
   text-align: center;
-  line-height: 8rem;
+  line-height: 5rem;
 `;
 
 const ExamLocation = styled.p`
@@ -176,10 +175,21 @@ const ItemFooter = styled.div`
   right: 0;
   bottom: 0;
   width: auto;
-  height: 4rem;
-  background-color: #52515128;
+  height: 2rem;
+  background-color: var(--color-primary);
   border-bottom-right-radius: 1rem;
   border-bottom-left-radius: 1rem;
+  background: #f12711; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #f5af19,
+    #f12711
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #fcd279,
+    #ff7161
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 `;
 
 export default DebugView;

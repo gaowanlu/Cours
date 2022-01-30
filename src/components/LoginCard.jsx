@@ -74,7 +74,7 @@ function LoginCard(props) {
   };
   return (
     <div>
-      <Title>芜湖起飞</Title>
+      <Title>更新数据</Title>
       <Content>
         <UserNameInput
           required

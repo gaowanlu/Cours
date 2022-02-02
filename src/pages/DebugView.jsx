@@ -125,19 +125,18 @@ const Scroll = styled.div`
   @media screen and (min-width: 1000px) {
     flex-wrap: wrap;
   }
-  @media screen and (max-width: 999px) {
-    &::-webkit-scrollbar {
-      height: 0px;
-    }
+  &::-webkit-scrollbar {
+    height: 0px;
   }
 `;
 
 const Item = styled.section`
-  width: 14rem;
+  min-width: 14rem;
   height: 16rem;
-  max-width: 80%;
+  min-height: 13vw;
+  max-width: 50%;
   background-color: ${(props) => props.theme.color.frontBackground};
-  flex: none;
+  flex: 1;
   border-radius: 1rem;
   scroll-snap-align: start;
   padding: 1rem;
@@ -156,7 +155,7 @@ const Item = styled.section`
     `rgba(${props.background[0]},${props.background[1]},${props.background[2]},70%);`};
   color: #fafafa;
   background: radial-gradient(
-      ellipse at top,
+      circle at top,
       ${(props) =>
         `rgba(${props.background[0]},${props.background[1]},${props.background[2]},70%)`},
       transparent

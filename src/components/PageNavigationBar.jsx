@@ -15,8 +15,8 @@ function PageNavigationBar(props) {
   };
   return (
     <React.Fragment>
-      <Container theme={props.theme}>
-        <BackIconBox onClick={backEvent} theme={props.theme}>
+      <Container>
+        <BackIconBox onClick={backEvent}>
           <ArrowBackIosNewIcon sx={{ fontSize: "1.3rem" }} />
           <span>{props.backTitle}</span>
         </BackIconBox>
@@ -37,15 +37,8 @@ const Container = styled.div`
   z-index: 10;
   display: flex;
   align-items: center;
-  ${(props) => {
-    return props.theme && props.theme.color
-      ? `
-        background-color:${props.theme.color.background};
-        box-shadow:${props.theme.box.boxShadow};
-        color:${props.theme.color.color}
-    `
-      : null;
-  }}
+  box-shadow: var(--box-shadow);
+  color: var(--color-color);
 `;
 
 const Title = styled.div`
@@ -72,7 +65,7 @@ const BackIconBox = styled.button`
     /* vertical-align: baseline; */
   }
   border: 0;
-  background-color: ${(props) => props.theme.color.background};
+  background-color: var(--color-background);
 `;
 
 export default PageNavigationBar;

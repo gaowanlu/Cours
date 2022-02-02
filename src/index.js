@@ -9,6 +9,7 @@ import 'animate.css';
 import {
   BrowserRouter
 } from 'react-router-dom';
+import themeLoad from './utils/themeLoad';
 
 ReactDOM.render(
   // <React.StrictMode>
@@ -20,3 +21,5 @@ ReactDOM.render(
   // </React.StrictMode>,
   document.getElementById('root')
 );
+
+themeLoad("store");

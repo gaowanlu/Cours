@@ -3,7 +3,6 @@ import { Header, Container } from "./MoreView";
 import CardLayout from "../components/CardLayout";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { selectTheme } from "../features/theme/themeSlice";
 import LogoPNG from "../assets/png/logo.png";
 import InfoList from "../components/InfoList";
 import PageNavigationBar from "../components/PageNavigationBar";
@@ -19,45 +18,28 @@ import Fade from "react-reveal/Fade";
  * @returns
  */
 function AboutUsView() {
-  const theme = useSelector(selectTheme);
   let projectInfoList = useSelector(selectProjectInfoList);
   let wishInfoList = useSelector(selectWishInfoList);
   let concatList = useSelector(selectInfoList);
   return (
     <React.Fragment>
       {/*导航栏*/}
-      <PageNavigationBar
-        theme={theme}
-        title="关于我们"
-        backTitle="更多"
-        backPath="/more"
-      />
-      <Container
-        theme={theme}
-        className="animate__animated animate__fadeInRight animate__faster"
-      >
+      <PageNavigationBar title="关于我们" backTitle="更多" backPath="/more" />
+      <Container className="animate__animated animate__fadeInRight animate__faster">
         <Header title="关于我们" size={0} />
         <Fade bottom>
-          <CardLayout theme={theme}>
+          <CardLayout>
             <LogoContainer>
               <img src={LogoPNG} alt="" />
               <p>Cours 桂电课程表</p>
             </LogoContainer>
           </CardLayout>
         </Fade>
-        <Fade bottom>
-          <InfoList {...projectInfoList} theme={theme} bottomAlert="" />
-        </Fade>
-        <Fade bottom>
-          <InfoList {...wishInfoList} theme={theme} bottomAlert="" />
-        </Fade>
-        <Fade bottom>
-          <InfoList {...concatList[0]} theme={theme} bottomAlert="" />
-        </Fade>
 
-        <Fade bottom>
-          <InfoList {...concatList[1]} theme={theme} bottomAlert="" />
-        </Fade>
+        <InfoList {...projectInfoList} bottomAlert="" />
+        <InfoList {...wishInfoList} bottomAlert="" />
+        <InfoList {...concatList[0]} bottomAlert="" />
+        <InfoList {...concatList[1]} bottomAlert="" />
       </Container>
     </React.Fragment>
   );

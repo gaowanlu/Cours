@@ -82,7 +82,7 @@ function WeekTable(props) {
     props.courseClick(e,item);
   }
   return (
-    <Card theme={props.theme}>
+    <Card>
       {colTags.map((item) => {
         return (
           <ColTagBox style={item.style} key={item.id}>
@@ -124,11 +124,7 @@ const Card = styled.div`
   height: calc(100vh - 7rem);
   overflow: hidden;
   position: relative;
-  ${(props) => {
-    return props.theme.color !== undefined
-      ? `background-color: ${props.theme.color.frontBackground}`
-      : null;
-  }}
+  background-color: var(--color-background-front);
 `;
 const ColTagBox = styled.div`
   position: absolute;

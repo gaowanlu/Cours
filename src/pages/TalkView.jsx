@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "./MoreView";
-import { useSelector } from "react-redux";
-import { selectTheme } from "../features/theme/themeSlice";
 import PageNavigationBar from "../components/PageNavigationBar";
 import styled from "styled-components";
 import { io } from "socket.io-client";
@@ -16,7 +13,6 @@ import stringHashRGB from "../utils/stringHashRGB.ts";
  * @returns
  */
 function TalkView(props) {
-  const theme = useSelector(selectTheme);
   const [messageList, setMessageList] = useState([]);
   const [socket, setSocket] = useState(undefined);
   useEffect(() => {
@@ -55,16 +51,8 @@ function TalkView(props) {
   return (
     <React.Fragment>
       {/*导航栏*/}
-      <PageNavigationBar
-        theme={theme}
-        title="信使服务"
-        backTitle="更多"
-        backPath="/more"
-      />
-      <ContainerStyled
-        theme={theme}
-        className="animate__animated animate__fadeInRight animate__faster"
-      >
+      <PageNavigationBar title="信使服务" backTitle="更多" backPath="/more" />
+      <ContainerStyled className="animate__animated animate__fadeInRight animate__faster">
         <ul>
           {messageList.map((v, i) => {
             return (
@@ -77,18 +65,21 @@ function TalkView(props) {
           })}
         </ul>
       </ContainerStyled>
-      <MessageSender theme={theme} send={sendHandle} />
+      <MessageSender send={sendHandle} />
     </React.Fragment>
   );
 }
 
-const ContainerStyled = styled(Container)`
+const ContainerStyled = styled.div`
   margin-bottom: 4rem;
-  padding-top: 0;
   li {
     list-style: none;
   }
   overflow-y: clip;
+  padding: 0.7rem;
+  padding-top: 0;
+  background-color: var(--color-background);
+  color: var(--color-color);
 `;
 
 export default TalkView;

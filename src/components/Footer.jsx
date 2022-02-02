@@ -40,7 +40,7 @@ function FooterIconConfig(props) {
 function Footer(props) {
   let fill = props.fill;
   return (
-    <Container theme={props.theme}>
+    <Container>
       <Row>
         <Tooltip title="日课表" placement="top">
           <IconBox>
@@ -64,15 +64,15 @@ function Footer(props) {
 
 const Container = styled.footer`
   height: 4rem;
-  background-color: ${(props) => props.theme.color.background};
-  color: ${(props) => props.theme.color.color};
+  background-color: var(--color-background);
+  color: var(--color-color);
   position: fixed;
   width: 100vw;
   bottom: 0;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  box-shadow: ${(props) => props.theme.box.boxShadow};
+  box-shadow: var(--box-shadow);
 `;
 
 const Row = styled.div`

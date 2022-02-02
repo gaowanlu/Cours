@@ -11,7 +11,7 @@ function PlanCard(props) {
     props.onClick("show", props);
   };
   return (
-    <Card onClick={cardClick} theme={props.theme}>
+    <Card onClick={cardClick}>
       <p>
         {props.seq} {props.cname}
       </p>
@@ -32,13 +32,8 @@ const Card = styled.div`
   box-shadow: 0px 0px 10px 1px #f0f0f0;
   /* font-weight: bold; */
   cursor: pointer;
-  ${(props) => {
-    return props.theme && props.theme.color
-      ? `background-color: ${props.theme.color.frontBackground};
-         color:${props.theme.color.color};
-         box-shadow: ${props.theme.box.boxShadow};
-         `
-      : "";
-  }}
+  background-color: var(--color-background-front);
+  color: var(--color-color);
+  box-shadow: var(--box-shadow);
 `;
 export default PlanCard;

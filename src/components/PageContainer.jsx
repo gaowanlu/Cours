@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 /*页面root container*/
 function PageContainer(props) {
-  return <Container {...props}>{props.children}</Container>;
+  return <Container>{props.children}</Container>;
 }
 
 const Container = styled.div`
@@ -14,14 +14,8 @@ const Container = styled.div`
   box-sizing: border-box;
   padding: 0.7rem;
   padding-top: 2rem;
-  ${(props) => {
-    return props.theme.color
-      ? `
-      background-color: ${props.theme.color.background};
-      color: ${props.theme.color.color};
-  `
-      : null;
-  }}
+  background-color: var(--color-background);
+  color: var(--color-color);
 `;
 
 export default PageContainer;

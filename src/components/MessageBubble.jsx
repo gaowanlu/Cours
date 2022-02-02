@@ -22,7 +22,7 @@ export default class MessageBubble extends Component {
   render() {
     const v = this.props;
     return (
-      <CardLayoutStyled theme={this.props.theme}>
+      <CardLayoutStyled>
         <Header>
           <Avatar
             sx={{

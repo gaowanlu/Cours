@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Header, Container } from "./MoreView";
-import { useSelector } from "react-redux";
-import { selectTheme } from "../features/theme/themeSlice";
 import Slider from "@mui/material/Slider";
 import InfoList from "../components/InfoList";
 import courseBase from "../data/courseBase";
@@ -31,7 +29,6 @@ function listCreator(title, content) {
  * @returns
  */
 function DateSettingView() {
-  const theme = useSelector(selectTheme);
   const [year, setYear] = useState(parseInt(courseBase.nowYear()));
   const [term, setTerm] = useState(parseInt(courseBase.nowTerm()));
   const [week, setWeek] = useState(parseInt(courseBase.nowWeek()));
@@ -64,29 +61,26 @@ function DateSettingView() {
     <React.Fragment>
       {/*导航栏*/}
       <PageNavigationBar
-        theme={theme}
         title="日期设置"
         backTitle="更多"
         backPath="/more"
       />
       <Container
-        theme={theme}
         className="animate__animated animate__fadeInRight animate__faster"
       >
         <Header title={"时间设置"} />
         {/*自动校准开关*/}
         <SwitchCard
           title={"自动校准"}
-          theme={theme}
           checked={checked}
           onChange={handleChange}
         />
         {/*周调整*/}
-        <InfoList {...weekList} theme={theme} bottomAlert="" />
+        <InfoList {...weekList}  bottomAlert="" />
         {/*学期调整*/}
-        <InfoList {...termList} theme={theme} bottomAlert="" />
+        <InfoList {...termList}  bottomAlert="" />
         {/*年调整*/}
-        <InfoList {...yearList} theme={theme} bottomAlert="" />
+        <InfoList {...yearList} bottomAlert="" />
       </Container>
     </React.Fragment>
   );

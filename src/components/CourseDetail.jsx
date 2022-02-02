@@ -9,7 +9,7 @@ import GrassIcon from "@mui/icons-material/Grass";
  */
 function CourseDetail(props) {
   return (
-    <Container theme={props.theme}>
+    <Container>
       <GrassIcon
         sx={{
           color: "var(--color-primary)",
@@ -45,9 +45,9 @@ const Container = styled.section`
   border-radius: 0.8rem;
   padding: 0.5rem;
   margin-bottom: 1rem;
-  background: ${(props) => props.theme.color.frontBackground};
-  color: ${(props) => props.theme.color.color};
-  box-shadow: ${(props) => props.theme.box.boxShadow};
+  background: var(--color-background-front);
+  color: var(--color-color);
+  box-shadow: var(--box-shadow);
 `;
 const CourseName = styled.p`
   font-size: 1.2rem;

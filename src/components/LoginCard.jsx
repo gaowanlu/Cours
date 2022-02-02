@@ -98,7 +98,7 @@ function LoginCard(props) {
         {/*登录按钮*/}
         <SubmitButton onClick={clickHandle}>起飞</SubmitButton>
         {/*modal*/}
-        {modalOpen && <LoginModal theme={props.theme} />}
+        {modalOpen && <LoginModal/>}
         {/*alert提示*/}
         {alertOpen.open && (
           <UpdateResultAlert severity={alertOpen.type}>

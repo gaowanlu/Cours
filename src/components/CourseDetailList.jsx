@@ -45,18 +45,18 @@ const listTest = [
 function CourseDetailList(props) {
   const list = props.list ? props.list : listTest;
   return (
-    <Container {...props}>
+    <Container>
       <Title>任务详情</Title>
       {list &&
         list.map((v, i, self) => {
-          return <CourseDetail theme={props.theme} {...v} key={v.courseNo} />;
+          return <CourseDetail {...v} key={v.courseNo} />;
         })}
     </Container>
   );
 }
 
 const Container = styled.div`
-  color: ${(props) => props.theme.color.color};
+  color: var(--color-color);
 `;
 const Title = styled.p`
   font-size: 1.5rem;

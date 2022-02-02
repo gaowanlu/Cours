@@ -27,8 +27,8 @@ function DialogWindow(props) {
   return (
     <Container>
       <ClickAwayListener onClickAway={clickEvent}>
-        <Card className={windowClass} theme={props.theme}>
-          <WhiteSpace theme={props.theme} />
+        <Card className={windowClass}>
+          <WhiteSpace />
           {props.children}
         </Card>
       </ClickAwayListener>
@@ -65,11 +65,7 @@ const Card = styled.div`
   overflow-x: hidden;
   overflow-y: auto;
   text-align: justify;
-  ${(props) => {
-    return props.theme.color !== undefined
-      ? `background-color: ${props.theme.color.background}`
-      : "";
-  }}
+  background-color: var(--color-background);
 `;
 
 const WhiteSpace = styled.div`
@@ -79,11 +75,7 @@ const WhiteSpace = styled.div`
   position: sticky;
   top: 0;
   z-index: 99999;
-  ${(props) => {
-    return props.theme.color !== undefined
-      ? `background-color: ${props.theme.color.background}`
-      : "";
-  }}
+  background-color: var(--color-background);
 `;
 
 export default DialogWindow;

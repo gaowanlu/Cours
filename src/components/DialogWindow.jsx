@@ -40,12 +40,11 @@ const Container = styled.div`
   width: 100%;
   height: 100vh;
   position: fixed;
-  z-index: 9999;
+  z-index: 997;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  /* background: rgba(255, 255, 255, 0.25); */
   backdrop-filter: blur(3px);
   padding: 0.5rem;
   box-sizing: border-box;
@@ -74,7 +73,7 @@ const WhiteSpace = styled.div`
   background-color: #ffffff;
   position: sticky;
   top: 0;
-  z-index: 99999;
+  z-index: 999;
   background-color: var(--color-background);
 `;
 

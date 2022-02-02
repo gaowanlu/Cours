@@ -6,7 +6,6 @@ import PageNavigationBar from "../components/PageNavigationBar";
 import courseBase from "./../data/courseBase";
 import styled from "styled-components";
 import stringHashRGB from "./../utils/stringHashRGB.ts";
-
 /**
  * 组件调试界面
  * @returns
@@ -36,8 +35,9 @@ function DebugView(props) {
             <ExamTime>2022年1月3日</ExamTime>
             <ExamLocation>教室 16203*</ExamLocation>
             <DeadLine>1天</DeadLine>
-            <ItemFooter></ItemFooter>
+            <ItemFooter></ItemFooter>{" "}
           </Item>
+
           <Item theme={theme} background={stringHashRGB("数据结构与算法")}>
             <CourseName>数据结构与算法</CourseName>
             <ExamTime>2022年1月3日</ExamTime>
@@ -45,6 +45,7 @@ function DebugView(props) {
             <DeadLine>1天</DeadLine>
             <ItemFooter></ItemFooter>
           </Item>
+
           <Item theme={theme} background={stringHashRGB("机器学习")}>
             <CourseName>机器学习</CourseName>
             <ExamTime>2022年1月3日</ExamTime>
@@ -128,12 +129,12 @@ const Scroll = styled.div`
   &::-webkit-scrollbar {
     height: 0px;
   }
+  scrollbar-width: none;
 `;
 
 const Item = styled.section`
   min-width: 14rem;
   height: 16rem;
-  min-height: 13vw;
   max-width: 50%;
   background-color: ${(props) => props.theme.color.frontBackground};
   flex: 1;
@@ -150,6 +151,7 @@ const Item = styled.section`
   position: relative;
   @media screen and (min-width: 1000px) {
     margin-top: 1rem;
+    min-height: 15vw;
   }
   background-color: ${(props) =>
     `rgba(${props.background[0]},${props.background[1]},${props.background[2]},70%);`};

@@ -10,7 +10,6 @@ const MoreView = React.lazy(() => import("./pages/MoreView"));
 const ScoreView = React.lazy(() => import("./pages/ScoreView"));
 const DateSettingView = React.lazy(() => import("./pages/DateSettingView"));
 const AboutUsView = React.lazy(() => import("./pages/AboutUsView"));
-const ConcatUsView = React.lazy(() => import("./pages/ConcatUsView"));
 const ExamView = React.lazy(() => import("./pages/ExamView"));
 const TalkView = React.lazy(() => import("./pages/TalkView"));
 
@@ -27,7 +26,6 @@ function App() {
           <Route exact path="/score" element={<ScoreView />} />
           <Route exact path="/dateSetting" element={<DateSettingView />} />
           <Route exact path="/aboutUs" element={<AboutUsView />} />
-          <Route exact path="/concatUs" element={<ConcatUsView />} />
           <Route exact path="/debug" element={<DebugView />} />
           <Route path="/exam" element={<ExamView />} />
           <Route path="/talk" element={<TalkView />} />

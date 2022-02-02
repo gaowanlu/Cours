@@ -7,7 +7,6 @@ import ScoreIcon from "@mui/icons-material/Score";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import BusinessIcon from "@mui/icons-material/Business";
-import EmailIcon from "@mui/icons-material/Email";
 import { useSelector, useDispatch } from "react-redux";
 import { selectTheme, darkModeChange } from "../features/theme/themeSlice";
 import store from "../app/store";
@@ -52,7 +51,7 @@ function MoreView() {
     { Icon: InfoIcon, text: "个人信息", to: "/selfInfo" },
     { Icon: ScoreIcon, text: "成绩查询", to: "/score" },
     { Icon: AssignmentTurnedInIcon, text: "考试安排", to: "/exam" },
-    { Icon: ChatIcon, text: "Messager", to: "/talk" },
+    { Icon: ChatIcon, text: "信使服务", to: "/talk" },
   ];
   /*选择列表2*/
   const card2 = [
@@ -67,7 +66,6 @@ function MoreView() {
     },
     { Icon: DateRangeIcon, text: "时间设置", to: "/dateSetting" },
     { Icon: BusinessIcon, text: "关于我们", to: "/aboutUs" },
-    { Icon: EmailIcon, text: "联系我们", to: "/concatUs" },
   ];
 
   return (

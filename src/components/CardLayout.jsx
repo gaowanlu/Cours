@@ -11,7 +11,7 @@ const Card = styled.section`
   padding: 1rem;
   box-shadow: 0px 0px 10px 2px #97969628;
   margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
   ${(props) => {
     return props.theme.color
       ? `

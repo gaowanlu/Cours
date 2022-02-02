@@ -42,7 +42,7 @@ const Container = styled.section`
   }
   background: #f8f1efea; /* fallback for old browsers */
   color: #2b2a2a;
-  border-radius: 0.6rem;
+  border-radius: 0.8rem;
   padding: 0.5rem;
   margin-bottom: 1rem;
   background: ${(props) => props.theme.color.frontBackground};
@@ -66,7 +66,7 @@ const Row = styled.li`
     left: 2rem;
     right: 0.5rem;
     bottom: 0rem;
-    border-bottom: 1px solid #7c7c7c4e;
+    border-bottom: 1px solid #7c7c7c2b;
   }
   font-weight: lighter;
   margin-bottom: 0.5rem;

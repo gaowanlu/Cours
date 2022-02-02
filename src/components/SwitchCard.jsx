@@ -10,7 +10,7 @@ import CardLayout from "./CardLayout";
  */
 function SwitchCard(props) {
   return (
-    <CardLayout theme={props.theme}>
+    <CardLayout>
       <SwitchBox>
         <span>{props.title}</span>
         <SwitchStyled checked={props.checked} onChange={props.onChange} />

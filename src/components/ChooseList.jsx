@@ -10,7 +10,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
  */
 function ChooseList(props) {
   return (
-    <List theme={props.theme}>
+    <List>
       {props.list.map((item) => {
         let Icon = item.Icon;
         return (
@@ -35,19 +35,19 @@ const List = styled.ul`
   li {
     list-style: none;
     display: flex;
-    background-color: ${(props) => props.theme.color.background};
+    background-color: var(--color-background);
     margin-top: 5px;
     cursor: pointer;
     border-radius: 0.5rem;
     padding: 0.4rem 0px 0.4rem 0px;
     &:hover {
       background-color: #e9e8e8;
-      color:#1d1d1f;
+      color: #1d1d1f;
     }
     transition-duration: 0.2s;
   }
   a {
-    color: ${(props) => props.theme.color.color};
+    color: var(--color-color);
     text-decoration: none;
   }
 `;

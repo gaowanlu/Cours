@@ -4,7 +4,7 @@ import styled from "styled-components";
 function MessageSender(props) {
   const [input, setInput] = useState("");
   return (
-    <Container theme={props.theme}>
+    <Container>
       <form>
         <input
           value={input}
@@ -34,7 +34,7 @@ const Container = styled.div`
   left: 0;
   right: 0;
   height: 4rem;
-  background-color: ${(props) => props.theme.color.background};
+  background-color: var(--color-background);
   form {
     width: 100%;
     height: 100%;
@@ -52,8 +52,8 @@ const Container = styled.div`
       &:focus {
         outline-color: var(--color-primary);
       }
-      background-color: ${(props) => props.theme.color.frontBackground};
-      color: ${(props) => props.theme.color.color};
+      background-color: var(--color-background-front);
+      color: var(--color-color);
     }
     button {
       height: 2.5rem;

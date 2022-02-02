@@ -1,7 +1,5 @@
 import React from "react";
 import { Header, Container } from "./MoreView";
-import { useSelector } from "react-redux";
-import { selectTheme } from "../features/theme/themeSlice";
 import PageNavigationBar from "../components/PageNavigationBar";
 import courseBase from "./../data/courseBase";
 import styled from "styled-components";
@@ -11,26 +9,17 @@ import stringHashRGB from "./../utils/stringHashRGB.ts";
  * @returns
  */
 function DebugView(props) {
-  const theme = useSelector(selectTheme);
   const examList = courseBase.examList().data;
   console.log(examList);
   return (
     <React.Fragment>
       {/*导航栏*/}
-      <PageNavigationBar
-        theme={theme}
-        title="考试安排"
-        backTitle="更多"
-        backPath="/more"
-      />
-      <Container
-        theme={theme}
-        className="animate__animated animate__fadeInRight animate__faster"
-      >
+      <PageNavigationBar title="考试安排" backTitle="更多" backPath="/more" />
+      <Container className="animate__animated animate__fadeInRight animate__faster">
         <Header title="考试安排" size={0} />
         <Header title="待办" size={1} />
         <Scroll>
-          <Item theme={theme} background={stringHashRGB("线性代数")}>
+          <Item background={stringHashRGB("线性代数")}>
             <CourseName>线性代数</CourseName>
             <ExamTime>2022年1月3日</ExamTime>
             <ExamLocation>教室 16203*</ExamLocation>
@@ -38,7 +27,7 @@ function DebugView(props) {
             <ItemFooter></ItemFooter>{" "}
           </Item>
 
-          <Item theme={theme} background={stringHashRGB("数据结构与算法")}>
+          <Item background={stringHashRGB("数据结构与算法")}>
             <CourseName>数据结构与算法</CourseName>
             <ExamTime>2022年1月3日</ExamTime>
             <ExamLocation>教室 16203*</ExamLocation>
@@ -46,14 +35,14 @@ function DebugView(props) {
             <ItemFooter></ItemFooter>
           </Item>
 
-          <Item theme={theme} background={stringHashRGB("机器学习")}>
+          <Item background={stringHashRGB("机器学习")}>
             <CourseName>机器学习</CourseName>
             <ExamTime>2022年1月3日</ExamTime>
             <ExamLocation>教室 16203*</ExamLocation>
             <DeadLine>1天</DeadLine>
             <ItemFooter></ItemFooter>
           </Item>
-          <Item theme={theme} background={stringHashRGB("高等数学")}>
+          <Item background={stringHashRGB("高等数学")}>
             <CourseName>高等数学</CourseName>
             <ExamTime>2022年1月3日</ExamTime>
             <ExamLocation>教室 16203*</ExamLocation>
@@ -63,35 +52,35 @@ function DebugView(props) {
         </Scroll>
         <Header title="已完成" size={1} />
         <Scroll>
-          <Item theme={theme} background={stringHashRGB("线性代数")}>
+          <Item background={stringHashRGB("线性代数")}>
             <CourseName>线性代数</CourseName>
             <ItemFooter></ItemFooter>
           </Item>
-          <Item theme={theme} background={stringHashRGB("概率论与数理统计")}>
+          <Item background={stringHashRGB("概率论与数理统计")}>
             <CourseName>概率论与数理统计</CourseName>
             <ItemFooter></ItemFooter>
           </Item>
-          <Item theme={theme} background={stringHashRGB("高等数学")}>
+          <Item background={stringHashRGB("高等数学")}>
             <CourseName>高等数学</CourseName>
             <ItemFooter></ItemFooter>
           </Item>
-          <Item theme={theme} background={stringHashRGB("数据结构与算法")}>
+          <Item background={stringHashRGB("数据结构与算法")}>
             <CourseName>数据结构与算法</CourseName>
             <ItemFooter></ItemFooter>
           </Item>
-          <Item theme={theme} background={stringHashRGB("线性代数")}>
+          <Item background={stringHashRGB("线性代数")}>
             <CourseName>线性代数</CourseName>
             <ItemFooter></ItemFooter>
           </Item>
-          <Item theme={theme} background={stringHashRGB("概率论与数理统计")}>
+          <Item background={stringHashRGB("概率论与数理统计")}>
             <CourseName>概率论与数理统计</CourseName>
             <ItemFooter></ItemFooter>
           </Item>
-          <Item theme={theme} background={stringHashRGB("高等数学")}>
+          <Item background={stringHashRGB("高等数学")}>
             <CourseName>高等数学</CourseName>
             <ItemFooter></ItemFooter>
           </Item>
-          <Item theme={theme} background={stringHashRGB("数据结构与算法")}>
+          <Item background={stringHashRGB("数据结构与算法")}>
             <CourseName>数据结构与算法</CourseName>
             <ItemFooter></ItemFooter>
           </Item>
@@ -109,16 +98,6 @@ const Scroll = styled.div`
   display: flex;
   scroll-snap-type: x mandatory;
   align-items: center;
-  /* &::-webkit-scrollbar {
-    height: 6px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: var(--color-primary);
-    border-radius: 3px;
-    &:hover {
-      background: #3b76b1;
-    }
-  } */
   margin-bottom: 3rem;
   position: relative;
   padding-top: 0.7rem;
@@ -136,13 +115,13 @@ const Item = styled.section`
   min-width: 14rem;
   height: 16rem;
   max-width: 50%;
-  background-color: ${(props) => props.theme.color.frontBackground};
+  background-color: var(--color-background-front);
   flex: 1;
   border-radius: 1rem;
   scroll-snap-align: start;
   padding: 1rem;
   margin: 0rem 1rem;
-  box-shadow: ${(props) => props.theme.box.boxShadow};
+  box-shadow: var(--box-shadow);
   cursor: pointer;
   &:hover {
     transform: scale(1.05);

@@ -7,8 +7,8 @@ import ScoreIcon from "@mui/icons-material/Score";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import BusinessIcon from "@mui/icons-material/Business";
-import { useSelector, useDispatch } from "react-redux";
-import { selectTheme, darkModeChange } from "../features/theme/themeSlice";
+import { useDispatch } from "react-redux";
+import { themeChange } from "../features/theme/themeSlice";
 import store from "../app/store";
 import LoginCard from "../components/LoginCard";
 import SwitchCard from "../components/SwitchCard";
@@ -25,17 +25,13 @@ function MoreView() {
   //深色模式开关回调
   const handleChange = (event) => {
     setChecked(event.target.checked);
-    /*store.theme update*/
-    dispatch(darkModeChange()); //深色模式开启
+    dispatch(themeChange()); //模式切换
   };
 
   useEffect(() => {
     /*加载深色模式状态*/
-    setChecked(store.getState().theme.darkMode);
+    setChecked(store.getState().theme.theme_name === "dark"); //加载现在是否为深色模式
   }, []);
-
-  /*获取主题配置*/
-  const theme = useSelector(selectTheme);
 
   /*弹窗关闭回调*/
   const dialogClose = (name) => {
@@ -71,29 +67,20 @@ function MoreView() {
   return (
     <React.Fragment>
       {/*导航栏*/}
-      <PageNavigationBar
-        theme={theme}
-        title="更多"
-        backTitle="日课表"
-        backPath="/"
-      />
-      <PageContainer
-        theme={theme}
-        className="animate__animated animate__zoomIn animate__faster"
-      >
+      <PageNavigationBar title="更多" backTitle="日课表" backPath="/" />
+      <PageContainer className="animate__animated animate__zoomIn animate__faster">
         {/*头部*/}
         <PageHeader title={"更多"} />
         {/*卡片1*/}
-        <Card theme={theme}>
-          <ChooseList list={card1} theme={theme} />
+        <Card>
+          <ChooseList list={card1} />
         </Card>
         {/*卡片2*/}
-        <Card theme={theme}>
-          <ChooseList list={card2} theme={theme} />
+        <Card>
+          <ChooseList list={card2} />
         </Card>
         {/*卡片3*/}
         <SwitchCard
-          theme={theme}
           checked={checked}
           onChange={handleChange}
           title="深色模式"
@@ -101,12 +88,11 @@ function MoreView() {
         {/*更新数据弹窗*/}
         {updateDataDialogShow && (
           <DialogWindow
-            theme={theme}
             close={() => {
               dialogClose("updateData");
             }}
           >
-            <LoginCard theme={theme} />
+            <LoginCard />
           </DialogWindow>
         )}
       </PageContainer>
@@ -116,10 +102,10 @@ function MoreView() {
 
 const Card = styled.div`
   border-radius: 12px;
-  background-color: ${(props) => props.theme.color.frontBackground};
+  background-color: var(--color-background-front);
   padding: 1rem;
   margin: 2rem 0px 2rem 0px;
-  box-shadow: ${(props) => props.theme.box.boxShadow};
+  box-shadow: var(--box-shadow);
   li {
     list-style: none;
   }

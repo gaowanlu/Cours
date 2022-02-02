@@ -9,7 +9,7 @@ import Fade from "react-reveal/Fade";
 export default function MyTable(props) {
   const { head, rows } = props;
   return (
-    <Container theme={props.theme}>
+    <Container>
       <ul>
         <li>
           <TableRow>
@@ -38,7 +38,7 @@ export default function MyTable(props) {
 
 const Container = styled.div`
   min-height: 10rem;
-  color: ${(props) => props.theme.color.color};
+  color: var(--color-color);
   li {
     list-style: none;
   }

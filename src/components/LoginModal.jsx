@@ -14,9 +14,7 @@ function LoginModal(props) {
       >
         <Content>
           <CircularProgress />
-          <Title theme={props.theme}>
-            大约8s 请耐心等待 如2min没有成功则请重试
-          </Title>
+          <Title>大约8s 请耐心等待 如2min没有成功则请重试</Title>
         </Content>
       </Modal>
     </div>
@@ -36,13 +34,7 @@ const Title = styled.div`
   width: 100%;
   text-align: center;
   font-size: 1rem;
-  ${(props) => {
-    return props.theme.color
-      ? `
-        color:${props.theme.color.color};
-    `
-      : null;
-  }}
+  color: var(--color-color);
 `;
 
 export default LoginModal;

@@ -9,14 +9,14 @@ import CardLayout from "./CardLayout";
  */
 function InfoList(props) {
   return (
-    <CardLayout theme={props.theme}>
+    <CardLayout>
       <Title>{props.title}</Title>
       {props.rows &&
         props.rows.map((item, index) => {
           return (
             <React.Fragment key={index}>
               <Row>{item.title}</Row>
-              <RowContent theme={props.theme}>{item.content}</RowContent>
+              <RowContent>{item.content}</RowContent>
             </React.Fragment>
           );
         })}
@@ -45,14 +45,8 @@ const RowContent = styled.div`
   transition-duration: 0.2s;
   font-size: 0.9rem;
   line-height: 1.3rem;
-  ${(props) => {
-    return props.theme
-      ? `
-      background-color: ${props.theme.color.background};
-      color:${props.theme.color.color}
-  `
-      : null;
-  }}
+  color: var(--color-color);
+  background-color: var(--color-background);
 `;
 
 const Alter = styled.div`

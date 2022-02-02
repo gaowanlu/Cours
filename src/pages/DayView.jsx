@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import courseBase from "../data/courseBase";
 import PlanCard from "../components/PlanCard";
 import Footer from "../components/Footer";
-import { useSelector } from "react-redux";
-import { selectTheme } from "../features/theme/themeSlice";
 import Fade from "react-reveal/Fade";
 import MoreIcon from "@mui/icons-material/More";
 import Tooltip from "@mui/material/Tooltip";
@@ -13,16 +11,11 @@ import Tooltip from "@mui/material/Tooltip";
 function DayView() {
   /*获取日课表数据*/
   let dayCourses = courseBase.dayViewFormat();
-  /*获取主题配置*/
-  const theme = useSelector(selectTheme);
 
   return (
     <React.Fragment>
-      <Container
-        theme={theme}
-        className="animate__animated animate__slideInLeft animate__faster"
-      >
-        <Title theme={theme}>
+      <Container className="animate__animated animate__slideInLeft animate__faster">
+        <Title>
           <TitleHeader>
             <DateText>
               <strong>{courseBase.nowTime().toString()}</strong>
@@ -40,14 +33,14 @@ function DayView() {
           {dayCourses.map((item, index) => {
             return (
               <Fade bottom key={index}>
-                <PlanCard {...item} theme={theme} />
+                <PlanCard {...item} />
               </Fade>
             ); //key这样写是错误的 但对于此情况 没有关系 无忧状态关联
           })}
         </Content>
       </Container>
       {/* 底部导航栏 */}
-      <Footer fill="table" theme={theme} />
+      <Footer fill="table" />
     </React.Fragment>
   );
 }
@@ -55,14 +48,14 @@ function DayView() {
 const Container = styled.div`
   width: 100%;
   min-height: 100vh;
-  background-color: ${(props) => props.theme.color.background};
+  background-color: var(--color-background);
   margin-bottom: 4rem;
 `;
 
 const Title = styled.div`
   font-size: 2rem;
   font-weight: bold;
-  color: ${(props) => props.theme.color.color};
+  color: var(--color-color);
   height: 5rem;
   padding-left: 1rem;
   padding-top: 2rem;

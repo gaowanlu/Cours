@@ -1,6 +1,7 @@
 import {
     createSlice
 } from '@reduxjs/toolkit';
+import baseInfo from '../../data/baseInfo.json';
 
 const initialState = {
     projectInfoList: {
@@ -15,7 +16,7 @@ const initialState = {
             },
             {
                 title: "版本",
-                content: "v0.0.2"
+                content: baseInfo.version
             },
         ],
     },

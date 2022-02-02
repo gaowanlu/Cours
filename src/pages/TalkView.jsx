@@ -57,7 +57,7 @@ function TalkView(props) {
       {/*导航栏*/}
       <PageNavigationBar
         theme={theme}
-        title="Messager"
+        title="信使服务"
         backTitle="更多"
         backPath="/more"
       />

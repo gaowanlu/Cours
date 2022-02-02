@@ -6,7 +6,7 @@ import PlanCard from "../components/PlanCard";
 import Footer from "../components/Footer";
 import { useSelector } from "react-redux";
 import { selectTheme } from "../features/theme/themeSlice";
-
+import Fade from "react-reveal/Fade";
 import MoreIcon from "@mui/icons-material/More";
 import Tooltip from "@mui/material/Tooltip";
 
@@ -38,7 +38,11 @@ function DayView() {
 
         <Content>
           {dayCourses.map((item, index) => {
-            return <PlanCard {...item} theme={theme} key={index} />; //key这样写是错误的 但对于此情况 没有关系 无忧状态关联
+            return (
+              <Fade bottom key={index}>
+                <PlanCard {...item} theme={theme} />
+              </Fade>
+            ); //key这样写是错误的 但对于此情况 没有关系 无忧状态关联
           })}
         </Content>
       </Container>

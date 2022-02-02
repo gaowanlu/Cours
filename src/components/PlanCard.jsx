@@ -12,11 +12,11 @@ function PlanCard(props) {
   };
   return (
     <Card onClick={cardClick} theme={props.theme}>
-      <div>
+      <p>
         {props.seq} {props.cname}
-      </div>
-      <div>教室 {props.room}</div>
-      <div>讲授 {props.teacher}</div>
+      </p>
+      <p>教室 {props.room}</p>
+      <p>讲授 {props.teacher}</p>
     </Card>
   );
 }
@@ -25,14 +25,15 @@ const Card = styled.div`
   border-radius: 12px;
   margin-bottom: 14px;
   padding: 0.6rem;
-  div {
+  p {
     margin: 0.3rem;
+    line-height: 1.5rem;
   }
   box-shadow: 0px 0px 10px 1px #f0f0f0;
-  font-weight: lighter;
+  /* font-weight: bold; */
   cursor: pointer;
   ${(props) => {
-    return props.theme&&props.theme.color
+    return props.theme && props.theme.color
       ? `background-color: ${props.theme.color.frontBackground};
          color:${props.theme.color.color};
          box-shadow: ${props.theme.box.boxShadow};

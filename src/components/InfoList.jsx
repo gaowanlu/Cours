@@ -32,7 +32,7 @@ const Title = styled.div`
   color: var(--color-primary);
 `;
 const Row = styled.div`
-  margin-top: 1rem;
+  margin-top: 1.3rem;
   padding-bottom: 0.5rem;
   font-size: 1rem;
 `;

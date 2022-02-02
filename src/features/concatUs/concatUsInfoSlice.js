@@ -4,7 +4,7 @@ import {
 
 const initialState = {
     list: [{
-            title: "开发社区",
+            title: "社区",
             rows: [{
                     title: "Github",
                     content: "github.com/gaowanlu"
@@ -16,7 +16,7 @@ const initialState = {
             ],
         },
         {
-            title: "工作",
+            title: "联系我们",
             rows: [{
                     title: "工作邮箱",
                     content: "heizuboriyo@gmail.com"

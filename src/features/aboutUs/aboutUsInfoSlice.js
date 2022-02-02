@@ -6,12 +6,12 @@ const initialState = {
     projectInfoList: {
         title: "开发背景",
         rows: [{
-                title: "开发者",
-                content: "一个桂电软工的菜鸡"
+                title: "开发团队",
+                content: "桂林电子科技大学 Cours Developer Team"
             },
             {
-                title: "愿景",
-                content: "希望让自己写的东西方便大家"
+                title: "目标",
+                content: "开发出易用的工具便于校内同学们使用"
             },
             {
                 title: "版本",
@@ -20,7 +20,7 @@ const initialState = {
         ],
     },
     wishInfoList: {
-        title: "我的愿望",
+        title: "我们希望",
         rows: [{
                 title: "应用使用",
                 content: "这只是一个编码小子写出来的东西，如果您体验较好我非常荣幸，但仍需注意它可能有时会出问题。如上课信息、考试安排大家能够查看教务系统对比，以免误导大家。",

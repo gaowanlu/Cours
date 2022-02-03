@@ -12,10 +12,8 @@ const HTTPS = true; //https开关
 
 
 const OPTIONS_SSL = {
-    // pfx: fs.readFileSync('./linkway.site.pfx'),
-    // passphrase: fs.readFileSync('./keystorePass.txt'),
-    key: fs.readFileSync('SSL/linkway.site.key'),
-    cert: fs.readFileSync('SSL/linkway.site_bundle.pem')
+    key: fs.readFileSync('SSL/key.pem'),
+    cert: fs.readFileSync('SSL/one.pem')
 }
 
 /*创建http server*/
@@ -115,6 +113,16 @@ const POSTWork = (req, res) => {
     runFun(req, res);
 }
 
+/*处理GET请求*/
+const GETWork = (req, res) => {
+    const pathname = url.parse(req.url, true).pathname;
+    let runFun = map[pathname]; //根据路由选择响应服务
+    if (runFun === undefined) {
+        runFun = map['none'];
+    }
+    runFun(req, res);
+}
+
 /*路由映射*/
 const map = {
     '/': (req, res) => {
@@ -134,6 +142,28 @@ const map = {
                 map.none(req, res); //转发500
             }
         });
+    },
+    '/live.flv':(req,res)=>{
+	//console.log("live proxy");
+	//res.writeHead(200,{'Content-Type':'video/x-flv'});
+    	let preq = http.get({
+	    hostname: '127.0.0.1',
+	    port:'5559',
+            path: `/live/cliver.flv`,
+            headers: {
+		Accept:"*/*",
+		"Accept-Encoding":"gzip,deflate,br"
+            }
+        }, (pres) =>{
+            pres.on('data', (chunk) => {
+                //console.log("响应数据");
+		res.write(chunk);
+            });
+        });
+        preq.on('error', (e) => {
+	    console.log(e);
+	    res.end();
+        });	
     },
     'none': (req, res) => {
         res.writeHead(200, {
@@ -160,11 +190,16 @@ server.on('request', (req, res) => {
             case 'POST':
                 POSTWork(req, res);
                 break;
+	    case 'GET':
+		GETWork(req,res);
+		break;
             default:
                 res.end();
         }
     }
 });
+
+
 
 /*监听端口*/
 server.listen(5557); //webvpn

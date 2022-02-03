@@ -7,8 +7,8 @@ const fs = require("fs");
 const config = {
     rtmp: {
         port: 1935,
-        chunk_size: 60000,
-        gop_cache: false,
+        chunk_size: 1024,
+        gop_cache: true,
         ping: 60,
         ping_timeout: 6000,
         allow_origin: '*'

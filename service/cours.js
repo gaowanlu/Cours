@@ -1,4 +1,5 @@
 const webVpnService = require('./service/webVpnService.js');
+const videoLiver = require('./service/videoLiver.js');
 const setting = require('./utils/setting.js');
 const ResponseEntity = require('./entity/responseEntity');
 const url = require('url')
@@ -7,7 +8,8 @@ const requestJson = require('./utils/requestJson');
 const https = require('https');
 const http = require('http');
 const fs = require('fs');
-const HTTPS = true; //https开关
+const HTTPS = false; //https开关
+
 
 const OPTIONS_SSL = {
     pfx: fs.readFileSync('./linkway.site.pfx'),
@@ -164,6 +166,9 @@ server.on('request', (req, res) => {
 
 /*监听端口*/
 server.listen(5557); //webvpn
+console.log("webVpn port 5557".green);
 server_talk.listen(5558); //talk
-
-console.log(`Cours Server Run On port 5557 and 5558`);
+console.log("talk port 5558".green);
+//直播服务
+videoLiver(); //rtmp port 1935 6000 http 5559
+console.log("live port rtmp 1935 http 5559".green);

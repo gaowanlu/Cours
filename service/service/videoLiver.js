@@ -16,8 +16,8 @@ const config = {
     https: {
         port: 5559,
         allow_origin: '*',
-        pfx: fs.readFileSync('./linkway.site.pfx'),
-        passphrase: fs.readFileSync('./keystorePass.txt'),
+        key:'./SSL/linkway.site.key',
+    	cert:'./SSL/linkway.site_bundle.pem',
     }
 };
 

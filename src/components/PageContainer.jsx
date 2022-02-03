@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 /*页面root container*/
 function PageContainer(props) {
-  return <Container>{props.children}</Container>;
+  return <Container {...props}>{props.children}</Container>;
 }
 
 const Container = styled.div`

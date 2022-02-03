@@ -168,9 +168,9 @@ server.on('request', (req, res) => {
 
 /*监听端口*/
 server.listen(5557); //webvpn
-console.log("webVpn port 5557".green);
+//console.log("webVpn port 5557".green);
 server_talk.listen(5558); //talk
-console.log("talk port 5558".green);
+//console.log("talk port 5558".green);
 //直播服务
 videoLiver(); //rtmp port 1935 6000 http 5559
-console.log("live port rtmp 1935 http 5559".green);
+//console.log("live port rtmp 1935 http 5559".green);

@@ -7,17 +7,17 @@ const fs = require("fs");
 const config = {
     rtmp: {
         port: 1935,
-        chunk_size: 20000,
-        gop_cache: true,
-        ping: 30,
+        chunk_size: 60000,
+        gop_cache: false,
+        ping: 60,
         ping_timeout: 6000,
         allow_origin: '*'
     },
-    https: {
+    http: {
         port: 5559,
         allow_origin: '*',
-        key:'./SSL/linkway.site.key',
-    	cert:'./SSL/linkway.site_bundle.pem',
+        //key:'./SSL/linkway.site.key',
+    	//cert:'./SSL/linkway.site_bundle.pem',
     }
 };
 

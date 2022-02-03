@@ -17,6 +17,7 @@ import PageHeader from "../components/PageHeader";
 import PageNavigationBar from "../components/PageNavigationBar";
 import ChatIcon from "@mui/icons-material/Chat";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
+import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
 
 function MoreView() {
   const [updateDataDialogShow, setUpdateDataDialogShow] = useState(false); //更新数据弹窗显示状态
@@ -62,6 +63,7 @@ function MoreView() {
     },
     { Icon: DateRangeIcon, text: "时间设置", to: "/dateSetting" },
     { Icon: BusinessIcon, text: "关于我们", to: "/aboutUs" },
+    { Icon: VideogameAssetIcon, text: "其他应用", to: "/debug" },
   ];
 
   return (

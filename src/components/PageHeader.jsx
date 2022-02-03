@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 /**
  *
- * @param {size:0 or 1 or 2 or 3} props
+ * @param {size:0 or 1 or 2 or 3,title} props
  * @returns
  */
 function PageHeader(props) {

@@ -4,6 +4,7 @@ import PageNavigationBar from "../components/PageNavigationBar";
 import styled from "styled-components";
 import Webcam from "react-webcam";
 import CardLayout from "../components/CardLayout";
+import flvjs from "flv.js";
 
 /**
  * 组件调试界面
@@ -16,6 +17,17 @@ function DebugView(props) {
     webcamRef.current.video.setAttribute("controls", "true");
     webcamRef.current.video.volume = 0;
   }, [webcamRef]);
+  React.useEffect(() => {
+    if (flvjs.isSupported()) {
+      var flvPlayer = flvjs.createPlayer({
+        type: "flv",
+        url: "http://linkway.site:5559/live/cliver.flv",
+      });
+      flvPlayer.attachMediaElement(videoDOM.current);
+      flvPlayer.load();
+      // flvPlayer.play();
+    }
+  }, [videoDOM]);
   const pushStream = (stream) => {
     console.log("推流", stream);
   };
@@ -39,7 +51,7 @@ function DebugView(props) {
       {/*导航栏*/}
       <PageNavigationBar title="直播" backTitle="更多" backPath="/more" />
       <Container className="animate__animated animate__fadeInRight animate__faster">
-        <Header title="Cliver" size={1} />
+        <Header title="Cliver 暂无活动 尽情期待" size={1} />
         <FlexCenterContainer>
           <Webcam
             ref={webcamRef}
@@ -64,12 +76,15 @@ function DebugView(props) {
               maxHeight: "50vh",
             }}
           >
-            <source src="" type="video/mp4" />
+            <source
+              src="http://127.0.0.1:5559/live/cliver.flv"
+              type="video/flv"
+            />
           </video>
         </FlexCenterContainer>
         <CardLayout>
           <Button name="1" onClick={chanelChange}>
-            频道1
+            测试相机
           </Button>
         </CardLayout>
       </Container>

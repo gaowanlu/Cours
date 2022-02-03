@@ -8,12 +8,14 @@ const requestJson = require('./utils/requestJson');
 const https = require('https');
 const http = require('http');
 const fs = require('fs');
-const HTTPS = false; //https开关
+const HTTPS = true; //https开关
 
 
 const OPTIONS_SSL = {
-    pfx: fs.readFileSync('./linkway.site.pfx'),
-    passphrase: fs.readFileSync('./keystorePass.txt'),
+    // pfx: fs.readFileSync('./linkway.site.pfx'),
+    // passphrase: fs.readFileSync('./keystorePass.txt'),
+    key: fs.readFileSync('SSL/linkway.site.key'),
+    cert: fs.readFileSync('SSL/linkway.site_bundle.pem')
 }
 
 /*创建http server*/

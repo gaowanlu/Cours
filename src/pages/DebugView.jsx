@@ -21,7 +21,7 @@ function DebugView(props) {
     if (flvjs.isSupported()) {
       var flvPlayer = flvjs.createPlayer({
         type: "flv",
-        url: "https://linkway.site:5559/live/cliver.flv",
+        url: "https://linkway.site:5557/live.flv",
       });
       flvPlayer.attachMediaElement(videoDOM.current);
       flvPlayer.load();

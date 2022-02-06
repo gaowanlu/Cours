@@ -193,5 +193,4 @@ function cas(pwd) {
         }
     }, pwd);
 }
-//console.log(cas("Gao13346637702."));
 module.exports = cas;

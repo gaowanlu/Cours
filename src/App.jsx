@@ -1,35 +1,35 @@
 import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import DayView from "./pages/DayView";
-import WeekView from "./pages/WeekView";
+import DayPage from "./pages/DayPage";
+import WeekPage from "./pages/WeekPage";
 import SuspenseCover from "./components/SuspenseCover";
-import DebugView from "./pages/DebugView";
+import DebugPage from "./pages/DebugPage";
 /*组件懒加载*/
-const SelfInfoView = React.lazy(() => import("./pages/SelfInfoView"));
-const MoreView = React.lazy(() => import("./pages/MoreView"));
-const ScoreView = React.lazy(() => import("./pages/ScoreView"));
-const DateSettingView = React.lazy(() => import("./pages/DateSettingView"));
-const AboutUsView = React.lazy(() => import("./pages/AboutUsView"));
-const ExamView = React.lazy(() => import("./pages/ExamView"));
-const TalkView = React.lazy(() => import("./pages/TalkView"));
+const SelfInfoPage = React.lazy(() => import("./pages/SelfInfoPage"));
+const MorePage = React.lazy(() => import("./pages/MorePage"));
+const ScorePage = React.lazy(() => import("./pages/ScorePage"));
+const DateSettingPage = React.lazy(() => import("./pages/DateSettingPage"));
+const AboutUsPage = React.lazy(() => import("./pages/AboutUsPage"));
+const ExamPage = React.lazy(() => import("./pages/ExamPage"));
+const TalkPage = React.lazy(() => import("./pages/TalkPage"));
 
 function App() {
   return (
     <React.Fragment>
       <Suspense fallback={<SuspenseCover />}>
         <Routes>
-          <Route path="/table" element={<DayView />} />
-          <Route path="/week" element={<WeekView />} />
-          <Route exact path="/selfInfo" element={<SelfInfoView />} />
-          <Route exact path="/more" element={<MoreView />} />
+          <Route path="/table" element={<DayPage />} />
+          <Route path="/week" element={<WeekPage />} />
+          <Route exact path="/selfInfo" element={<SelfInfoPage />} />
+          <Route exact path="/more" element={<MorePage />} />
           <Route exact path="/suspenseCover" element={<SuspenseCover />} />
-          <Route exact path="/score" element={<ScoreView />} />
-          <Route exact path="/dateSetting" element={<DateSettingView />} />
-          <Route exact path="/aboutUs" element={<AboutUsView />} />
-          <Route exact path="/debug" element={<DebugView />} />
-          <Route path="/exam" element={<ExamView />} />
-          <Route path="/talk" element={<TalkView />} />
-          <Route index path="*" element={<DayView />} />
+          <Route exact path="/score" element={<ScorePage />} />
+          <Route exact path="/dateSetting" element={<DateSettingPage />} />
+          <Route exact path="/aboutUs" element={<AboutUsPage />} />
+          <Route path="/other/*" element={<DebugPage />} />
+          <Route path="/exam" element={<ExamPage />} />
+          <Route path="/talk" element={<TalkPage />} />
+          <Route index path="*" element={<DayPage />} />
         </Routes>
       </Suspense>
     </React.Fragment>

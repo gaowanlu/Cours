@@ -7,14 +7,15 @@ import Footer from "../components/Footer";
 import Fade from "react-reveal/Fade";
 import MoreIcon from "@mui/icons-material/More";
 import Tooltip from "@mui/material/Tooltip";
+import PageContainer from "../components/PageContainer";
 
-function DayView() {
+function DayPage() {
   /*获取日课表数据*/
   let dayCourses = courseBase.dayViewFormat();
 
   return (
     <React.Fragment>
-      <Container className="animate__animated animate__slideInLeft animate__faster">
+      <PageContainer className="animate__animated animate__slideInLeft animate__faster">
         <Title>
           <TitleHeader>
             <DateText>
@@ -38,19 +39,12 @@ function DayView() {
             ); //key这样写是错误的 但对于此情况 没有关系 无忧状态关联
           })}
         </Content>
-      </Container>
+      </PageContainer>
       {/* 底部导航栏 */}
       <Footer fill="table" />
     </React.Fragment>
   );
 }
-
-const Container = styled.div`
-  width: 100%;
-  min-height: 100vh;
-  background-color: var(--color-background);
-  margin-bottom: 4rem;
-`;
 
 const Title = styled.div`
   font-size: 2rem;
@@ -89,4 +83,4 @@ const Content = styled.div`
 `;
 
 export { Title, DateText };
-export default DayView;
+export default DayPage;

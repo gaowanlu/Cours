@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Footer from "../components/Footer";
 import WeekTable from "../components/WeekTable.tsx";
 import DialogWindow from "../components/DialogWindow";
-import CourseDetailList from "./../components/CourseDetailList";
+import CourseDetailList from "../components/CourseDetailList";
 import courseBase from "../data/courseBase";
 
 //课程详情数据格式转换
@@ -26,7 +26,7 @@ const detailListCreator = (courseItem) => {
  * 周课表页面
  * @returns
  */
-function WeekView() {
+function WeekPage() {
   const [dialogShow, setDialogShow] = useState(false);
   const [detailList, setDetailList] = useState([]);
   let nowWeek = courseBase.nowWeek(); //加载现在是第几周
@@ -71,4 +71,4 @@ const Content = styled.div`
   padding: 1rem;
 `;
 
-export default WeekView;
+export default WeekPage;

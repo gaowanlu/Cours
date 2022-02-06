@@ -12,7 +12,7 @@ import stringHashRGB from "../utils/stringHashRGB.ts";
  * 在线交流界面
  * @returns
  */
-function TalkView(props) {
+function TalkPage(props) {
   const [messageList, setMessageList] = useState([]);
   const [socket, setSocket] = useState(undefined);
   useEffect(() => {
@@ -82,4 +82,4 @@ const ContainerStyled = styled.div`
   color: var(--color-color);
 `;
 
-export default TalkView;
+export default TalkPage;

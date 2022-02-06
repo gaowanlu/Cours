@@ -49,7 +49,7 @@ const Title = styled.div`
 
 const BlankSpace = styled.div`
   background-color: "#0000000";
-  height: 3.5rem;
+  height: 3rem;
 `;
 
 const BackIconBox = styled.button`

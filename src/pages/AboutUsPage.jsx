@@ -1,5 +1,4 @@
 import React from "react";
-import { Header, Container } from "./MoreView";
 import CardLayout from "../components/CardLayout";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
@@ -12,12 +11,14 @@ import {
 } from "../features/aboutUs/aboutUsInfoSlice";
 import { selectInfoList } from "../features/concatUs/concatUsInfoSlice";
 import Fade from "react-reveal/Fade";
+import PageContainer from "../components/PageContainer";
+import PageHeader from "../components/PageHeader";
 
 /**
  * 关于我们页面
  * @returns
  */
-function AboutUsView() {
+function AboutUsPage() {
   let projectInfoList = useSelector(selectProjectInfoList);
   let wishInfoList = useSelector(selectWishInfoList);
   let concatList = useSelector(selectInfoList);
@@ -25,8 +26,8 @@ function AboutUsView() {
     <React.Fragment>
       {/*导航栏*/}
       <PageNavigationBar title="关于我们" backTitle="更多" backPath="/more" />
-      <Container className="animate__animated animate__fadeInRight animate__faster">
-        <Header title="关于我们" size={0} />
+      <PageContainer className="animate__animated animate__fadeInRight animate__faster">
+        <PageHeader title="关于我们" size={0} />
         <Fade bottom>
           <CardLayout>
             <LogoContainer>
@@ -40,7 +41,7 @@ function AboutUsView() {
         <InfoList {...wishInfoList} bottomAlert="" />
         <InfoList {...concatList[0]} bottomAlert="" />
         <InfoList {...concatList[1]} bottomAlert="" />
-      </Container>
+      </PageContainer>
     </React.Fragment>
   );
 }
@@ -68,4 +69,4 @@ const LogoContainer = styled.div`
   }
 `;
 
-export default AboutUsView;
+export default AboutUsPage;

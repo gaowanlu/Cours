@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Header, Container } from "./MoreView";
 import Slider from "@mui/material/Slider";
 import InfoList from "../components/InfoList";
 import courseBase from "../data/courseBase";
 import SwitchCard from "../components/SwitchCard";
 import PageNavigationBar from "../components/PageNavigationBar";
+import PageContainer from "../components/PageContainer";
+import PageHeader from "../components/PageHeader";
 
 /**
  * infolist 工厂
@@ -28,7 +29,7 @@ function listCreator(title, content) {
  * 日期设置页面
  * @returns
  */
-function DateSettingView() {
+function DateSettingPage() {
   const [year, setYear] = useState(parseInt(courseBase.nowYear()));
   const [term, setTerm] = useState(parseInt(courseBase.nowTerm()));
   const [week, setWeek] = useState(parseInt(courseBase.nowWeek()));
@@ -60,15 +61,9 @@ function DateSettingView() {
   return (
     <React.Fragment>
       {/*导航栏*/}
-      <PageNavigationBar
-        title="日期设置"
-        backTitle="更多"
-        backPath="/more"
-      />
-      <Container
-        className="animate__animated animate__fadeInRight animate__faster"
-      >
-        <Header title={"时间设置"} />
+      <PageNavigationBar title="日期设置" backTitle="更多" backPath="/more" />
+      <PageContainer className="animate__animated animate__fadeInRight animate__faster">
+        <PageHeader title={"时间设置"} />
         {/*自动校准开关*/}
         <SwitchCard
           title={"自动校准"}
@@ -76,12 +71,12 @@ function DateSettingView() {
           onChange={handleChange}
         />
         {/*周调整*/}
-        <InfoList {...weekList}  bottomAlert="" />
+        <InfoList {...weekList} bottomAlert="" />
         {/*学期调整*/}
-        <InfoList {...termList}  bottomAlert="" />
+        <InfoList {...termList} bottomAlert="" />
         {/*年调整*/}
         <InfoList {...yearList} bottomAlert="" />
-      </Container>
+      </PageContainer>
     </React.Fragment>
   );
 }
@@ -173,4 +168,4 @@ function WeekSetting(props) {
   );
 }
 
-export default DateSettingView;
+export default DateSettingPage;

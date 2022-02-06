@@ -1,10 +1,11 @@
 import React from "react";
 import courseBase from "../data/courseBase";
 import InfoList from "../components/InfoList";
-import { Header, Container } from "./MoreView"; //与MoreView同步
+import PageContainer from "../components/PageContainer";
+import PageHeader from "../components/PageHeader";
 import PageNavigationBar from "../components/PageNavigationBar";
 
-function SelfInfoView() {
+function SelfInfoPage() {
   let list1 = {
     title: "基本信息",
     rows: [
@@ -28,16 +29,16 @@ function SelfInfoView() {
     <React.Fragment>
       {/*导航栏*/}
       <PageNavigationBar title="个人信息" backTitle="更多" backPath="/more" />
-      <Container className="animate__animated animate__fadeInRight  animate__faster">
-        <Header title={"个人信息"} />
+      <PageContainer className="animate__animated animate__fadeInRight  animate__faster">
+        <PageHeader title={"个人信息"} />
         <InfoList {...list1} bottomAlert="" />
         <InfoList
           {...list2}
           bottomAlert="声明:我们在服务器中不会记录您的个人信息包括账号密码。"
         />
-      </Container>
+      </PageContainer>
     </React.Fragment>
   );
 }
 
-export default SelfInfoView;
+export default SelfInfoPage;

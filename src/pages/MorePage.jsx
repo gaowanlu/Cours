@@ -19,7 +19,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
 
-function MoreView() {
+function MorePage() {
   const [updateDataDialogShow, setUpdateDataDialogShow] = useState(false); //更新数据弹窗显示状态
   const [checked, setChecked] = React.useState(false); //深色模式开关
   const dispatch = useDispatch();
@@ -63,7 +63,7 @@ function MoreView() {
     },
     { Icon: DateRangeIcon, text: "时间设置", to: "/dateSetting" },
     { Icon: BusinessIcon, text: "关于我们", to: "/aboutUs" },
-    { Icon: VideogameAssetIcon, text: "其他应用", to: "/debug" },
+    { Icon: VideogameAssetIcon, text: "其他应用", to: "/other" },
   ];
 
   return (
@@ -113,8 +113,4 @@ const Card = styled.div`
   }
 `;
 
-const Container = PageContainer;
-const Header = PageHeader;
-
-export { Header, Container };
-export default MoreView;
+export default MorePage;

@@ -1,23 +1,24 @@
 import React from "react";
-import { Header, Container } from "./MoreView";
 import PageNavigationBar from "../components/PageNavigationBar";
-import courseBase from "./../data/courseBase";
+import courseBase from "../data/courseBase";
 import styled from "styled-components";
 import stringHashRGB from "./../utils/stringHashRGB.ts";
+import PageContainer from "../components/PageContainer";
+import PageHeader from "../components/PageHeader";
 /**
  * 组件调试界面
  * @returns
  */
-function ExamView(props) {
+function ExamPage(props) {
   const examList = courseBase.examList().data;
   console.log(examList);
   return (
     <React.Fragment>
       {/*导航栏*/}
       <PageNavigationBar title="考试安排" backTitle="更多" backPath="/more" />
-      <Container className="animate__animated animate__fadeInRight animate__faster">
-        <Header title="考试安排" size={0} />
-        <Header title="待办" size={1} />
+      <PageContainer className="animate__animated animate__fadeInRight animate__faster">
+        <PageHeader title="考试安排" size={0} />
+        <PageHeader title="待办" size={1} />
         <Scroll>
           <Item background={stringHashRGB("线性代数")}>
             <CourseName>线性代数</CourseName>
@@ -50,7 +51,7 @@ function ExamView(props) {
             <ItemFooter></ItemFooter>
           </Item>
         </Scroll>
-        <Header title="已完成" size={1} />
+        <PageHeader title="已完成" size={1} />
         <Scroll>
           <Item background={stringHashRGB("线性代数")}>
             <CourseName>线性代数</CourseName>
@@ -85,7 +86,7 @@ function ExamView(props) {
             <ItemFooter></ItemFooter>
           </Item>
         </Scroll>
-      </Container>
+      </PageContainer>
     </React.Fragment>
   );
 }
@@ -193,4 +194,4 @@ const ItemFooter = styled.div`
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 `;
 
-export default ExamView;
+export default ExamPage;

@@ -1,16 +1,16 @@
 import React from "react";
-import { Header, Container } from "./MoreView";
-import PageNavigationBar from "../components/PageNavigationBar";
+import PageContainer from "../components/PageContainer";
+import PageHeader from "../components/PageHeader";
 import styled from "styled-components";
 import Webcam from "react-webcam";
 import CardLayout from "../components/CardLayout";
 import flvjs from "flv.js";
 
 /**
- * 组件调试界面
+ * 直播程序界面
  * @returns
  */
-function DebugView(props) {
+function LiveView(props) {
   const webcamRef = React.useRef(null);
   const videoDOM = React.useRef(null);
   React.useEffect(() => {
@@ -48,10 +48,8 @@ function DebugView(props) {
   };
   return (
     <React.Fragment>
-      {/*导航栏*/}
-      <PageNavigationBar title="直播" backTitle="更多" backPath="/more" />
-      <Container className="animate__animated animate__fadeInRight animate__faster">
-        <Header title="Cliver 暂无活动 尽情期待" size={1} />
+      <PageContainer>
+        <PageHeader title="Cliver 暂无活动 尽情期待" size={1} />
         <FlexCenterContainer>
           <Webcam
             ref={webcamRef}
@@ -87,7 +85,7 @@ function DebugView(props) {
             测试相机
           </Button>
         </CardLayout>
-      </Container>
+      </PageContainer>
     </React.Fragment>
   );
 }
@@ -106,4 +104,4 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-export default DebugView;
+export default LiveView;

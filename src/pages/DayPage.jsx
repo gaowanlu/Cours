@@ -7,7 +7,6 @@ import Footer from "../components/Footer";
 import Fade from "react-reveal/Fade";
 import MoreIcon from "@mui/icons-material/More";
 import Tooltip from "@mui/material/Tooltip";
-import PageContainer from "../components/PageContainer";
 
 function DayPage() {
   /*获取日课表数据*/
@@ -15,7 +14,7 @@ function DayPage() {
 
   return (
     <React.Fragment>
-      <PageContainer className="animate__animated animate__slideInLeft animate__faster">
+      <PageContainerStyled className="animate__animated animate__slideInLeft animate__faster">
         <Title>
           <TitleHeader>
             <DateText>
@@ -39,12 +38,16 @@ function DayPage() {
             ); //key这样写是错误的 但对于此情况 没有关系 无忧状态关联
           })}
         </Content>
-      </PageContainer>
+      </PageContainerStyled>
       {/* 底部导航栏 */}
       <Footer fill="table" />
     </React.Fragment>
   );
 }
+
+const PageContainerStyled = styled.div`
+  padding: 0px;
+`;
 
 const Title = styled.div`
   font-size: 2rem;

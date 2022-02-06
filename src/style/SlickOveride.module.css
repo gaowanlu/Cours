@@ -1,0 +1,6 @@
+.cours-react-slick ul li[class="slick-active"] button::before {
+  color: var(--color-primary);
+}
+/* .button-hover ul li[class="slick-active"] button:hover + button::before {
+  color: var(--color-primary);
+} */

@@ -3,3 +3,6 @@
 .pnp.js
 
 npm-debug.log*
+*.swm
+*.swo
+*.swp

@@ -8,7 +8,8 @@ const config = {
     rtmp: {
         port: 1935,
         chunk_size: 2000,
-        gop_cache: false,
+        gop_cache: true,
+        gop_cache_size:2000,
         ping: 60,
         ping_timeout: 30,
         allow_origin: '*'

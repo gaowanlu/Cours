@@ -26,8 +26,11 @@ function DialogWindow(props) {
   };
   return (
     <Container>
+      {/* 点击它处监听 */}
       <ClickAwayListener onClickAway={clickEvent}>
+        {/* 弹出卡片 */}
         <Card className={windowClass}>
+          {/*顶部滑动时盖住一部分*/}
           <WhiteSpace />
           {props.children}
         </Card>

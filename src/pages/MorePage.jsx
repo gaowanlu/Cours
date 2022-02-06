@@ -15,7 +15,6 @@ import SwitchCard from "../components/SwitchCard";
 import PageContainer from "../components/PageContainer";
 import PageHeader from "../components/PageHeader";
 import PageNavigationBar from "../components/PageNavigationBar";
-import ChatIcon from "@mui/icons-material/Chat";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
 
@@ -48,10 +47,6 @@ function MorePage() {
     { Icon: InfoIcon, text: "个人信息", to: "/selfInfo" },
     { Icon: ScoreIcon, text: "成绩查询", to: "/score" },
     { Icon: AssignmentTurnedInIcon, text: "考试安排", to: "/exam" },
-    { Icon: ChatIcon, text: "信使服务", to: "/talk" },
-  ];
-  /*选择列表2*/
-  const card2 = [
     {
       Icon: DownloadForOfflineIcon,
       text: "更新数据",
@@ -61,9 +56,12 @@ function MorePage() {
         setUpdateDataDialogShow(true); //弹出登陆更新卡片
       },
     },
+  ];
+  /*选择列表2*/
+  const card2 = [
     { Icon: DateRangeIcon, text: "时间设置", to: "/dateSetting" },
     { Icon: BusinessIcon, text: "关于我们", to: "/aboutUs" },
-    { Icon: VideogameAssetIcon, text: "其他应用", to: "/other" },
+    { Icon: VideogameAssetIcon, text: "Cours OS", to: "/other" },
   ];
 
   return (

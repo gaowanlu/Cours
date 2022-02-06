@@ -51,7 +51,7 @@ function TalkPage(props) {
   return (
     <React.Fragment>
       {/*导航栏*/}
-      <PageNavigationBar title="信使服务" backTitle="更多" backPath="/more" />
+      <PageNavigationBar title="Talk" backTitle="更多" backPath="/more" />
       <ContainerStyled className="animate__animated animate__fadeInRight animate__faster">
         <ul>
           {messageList.map((v, i) => {

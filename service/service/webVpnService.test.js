@@ -15,14 +15,18 @@ const testAccount = {
 
 /**
  * 
- * @param function callback 代理服务回调
+ * @param
+ function ({sctCourse}) callback 代理服务回调
  * @param string username 学号
  * @param string password 密码
  * @return boolean true:返回结果 false:非进行测试
  */
 function webVpnServiceTest(callback, username, password) {
     if (testAccount.match(username, password)) {
-        callback(JSON.parse(testJSON));
+        //请求响应
+        callback({
+            sctCourse: JSON.parse(testJSON)
+        });
         return true;
     }
     return false;

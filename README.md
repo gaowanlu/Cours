@@ -38,6 +38,7 @@ $ pm2 list
 
 地址 `https://{}:5557/` Content-Type `appliction/json`  
 我们默认提供免费的服务 https://linkway.site:5557    
+测试账号 账号:"0" 密码:"0"  
 
  ```json
 {

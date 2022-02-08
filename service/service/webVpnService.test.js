@@ -24,9 +24,7 @@ const testAccount = {
 function webVpnServiceTest(callback, username, password) {
     if (testAccount.match(username, password)) {
         //请求响应
-        callback({
-            sctCourse: JSON.parse(testJSON).data
-        });
+        callback(JSON.parse(testJSON).data);
         return true;
     }
     return false;

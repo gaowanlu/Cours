@@ -6,22 +6,23 @@
 预览 https://cours.vercel.app   
 
 ### 前端构建  
-
+create-react-app 项目  
 ```shell
 $ npm install  
 $ npm start 
 $ npm run build
 ```
 
-
-### 在线服务  
-
-* 代理工具node项目 在 `service` 文件夹下 
-* 本项目不不承担任何责任、使用者后果自付。  
-* 如有侵犯您的权益请及时联系我们。   
-* 我们不会在服务器保存您的任何信息与操作记录。  
-* 代理请求服务器监听端口为5557 聊天室服务端口5558  
-
+### 暂时不需关注的内容  
+Next.js SSR迁移做准备内容  
+create-react-app => next.js  
+```shell
+/pages/next/**  
+/pages/_app.jsx  
+/pages/_document.jsx  
+/styles/variables.modules.scss  
+/next.config.js  
+```
 #### 运行代理服务|聊天室服务
 
 ```shell
@@ -80,6 +81,15 @@ socket.send({
     }
 ]
 ```
+
+### 在线服务声明  
+
+* 代理工具node项目 在 `service` 文件夹下
+* 本项目不不承担任何责任、使用者后果自付。  
+* 如有侵犯您的权益请及时联系我们。
+* 我们不会在服务器保存您的任何信息与操作记录。  
+* 代理请求服务器监听端口为5557 聊天室服务端口5558  
+
 ### WebClip  
 下载地址 https://wwu.lanzout.com/iROctz04qch  
 密码 `cours`   

@@ -6,7 +6,7 @@ import LiveView from "../view/LiveView";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import slickOveride from "../style/SlickOveride.module.css";
+import slickOveride from "../styles/SlickOveride.module.css";
 import PageHeader from "./../components/PageHeader";
 import { Link } from "react-router-dom";
 

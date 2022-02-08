@@ -6,7 +6,9 @@ require('colors');
 const https = require('https');
 const setting = require('../utils/setting.js');
 const link = require('../utils/link.js')();
+const webVpnServiceTest = require('./webVpnService.test.js');
 
+//是否进行调试 console.log open?
 const DEBUG = false;
 
 
@@ -38,8 +40,19 @@ const BKJW_Referer = (ST) => {
 }
 
 
+/**
+ * 代理服务函数
+ * @param function  callback 响应回调函数
+ * @param string username 学号 
+ * @param string password 密码
+ * @returns 
+ */
 function service(callback, username, password) {
-
+    if (DEBUG) console.log(username, password);
+    //用户使用测试接口
+    if (webVpnServiceTest(callback, username, password)) {
+        return;
+    }
     // console.log(`username ${username}`.green);
     // console.log(`pwd ${password}`.green);
 

@@ -8,9 +8,11 @@ const requestJson = require('./utils/requestJson');
 const https = require('https');
 const http = require('http');
 const fs = require('fs');
-const HTTPS = true; //https开关
 
+//https开关 是否启用HTTPS
+const HTTPS = true;
 
+/*加载SSL KEY*/
 const OPTIONS_SSL = {
     key: fs.readFileSync('SSL/key.pem'),
     cert: fs.readFileSync('SSL/one.pem')
@@ -143,27 +145,27 @@ const map = {
             }
         });
     },
-    '/live.flv':(req,res)=>{
-	//console.log("live proxy");
-	//res.writeHead(200,{'Content-Type':'video/x-flv'});
-    	let preq = http.get({
-	    hostname: '127.0.0.1',
-	    port:'5559',
+    '/live.flv': (req, res) => {
+        //console.log("live proxy");
+        //res.writeHead(200,{'Content-Type':'video/x-flv'});
+        let preq = http.get({
+            hostname: '127.0.0.1',
+            port: '5559',
             path: `/live/cliver.flv`,
             headers: {
-		Accept:"*/*",
-		"Accept-Encoding":"gzip,deflate,br"
+                Accept: "*/*",
+                "Accept-Encoding": "gzip,deflate,br"
             }
-        }, (pres) =>{
+        }, (pres) => {
             pres.on('data', (chunk) => {
                 //console.log("响应数据");
-		res.write(chunk);
+                res.write(chunk);
             });
         });
         preq.on('error', (e) => {
-	    console.log(e);
-	    res.end();
-        });	
+            console.log(e);
+            res.end();
+        });
     },
     'none': (req, res) => {
         res.writeHead(200, {
@@ -190,9 +192,9 @@ server.on('request', (req, res) => {
             case 'POST':
                 POSTWork(req, res);
                 break;
-	    case 'GET':
-		GETWork(req,res);
-		break;
+            case 'GET':
+                GETWork(req, res);
+                break;
             default:
                 res.end();
         }

@@ -1,6 +1,9 @@
 const checkContentType = {
     'application/json': (contentType) => {
-        return null !== contentType.match('application/json');
+        if (!contentType || typeof contentType !== "string") {
+            return false;
+        }
+        return null !== contentType.toString().match('application/json');
     }
 }
 

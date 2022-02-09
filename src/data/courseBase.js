@@ -35,11 +35,13 @@ class CourseBaseFatory {
     }
     /*是否进行时间自动校准*/
     autoTime(newAutoTime) {
+        //进行更新
         if (newAutoTime !== undefined && (newAutoTime === "true" || newAutoTime === "false")) {
             this.store.setItem('autoTime', newAutoTime.toString());
-            return newAutoTime === "true";
+            return newAutoTime === "true"; //更新完毕
         }
-        let result = this.store.getItem('autoTime').toString();
+        let result = (this.store.getItem('autoTime') === true).toString();
+        //处理没有此key value情况
         console.log(typeof result, result);
         if (result === "true" || result === "false") {
             return result === "true";

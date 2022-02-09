@@ -33,6 +33,21 @@ class CourseBaseFatory {
     nowTerm(newTerm) {
         return this.storeCheckBack('nowTerm', '0', newTerm);
     }
+    /*是否进行时间自动校准*/
+    autoTime(newAutoTime) {
+        if (newAutoTime !== undefined && (newAutoTime === "true" || newAutoTime === "false")) {
+            this.store.setItem('autoTime', newAutoTime.toString());
+            return newAutoTime === "true";
+        }
+        let result = this.store.getItem('autoTime').toString();
+        console.log(typeof result, result);
+        if (result === "true" || result === "false") {
+            return result === "true";
+        } else {
+            this.store.setItem('autoTime', 'true');
+            return true;
+        }
+    }
     /*存储并返回 带有检查机制*/
     storeCheckBack(key, defaultValue, data) {
         if (data) { //赋值
@@ -184,11 +199,12 @@ class CourseBaseFatory {
     /*本地存储*/
     store = {
         setItem(key, obj) {
-            localStorage.removeItem(key);
-            if (typeof (obj) === 'object')
+            //localStorage.removeItem(key);
+            if (typeof (obj) === 'object') {
                 localStorage.setItem(key, JSON.stringify(obj));
-            else if (typeof (obj) === 'string')
+            } else if (typeof (obj) === 'string') {
                 localStorage.setItem(key, obj);
+            }
         },
         getItem(key) {
             const result = localStorage.getItem(key);
@@ -220,7 +236,6 @@ class CourseBaseFatory {
         this.store.setItem('yxxf', JSON.stringify(data.yxxf));
         console.log("更新从教务系统获取到的数据完毕");
     }
-
     /*实验课表*/
     labTable() {
         let result = this.store.getItem('labTable');

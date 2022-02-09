@@ -78,7 +78,6 @@ function SimpleSlider() {
         </div>
       </Section>
       <Section>
-        <PageHeader title="Think different!" />
         <PageHeader title="Stay hungry,Stay foolish" size={1} />
       </Section>
     </Slider>

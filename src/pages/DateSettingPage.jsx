@@ -33,14 +33,15 @@ function DateSettingPage() {
   const [year, setYear] = useState(parseInt(courseBase.nowYear()));
   const [term, setTerm] = useState(parseInt(courseBase.nowTerm()));
   const [week, setWeek] = useState(parseInt(courseBase.nowWeek()));
-  const [checked, setChecked] = React.useState(false); //深色模式开关
-  //深色模式开关回调
+  const [checked, setChecked] = React.useState(courseBase.autoTime()); //自动日期开关
+  //自动日期开关回调
   const handleChange = (event) => {
     setChecked(event.target.checked);
+    courseBase.autoTime(event.target.checked.toString());
   };
   //0 春季 1秋季 2小学期
   const getTermText = (term) => {
-    let list = ["春季", "秋季", "三世界"];
+    let list = ["春季", "秋季", "小学期"];
     return list[term];
   };
   //年调整 infolist

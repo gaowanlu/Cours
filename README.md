@@ -13,24 +13,6 @@ $ npm start
 $ npm run build
 ```
 
-### 暂时不需关注的内容  
-Next.js SSR迁移做准备内容  
-create-react-app => next.js  
-```shell
-/pages/next/**  
-/pages/_app.jsx  
-/pages/_document.jsx  
-/pages/_middleware.ts  
-/styles/variables.modules.scss  
-/next.config.js  
-```
-Run
-```shell
-$ npm run next-dev  
-$ npm run next-start  
-$ npm run next-build  
-$ npm run next-lint  
-```
 ### 运行代理服务|聊天室服务
 
 ```shell

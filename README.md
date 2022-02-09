@@ -20,16 +20,25 @@ create-react-app => next.js
 /pages/next/**  
 /pages/_app.jsx  
 /pages/_document.jsx  
+/pages/_middleware.ts  
 /styles/variables.modules.scss  
 /next.config.js  
 ```
-#### 运行代理服务|聊天室服务
+Run
+```shell
+$ npm run next-dev  
+$ npm run next-start  
+$ npm run next-build  
+$ npm run next-lint  
+```
+### 运行代理服务|聊天室服务
 
 ```shell
 $ npm install pm2 -g  
 $ cd ./service  
 $ pm2 start cours.js  
 $ pm2 list  
+$ pm2 monit  
  ```   
 
 #### API  
@@ -65,7 +74,7 @@ socket.send({
 });
 ```
 
-接收数据格式 array max-length=110 
+接收数据格式 array max-length=110  
 ```json
 [
     {
@@ -82,8 +91,17 @@ socket.send({
     }
 ]
 ```
+##### rtmp视频推流  
+推流地址  
+```shell
+rtmp://127.0.0.1:1935/live/cliver
+```
+flv直播流  
+```shell
+https://{}:5557/live.flv  
+```
 
-### 在线服务声明  
+##### 在线服务声明  
 
 * 代理工具node项目 在 `service` 文件夹下
 * 本项目不不承担任何责任、使用者后果自付。  

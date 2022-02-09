@@ -47,7 +47,6 @@
     "jest-resolve": "^27.4.2",
     "jest-watch-typeahead": "^1.0.0",
     "mini-css-extract-plugin": "^2.4.5",
-    "next": "^12.0.10",
     "normalize.css": "^8.0.1",
     "postcss": "^8.4.4",
     "postcss-flexbugs-fixes": "^5.0.2",
@@ -67,7 +66,6 @@
     "react-webcam": "^6.0.1",
     "resolve": "^1.20.0",
     "resolve-url-loader": "^4.0.0",
-    "sass": "^1.49.7",
     "sass-loader": "^12.3.0",
     "semver": "^7.3.5",
     "slick-carousel": "^1.8.1",
@@ -85,11 +83,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js",
-    "next-dev": "next dev",
-    "next-build": "next build",
-    "next-start": "next start",
-    "next-lint": "next lint"
+    "test": "node scripts/test.js"
   },
   "eslintConfig": {
     "extends": "react-app"

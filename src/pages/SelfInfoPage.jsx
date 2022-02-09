@@ -4,6 +4,7 @@ import InfoList from "../components/InfoList";
 import PageContainer from "../components/PageContainer";
 import PageHeader from "../components/PageHeader";
 import PageNavigationBar from "../components/PageNavigationBar";
+import stringUtil from "./../utils/stringUtil";
 
 function SelfInfoPage() {
   let list1 = {
@@ -11,7 +12,10 @@ function SelfInfoPage() {
     rows: [
       { title: "姓名", content: courseBase.selfInfo().data.name },
       { title: "性别", content: courseBase.selfInfo().data.sex },
-      { title: "生日", content: courseBase.selfInfo().data.birthday.substring(0, 10) },
+      {
+        title: "生日",
+        content: stringUtil.sub(courseBase.selfInfo().data.birthday, 0, 10),
+      },
       { title: "类别", content: courseBase.selfInfo().data.stype },
     ],
   };
@@ -21,7 +25,10 @@ function SelfInfoPage() {
       { title: "宿舍", content: courseBase.selfInfo().data.hostel },
       { title: "状态", content: courseBase.selfInfo().data.changetype },
       { title: "班级", content: courseBase.selfInfo().data.classno },
-      { title: "入学日期", content: courseBase.selfInfo().data.enrolldate.substring(0, 10) },
+      {
+        title: "入学日期",
+        content: stringUtil.sub(courseBase.selfInfo().data.enrolldate, 0, 10),
+      },
       { title: "级别", content: courseBase.selfInfo().data.grade },
     ],
   };

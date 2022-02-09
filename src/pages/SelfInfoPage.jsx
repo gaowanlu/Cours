@@ -11,7 +11,7 @@ function SelfInfoPage() {
     rows: [
       { title: "姓名", content: courseBase.selfInfo().data.name },
       { title: "性别", content: courseBase.selfInfo().data.sex },
-      { title: "生日", content: courseBase.selfInfo().data.birthday },
+      { title: "生日", content: courseBase.selfInfo().data.birthday.substring(0, 10) },
       { title: "类别", content: courseBase.selfInfo().data.stype },
     ],
   };
@@ -21,7 +21,7 @@ function SelfInfoPage() {
       { title: "宿舍", content: courseBase.selfInfo().data.hostel },
       { title: "状态", content: courseBase.selfInfo().data.changetype },
       { title: "班级", content: courseBase.selfInfo().data.classno },
-      { title: "入学日期", content: courseBase.selfInfo().data.enrolldate },
+      { title: "入学日期", content: courseBase.selfInfo().data.enrolldate.substring(0, 10) },
       { title: "级别", content: courseBase.selfInfo().data.grade },
     ],
   };

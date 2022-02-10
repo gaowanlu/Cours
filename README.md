@@ -91,6 +91,10 @@ https://{}:5557/live.flv
 * 我们不会在服务器保存您的任何信息与操作记录。  
 * 代理请求服务器监听端口为5557 聊天室服务端口5558  
 
+### 未来计划  
+
+* 计划从create-react-app 向 Next.js SSR 迁移  
+
 ### WebClip  
 下载地址 https://wwu.lanzout.com/iROctz04qch  
 密码 `cours`   

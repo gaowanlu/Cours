@@ -53,17 +53,12 @@ class CourseBaseFatory {
     /*存储并返回 带有检查机制*/
     storeCheckBack(key, defaultValue, data) {
         if (data) { //赋值
-            //console.log("周数赋值");
-            //更新周数并返回
             this.store.setItem(key, data.toString());
             return data;
         }
         if (this.store.getItem(key)) {
-            //console.log("读取周数");
             return this.store.getItem(key);
         } else { //返回默认
-            //console.log("返回默认周数");
-            //console.log(defaultValue);
             this.store.setItem(key, defaultValue);
             return defaultValue;
         }
@@ -279,10 +274,80 @@ class CourseBaseFatory {
     /*考试计划*/
     examList() {
         let result = this.store.getItem('examap');
-        if (result)
-            return this.store.getItem('examap');
+        if (result) {
+            const data = this.store.getItem('examap').data;
+            const formated = [];
+            //重新格式化
+            try {
+                data.forEach((o, i, a) => {
+                    formated.push({
+                        cname: o.cname,
+                        courseid: o.courseid,
+                        courseno: o.courseno,
+                        croomno: o.croomno,
+                        examdate: o.examdate,
+                        kssj: o.kssj,
+                        date: {
+                            year: Number(o.examdate.split('-')[0]),
+                            month: Number(o.examdate.split('-')[1]),
+                            day: Number(o.examdate.split('-')[2]),
+                            time: { //19:00-21:00
+                                start: {
+                                    hours: Number(o.kssj.split(':')[0]),
+                                    minute: Number(o.kssj.split(':')[1].split('-')[0])
+                                },
+                                end: {
+                                    hours: Number(o.kssj.split(':')[1].split('-')[1]),
+                                    minute: Number(o.kssj.split(':')[2])
+                                }
+                            },
+                            //Date对象
+                            obj: new Date(Number(o.examdate.split('-')[0]),
+                                Number(o.examdate.split('-')[1]) - 1,
+                                Number(o.examdate.split('-')[2]),
+                                Number(o.kssj.split(':')[1].split('-')[1]),
+                                Number(o.kssj.split(':')[2])
+                            )
+                        },
+                    });
+                    //console.log(formated[i].date.obj);
+                });
+                //排序formated 
+                formated.sort((a, b) => {
+                    if (a.date.obj < b.date.obj) { // 按某种排序标准进行比较, a 小于 b
+                        return 1;
+                    }
+                    if (a.date.obj > b.date.obj) {
+                        return -1;
+                    }
+                    // a must be equal to b
+                    return 0;
+                })
+                //分为两类一类为待办 一类为已完成并进行先后顺序的排序
+                const ok = formated.filter((o) => {
+                    return o.date.obj - (new Date()) < 0;
+                });
+                //待办
+                const todo = formated.filter((o) => {
+                    return o.date.obj - (new Date()) > 0;
+                });
+                return {
+                    data: {
+                        ok,
+                        todo
+                    }
+                };
+            } catch (e) {
+                console.warn(e);
+            }
+            //console.log(data);
+            //console.log(formated);
+        }
         return {
-            data: []
+            data: {
+                ok: [],
+                todo: []
+            }
         };
     }
     /*获取现在的学期编号*/

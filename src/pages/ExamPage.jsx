@@ -12,79 +12,55 @@ import PageHeader from "../components/PageHeader";
 function ExamPage(props) {
   const examList = courseBase.examList().data;
   console.log(examList);
+  /*测试待办*/
+  if (examList.ok.length > 0) examList.todo.push(examList.ok[0]);
   return (
     <React.Fragment>
       {/*导航栏*/}
       <PageNavigationBar title="考试安排" backTitle="更多" backPath="/more" />
       <PageContainer className="animate__animated animate__fadeInRight animate__faster">
         <PageHeader title="考试安排" size={0} />
-        <PageHeader title="待办" size={1} />
+        <PageHeader title={`待办 ${examList.todo.length}`} size={1} />
         <Scroll>
-          <Item background={stringHashRGB("线性代数")}>
-            <CourseName>线性代数</CourseName>
-            <ExamTime>2022年1月3日</ExamTime>
-            <ExamLocation>教室 16203*</ExamLocation>
-            <DeadLine>1天</DeadLine>
-            <ItemFooter></ItemFooter>{" "}
-          </Item>
-
-          <Item background={stringHashRGB("数据结构与算法")}>
-            <CourseName>数据结构与算法</CourseName>
-            <ExamTime>2022年1月3日</ExamTime>
-            <ExamLocation>教室 16203*</ExamLocation>
-            <DeadLine>1天</DeadLine>
-            <ItemFooter></ItemFooter>
-          </Item>
-
-          <Item background={stringHashRGB("机器学习")}>
-            <CourseName>机器学习</CourseName>
-            <ExamTime>2022年1月3日</ExamTime>
-            <ExamLocation>教室 16203*</ExamLocation>
-            <DeadLine>1天</DeadLine>
-            <ItemFooter></ItemFooter>
-          </Item>
-          <Item background={stringHashRGB("高等数学")}>
-            <CourseName>高等数学</CourseName>
-            <ExamTime>2022年1月3日</ExamTime>
-            <ExamLocation>教室 16203*</ExamLocation>
-            <DeadLine>1天</DeadLine>
-            <ItemFooter></ItemFooter>
-          </Item>
+          {examList.todo.map((o) => {
+            return (
+              <Item
+                key={o.courseid + o.croomno}
+                background={stringHashRGB(o.cname)}
+              >
+                <CourseName>{o.cname}</CourseName>
+                <ExamTime>
+                  {o.date.year}年{o.date.month}月{o.date.day}日
+                </ExamTime>
+                <ExamLocation>教室 {o.croomno}</ExamLocation>
+                <DeadLine>
+                  {parseInt((o.date.obj - new Date()) / 86400000)} 天
+                </DeadLine>
+                <ItemFooter></ItemFooter>
+              </Item>
+            );
+          })}
         </Scroll>
-        <PageHeader title="已完成" size={1} />
+        <PageHeader title={`已完成 ${examList.ok.length}`} size={1} />
         <Scroll>
-          <Item background={stringHashRGB("线性代数")}>
-            <CourseName>线性代数</CourseName>
-            <ItemFooter></ItemFooter>
-          </Item>
-          <Item background={stringHashRGB("概率论与数理统计")}>
-            <CourseName>概率论与数理统计</CourseName>
-            <ItemFooter></ItemFooter>
-          </Item>
-          <Item background={stringHashRGB("高等数学")}>
-            <CourseName>高等数学</CourseName>
-            <ItemFooter></ItemFooter>
-          </Item>
-          <Item background={stringHashRGB("数据结构与算法")}>
-            <CourseName>数据结构与算法</CourseName>
-            <ItemFooter></ItemFooter>
-          </Item>
-          <Item background={stringHashRGB("线性代数")}>
-            <CourseName>线性代数</CourseName>
-            <ItemFooter></ItemFooter>
-          </Item>
-          <Item background={stringHashRGB("概率论与数理统计")}>
-            <CourseName>概率论与数理统计</CourseName>
-            <ItemFooter></ItemFooter>
-          </Item>
-          <Item background={stringHashRGB("高等数学")}>
-            <CourseName>高等数学</CourseName>
-            <ItemFooter></ItemFooter>
-          </Item>
-          <Item background={stringHashRGB("数据结构与算法")}>
-            <CourseName>数据结构与算法</CourseName>
-            <ItemFooter></ItemFooter>
-          </Item>
+          {/* cname: "数字逻辑" courseid: "BT0300041X0" courseno: "2010413" croomno:
+          "02106Y" */}
+          {examList.ok.map((o) => {
+            return (
+              <Item
+                key={o.courseid + o.croomno}
+                background={stringHashRGB(o.cname)}
+              >
+                <CourseName>{o.cname}</CourseName>
+                <ExamTime>
+                  {o.date.year}年{o.date.month}月{o.date.day}日
+                </ExamTime>
+                <ExamLocation>教室 {o.croomno}</ExamLocation>
+                <DeadLine></DeadLine>
+                <ItemFooter></ItemFooter>
+              </Item>
+            );
+          })}
         </Scroll>
       </PageContainer>
     </React.Fragment>
@@ -189,8 +165,8 @@ const ItemFooter = styled.div`
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
     to right,
-    #1f1f1f1c,
-    #2e2e2e22
+    #1f1f1f47,
+    #2e2e2e40
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 `;
 

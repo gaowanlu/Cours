@@ -15,17 +15,19 @@ import stringHashRGB from "../utils/stringHashRGB.ts";
 function TalkPage(props) {
   const [messageList, setMessageList] = useState([]);
   const [socket, setSocket] = useState(undefined);
+  const [socketId, setSocketId] = useState("");
   useEffect(() => {
     let socket = io(talkSocketPath);
     socket.on("connect", () => {
       console.log("socketId", socket.id);
       console.log("socket", socket);
+      setSocketId(socket.id);
       setSocket(socket);
     });
     socket.on("message", (data) => {
       recev(data);
     });
-    socket.send({ info: "我来了" });
+    socket.send({ info: "冒个泡 嘿嘿!🐸"});
     return () => {
       socket.disconnect(); //离开此页面时断开连接
     };
@@ -58,7 +60,7 @@ function TalkPage(props) {
             return (
               <li key={v.id + v.index}>
                 <Fade bottom>
-                  <MessageBubble {...v} />
+                  <MessageBubble {...v} toRight={v.id === socketId} />
                 </Fade>
               </li>
             );
@@ -78,6 +80,7 @@ const ContainerStyled = styled.div`
   overflow-y: clip;
   padding: 0.7rem;
   padding-top: 0;
+  padding-bottom: 3rem;
   background-color: var(--color-background);
   color: var(--color-color);
 `;

@@ -20,7 +20,11 @@ function ExamPage(props) {
       <PageNavigationBar title="考试安排" backTitle="更多" backPath="/more" />
       <PageContainer className="animate__animated animate__fadeInRight animate__faster">
         <PageHeader title="考试安排" size={0} />
-        <PageHeader title={`待办 ${examList.todo.length}`} size={1} />
+        <PageHeader
+          title={`待办 ${examList.todo.length}`}
+          size={1}
+          color="var(--color-primary)"
+        />
         <Scroll>
           {examList.todo.map((o) => {
             return (
@@ -41,7 +45,11 @@ function ExamPage(props) {
             );
           })}
         </Scroll>
-        <PageHeader title={`已完成 ${examList.ok.length}`} size={1} />
+        <PageHeader
+          title={`已完成 ${examList.ok.length}`}
+          size={1}
+          color="var(--color-primary)"
+        />
         <Scroll>
           {/* cname: "数字逻辑" courseid: "BT0300041X0" courseno: "2010413" croomno:
           "02106Y" */}

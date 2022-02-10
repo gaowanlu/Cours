@@ -74,9 +74,9 @@ function DateSettingPage() {
         {/*周调整*/}
         <InfoList {...weekList} bottomAlert="" />
         {/*学期调整*/}
-        <InfoList {...termList} bottomAlert="" />
+        <InfoList {...termList} bottomAlert="🤦‍♂️功能正在调教中..." />
         {/*年调整*/}
-        <InfoList {...yearList} bottomAlert="" />
+        <InfoList {...yearList} bottomAlert="🤦‍♀️功能正在调教中..." />
       </PageContainer>
     </React.Fragment>
   );

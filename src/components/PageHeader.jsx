@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 /**
  *
- * @param {size:0 or 1 or 2 or 3,title} props
+ * @param {size:0 or 1 or 2 or 3,title,color} props
  * @returns
  */
 function PageHeader(props) {
@@ -19,6 +19,9 @@ const Header = styled.div`
   p {
     font-size: 2rem;
     font-weight: bold;
+    color: ${(props) => {
+      return props.color || "var(--color-color)";
+    }};
     ${(props) => {
       return props.size
         ? `

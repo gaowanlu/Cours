@@ -68,6 +68,9 @@ const Card = styled.div`
   overflow-y: auto;
   text-align: justify;
   background-color: var(--color-background);
+  &::-webkit-scrollbar {
+    /* width: 1rem; */
+  }
 `;
 
 const WhiteSpace = styled.div`

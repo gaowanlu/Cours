@@ -3,40 +3,54 @@ import Avatar from "@mui/material/Avatar";
 import styled from "styled-components";
 import Tooltip from "@mui/material/Tooltip";
 
+/****************************************************垃圾代码没有参考价值 样式规划的不好 计划重构 重新进行布局方案设计****************************************************** */
 /**
- * 气泡 {date}
+ * 气泡
+ * {
+ *    date:Date,
+ *    toRight:boolean
+ * }
  */
 function Message(props) {
   return (
     <Tooltip title={props.date || ""} placement="bottom">
-      <MessageContainer>{props.info}</MessageContainer>
+      <MessageContainer toRight={props.toRight}>{props.info}</MessageContainer>
     </Tooltip>
   );
 }
 
-/**消息
- * {info,id,date,index,rgb}
- *
+/**消息气泡
+ * {
+ *  info:string,
+ *  id:string,
+ *  date:Date,
+ *  index:number,
+ *  rgb:[r:number,g:number,b:number],
+ *  toRight:boolean 是否为自己发的消息
+ * }
  */
 export default class MessageBubble extends Component {
   render() {
     const v = this.props;
+    console.log("toRight", v.toRight);
     return (
-      <CardLayoutStyled>
-        <Header>
-          <Avatar
-            sx={{
-              backgroundColor: `rgb(${v.rgb[0]}, ${v.rgb[1]}, ${v.rgb[2]})`,
-              cursor: "pointer",
-              float: "left",
-              margin: "0px 10px 10px 0px",
-            }}
-          >
-            {v.id}
-          </Avatar>
-          <UserId>{v.id.toUpperCase()}</UserId>
-          <Message info={this.props.info} date={this.props.date.toString()} />
-        </Header>
+      <CardLayoutStyled toRight={v.toRight}>
+        <Avatar
+          sx={{
+            backgroundColor: `rgb(${v.rgb[0]}, ${v.rgb[1]}, ${v.rgb[2]})`,
+            cursor: "pointer",
+            float: `${v.toRight ? "right" : "left"}`,
+            margin: "0px 10px 10px 0px",
+          }}
+        >
+          {v.id}
+        </Avatar>
+        <UserId toRight={v.toRight}>{v.id.toUpperCase()}</UserId>
+        <Message
+          info={this.props.info}
+          date={this.props.date.toString()}
+          toRight={v.toRight}
+        />
         <br />
       </CardLayoutStyled>
     );
@@ -44,35 +58,70 @@ export default class MessageBubble extends Component {
 }
 
 const CardLayoutStyled = styled.div`
-  margin: 1.5rem 0;
+  padding: 1rem 0;
+  clear: both;
+  ${(props) => {
+    if (props.toRight) {
+      return `
+        padding: 1rem 0rem;
+      `;
+    }
+  }}
 `;
 const UserId = styled.div`
   font-size: 0.5rem;
   padding: 0 0.5rem;
-`;
-const Header = styled.div`
-  /* display: flex; */
+  ${(props) => {
+    if (props.toRight) {
+      return `
+        text-align:right;
+        padding-right:3.8rem;
+      `;
+    }
+  }}
 `;
 const MessageContainer = styled.div`
-  width: 60%;
+  width: 50%;
   color: #fafafa;
-  max-width: 15rem;
+  max-width: 40ch;
   background-color: #b4876c;
-  border-radius: 4px 8px 8px 8px;
   min-height: 2rem;
   margin-left: 60px;
   margin-top: 10px;
   padding: 0.5rem;
   position: relative;
   word-break: break-word;
-  &::after {
-    content: "";
-    width: 0;
-    height: 0;
-    position: absolute;
-    left: -10px;
-    top: 3px;
-    border-top: 10px solid #b4876c;
-    border-left: 10px solid transparent;
-  }
+  ${(props) => {
+    if (props.toRight) {
+      return `
+          border-radius: 8px 4px 8px 8px;
+          float:right;
+          right:1.3rem;
+          &::after {
+            content: "";
+            width: 0;
+            height: 0;
+            position: absolute;
+            right: -10px;
+            top: 3px;
+            border-top: 10px solid #b4876c;
+            border-right: 10px solid transparent;
+          }
+      `;
+    } else {
+      return `
+        border-radius: 4px 8px 8px 8px;
+        &::after {
+          content: "";
+          width: 0;
+          height: 0;
+          position: absolute;
+          left: -10px;
+          top: 3px;
+          border-top: 10px solid #b4876c;
+          border-left: 10px solid transparent;
+        }
+      `;
+    }
+  }}
 `;

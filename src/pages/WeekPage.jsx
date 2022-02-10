@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer";
-import WeekTable from "../components/WeekTable.tsx";
+import WeekTable from "../components/WeekTable.jsx";
 import DialogWindow from "../components/DialogWindow";
 import CourseDetailList from "../components/CourseDetailList";
 import courseBase from "../data/courseBase";

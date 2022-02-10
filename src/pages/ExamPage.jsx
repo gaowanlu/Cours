@@ -73,14 +73,17 @@ const Scroll = styled.div`
   /* background-color: red; */
   overflow-x: auto;
   display: flex;
+  justify-content: flex-start;
   scroll-snap-type: x mandatory;
   align-items: center;
   margin-bottom: 3rem;
   position: relative;
   padding-top: 0.7rem;
   padding-bottom: 1.5rem;
+  box-sizing: border-box;
   @media screen and (min-width: 1000px) {
     flex-wrap: wrap;
+    padding-left: 0.6rem;
   }
   &::-webkit-scrollbar {
     height: 0px;
@@ -97,11 +100,12 @@ const Item = styled.section`
   border-radius: 1rem;
   scroll-snap-align: start;
   padding: 1rem;
-  margin: 0rem 1rem;
+  /* margin: 0rem 1rem; */
+  margin-right: 1rem;
   box-shadow: var(--box-shadow);
   cursor: pointer;
   &:hover {
-    transform: scale(1.05);
+    transform: translateY(-0.7rem);
     transition: transform 200ms ease-in-out;
   }
   position: relative;

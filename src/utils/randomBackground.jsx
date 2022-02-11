@@ -1,15 +1,15 @@
 function randomBackground() {
   let colors = [
-    "#ff7675", // red
-    "#74b9ff", // blue
-    "#a29bfe", // purple
-    "#20bf6b", // green
-    "#fab1a0", // orange
-    "#fd79a8", // pink
-    "#4b7bec", // dark blue
-    "#7158e2", // dark purple
-    "#ffeaa7", // yellow
-    "#81ecec", // cyan
+    "#f37070", // red
+    "#6fb1f3", // blue
+    "#9993f0", // purple
+    "#2fbd71", // green
+    "#eea493", // orange
+    "#ec729d", // pink
+    "#4a78e4", // dark blue
+    "#7057dd", // dark purple
+    "#e9d594", // yellow
+    "#84e2e2", // cyan
   ];
   let idx = 0;
   let courseColorMap = new Map();

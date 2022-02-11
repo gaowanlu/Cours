@@ -8,7 +8,7 @@ const Coordinate = {
     return { top: `calc((10% - 0.14rem) * ${y} + 1.4rem)` };
   },
   left(x) {
-    return { left: `calc((12.5% - 0.1rem) * ${x} + 0.25rem * ${x})` };
+    return { left: `calc((12.5% - 0.12rem) * ${x} + 0.10rem * ${x}) ` }; //
   },
   topLeft(x, y) {
     return { ...this.top(y), ...this.left(x) };
@@ -17,7 +17,7 @@ const Coordinate = {
     return {
       ...this.top(y),
       ...this.left(x),
-      height: `calc((10% - 0.25rem) * ${h})`,
+      height: `calc((10% - 0.24rem) * ${h})`, //- 0.25rem
     };
   },
 };
@@ -104,7 +104,7 @@ const Card = styled.div`
 `;
 const ColTagBox = styled.div`
   position: absolute;
-  width: calc(12.5% - 0.1rem);
+  width: calc(12.5% - 0.12rem);
   height: 1rem;
   border-radius: 5px;
   text-align: center;
@@ -139,7 +139,7 @@ const CourseBox = styled.div`
   background: ${(props) => props.bg};
   border-radius: 10px;
   padding: 6px;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   box-sizing: border-box;
   /* font-weight: bold; */
   color: #fafafa;

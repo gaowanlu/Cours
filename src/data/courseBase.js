@@ -355,8 +355,8 @@ class CourseBaseFatory {
         //根据学年 、 春0秋1三2季 、获得学期编号 
         const last = ['2', '1', '3']; //后缀
         const nowYear = this.nowYear();
-        console.log("nowyear", this.nowYear());
-        console.log("nowTerm", this.nowTerm());
+        // console.log("nowyear", this.nowYear());
+        // console.log("nowTerm", this.nowTerm());
         let code = String(nowYear - 1) + "-" + String(nowYear) + "_" + last[parseInt(this.nowTerm())];
         // console.log(code);
         let term = this.store.getItem('terTime');

@@ -1,5 +1,4 @@
 function randomBackground() {
-
   let colors = [
     "#ff7675", // red
     "#74b9ff", // blue

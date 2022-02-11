@@ -24,14 +24,12 @@ const Coordinate = {
 
 /**
  *
- * @param {courseClick:call back function} props
+ * @param {courseClick:call back function,nowWeek,weekCourse} props
  * @returns
  */
 function WeekTable(props) {
   const { nowWeek, weekCourse } = props;
-  const bgFunc = randomBackground() // 闭包颜色渲染
-  // let nowWeek = courseBase.nowWeek();//加载现在是第几周
-  // let weekCourse = courseBase.weekViewFormat(nowWeek);//获取这一周的课表
+  const bgFunc = randomBackground(); // 闭包颜色渲染
   /*列标题*/
   let colTags = [
     { id: 0, style: {}, text: `${nowWeek}周` },
@@ -137,15 +135,15 @@ const CourseBox = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #d1eeff; /* fallback for old browsers */
-  background: ${(props) => props.bg}; /* Chrome 10-25, Safari 5.1-6 */
-  background: ${(props) => props.bg}; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+  background: ${(props) => props.bg};
+  background: ${(props) => props.bg};
   border-radius: 10px;
   padding: 6px;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   box-sizing: border-box;
-  color: white;
-  text-shadow: 0 0 2px black;
+  /* font-weight: bold; */
+  color: #fafafa;
+  text-shadow: 0 0 2px #707070;
   min-height: calc(10% - 0.14rem);
   cursor: pointer;
   flex-wrap: wrap;

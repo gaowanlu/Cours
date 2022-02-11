@@ -8,7 +8,7 @@ const Coordinate = {
     return { top: `calc((10% - 0.14rem) * ${y} + 1.4rem)` };
   },
   left(x) {
-    return { left: `calc((12.5% - 0.1rem) * ${x})` };
+    return { left: `calc((12.5% - 0.1rem) * ${x} + 0.25rem * ${x})` };
   },
   topLeft(x, y) {
     return { ...this.top(y), ...this.left(x) };
@@ -17,7 +17,7 @@ const Coordinate = {
     return {
       ...this.top(y),
       ...this.left(x),
-      height: `calc((10% - 0.14rem) * ${h})`,
+      height: `calc((10% - 0.25rem) * ${h})`,
     };
   },
 };
@@ -29,6 +29,7 @@ const Coordinate = {
  */
 function WeekTable(props) {
   const { nowWeek, weekCourse } = props;
+  const bgFunc = randomBackground() // 闭包颜色渲染
   // let nowWeek = courseBase.nowWeek();//加载现在是第几周
   // let weekCourse = courseBase.weekViewFormat(nowWeek);//获取这一周的课表
   /*列标题*/
@@ -80,8 +81,7 @@ function WeekTable(props) {
       {weekCourse.map((item, index) => {
         return (
           <CourseBox
-            bg1={randomBackground()[0]}
-            bg2={randomBackground()[1]}
+            bg={bgFunc(item.text.split("@")[0])}
             key={index}
             style={Coordinate.courseBoxStyle(item.x, item.y * 2, 2)}
             onClick={(e) => courseClick(e, item)}
@@ -137,30 +137,24 @@ const CourseBox = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #d1eeff; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to bottom,
-    ${(props) => props.bg1},
-    ${(props) => props.bg2}
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to bottom,
-    ${(props) => props.bg1},
-    ${(props) => props.bg2}
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: ${(props) => props.bg}; /* Chrome 10-25, Safari 5.1-6 */
+  background: ${(props) => props.bg}; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   border-radius: 10px;
   padding: 6px;
   font-size: 0.7rem;
   box-sizing: border-box;
-  color: #464646;
+  color: white;
+  text-shadow: 0 0 2px black;
   min-height: calc(10% - 0.14rem);
   cursor: pointer;
   flex-wrap: wrap;
   -webkit-box-sizing: border-box;
   word-break: break-all;
   word-wrap: break-word;
+  transition: filter 0.25s;
   &:hover {
-    background: #e7f1f8;
+    filter: brightness(1.1);
   }
 `;
 

@@ -12,6 +12,7 @@ const DateSettingPage = React.lazy(() => import("./pages/DateSettingPage"));
 const AboutUsPage = React.lazy(() => import("./pages/AboutUsPage"));
 const ExamPage = React.lazy(() => import("./pages/ExamPage"));
 const TalkPage = React.lazy(() => import("./pages/TalkPage"));
+const CoursOSPage = React.lazy(() => import("./pages/CoursOSPage"));
 
 function App() {
   return (
@@ -26,9 +27,10 @@ function App() {
           <Route exact path="/score" element={<ScorePage />} />
           <Route exact path="/dateSetting" element={<DateSettingPage />} />
           <Route exact path="/aboutUs" element={<AboutUsPage />} />
-          <Route path="/other/*" element={<DebugPage />} />
+          <Route path="/other/*" element={<CoursOSPage />} />
           <Route path="/exam" element={<ExamPage />} />
           <Route path="/talk" element={<TalkPage />} />
+          <Route path="/debug" element={<DebugPage />} />
           <Route index path="*" element={<DayPage />} />
         </Routes>
       </Suspense>

@@ -27,7 +27,7 @@ function TalkPage(props) {
     socket.on("message", (data) => {
       recev(data);
     });
-    socket.send({ info: "冒个泡 嘿嘿!🐸"});
+    socket.send({ info: "冒个泡 嘿嘿!🐸" });
     return () => {
       socket.disconnect(); //离开此页面时断开连接
     };
@@ -53,7 +53,7 @@ function TalkPage(props) {
   return (
     <React.Fragment>
       {/*导航栏*/}
-      <PageNavigationBar title="Talk" backTitle="更多" backPath="/more" />
+      <PageNavigationBar title="Talk" backTitle="OS" backPath="/other/" />
       <ContainerStyled className="animate__animated animate__fadeInRight animate__faster">
         <ul>
           {messageList.map((v, i) => {

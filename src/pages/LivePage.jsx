@@ -1,7 +1,7 @@
 import React from "react";
 import PageContainer from "../components/PageContainer";
 import PageHeader from "../components/PageHeader";
-import PageNavigationBar from "../components/PageNavigationBar";
+// import PageNavigationBar from "../components/PageNavigationBar";
 import styled from "styled-components";
 import Webcam from "react-webcam";
 import CardLayout from "../components/CardLayout";
@@ -50,7 +50,7 @@ function LivePage(props) {
   return (
     <React.Fragment>
       {/*导航栏*/}
-      <PageNavigationBar title="直播" backTitle="更多" backPath="/more" />
+      {/* <PageNavigationBar title="直播" backTitle="OS" backPath="/other/" /> */}
       <PageContainer className="animate__animated animate__fadeInRight animate__faster">
         <PageHeader title="Cliver 暂无活动 尽情期待" size={1} />
         <FlexCenterContainer>

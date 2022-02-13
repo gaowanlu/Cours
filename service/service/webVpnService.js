@@ -34,6 +34,7 @@ const VPN_HASH = '77726476706e69737468656265737421f3f652d220256d44300d8db9d6562d
 const BKJW_HTTPS_HASH = () => {
     return `/https/77726476706e69737468656265737421f2fc4b8b69377d556a468ca88d1b203b`;
 }
+const NOW_TERM = '2021-2022_2';
 
 const BKJW_Referer = (ST) => {
     return `https://v.guet.edu.cn${BKJW_HTTPS_HASH()}/?ticket=${ST}`;
@@ -679,7 +680,7 @@ function service(callback, username, password) {
     function getlabtable(wengine_vpn_ticket, show_vpn, ST) {
         var req = https.get({
             hostname: VPN_HOST,
-            path: `${BKJW_HTTPS_HASH()}/student/getlabtable?term=2021-2022_1&ticket=${ST}`,
+            path: `${BKJW_HTTPS_HASH()}/student/getlabtable?term=${NOW_TERM}&ticket=${ST}`,
             headers: {
                 'User-Agent': USER_AGENT,
                 'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=${show_vpn}`,

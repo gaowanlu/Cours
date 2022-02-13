@@ -245,9 +245,15 @@ class CourseBaseFatory {
     /*成绩*/
     async score(callback) {
         let result = this.store.getItem('score');
-        if (result)
-            callback(this.store.getItem('score'));
-        else
+        if (result) {
+            let {
+                data
+            } = result;
+            data.sort((a, b) => {
+                return a.term - b.term;
+            });
+            callback(result);
+        } else
             callback({
                 data: []
             });
@@ -353,7 +359,7 @@ class CourseBaseFatory {
     /*获取现在的学期编号*/
     nowTermCode() {
         //根据学年 、 春0秋1三2季 、获得学期编号 
-        const last = ['2', '1', '3']; //后缀
+        const last = ['2', '1', '3']; //后缀 
         const nowYear = this.nowYear();
         // console.log("nowyear", this.nowYear());
         // console.log("nowTerm", this.nowTerm());
@@ -364,6 +370,14 @@ class CourseBaseFatory {
             return term.data[0].term;
         }
         return code;
+    }
+    /*课程计划*/
+    plancj() {
+        let data = this.store.getItem('plancj');
+        if (data) {
+            return data.data;
+        }
+        return [];
     }
 };
 

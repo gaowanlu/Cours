@@ -1880,6 +1880,9 @@ var _myFunction = Module["_myFunction"] = createExportWrapper("myFunction");
 var _add = Module["_add"] = createExportWrapper("add");
 
 /** @type {function(...*):?} */
+var _getOffset = Module["_getOffset"] = createExportWrapper("getOffset");
+
+/** @type {function(...*):?} */
 var ___errno_location = Module["___errno_location"] = createExportWrapper("__errno_location");
 
 /** @type {function(...*):?} */

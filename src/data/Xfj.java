@@ -1,3 +1,4 @@
+/*程序来源 GUET课程表 Android*/
 package com.telephone.coursetable.XFJ;
 
 import androidx.annotation.NonNull;
@@ -25,86 +26,82 @@ public class Xfj {
     private static List<Map.Entry<String, Double>> get_in(List<Plan> plan_nodes, List<Score> score_nodes,
             List<String> term_id_list, boolean use_plan_term) {
         // // 遍历计划
-        // for (Plan plan_node : plan_nodes) {//
-        // 确定计划课程列表中每一门计划课程计入学分绩计算的学期，选修过一门计划课程相关的课，这门计划课程才计入学分绩计算，并且计入最早的选修记录所在的那个学期
-        // ArrayList<Score> score_nodes_with_the_same_cid = new ArrayList<>();
-        // for (Score score : score_nodes) {// 从成绩列表中选出课程代码相同的成绩
-        // if (plan_node.getPlan_course_id().equals(score.getCourse_id())) {
-        // score_nodes_with_the_same_cid.add(score);
-        // }
-        // }
-        // String final_term;
-        // if (score_nodes_with_the_same_cid.isEmpty()) {// 没有此计划课程代码的成绩记录
-        // if (plan_node.getSterm() != null && !plan_node.getSterm().isEmpty()) {//
-        // 如果有入选成绩，则取入选成绩的选修学期作为最终计入学分绩计算的学期
-        // final_term = plan_node.getSterm();
-        // } else {// 没有入选成绩，此计划课程不计入学分绩计算
-        // final_term = null;
-        // }
-        // } else {// 存在此计划课程代码的成绩记录，取其中最早的成绩记录的选修学期作为最终计入学分绩计算的学期
-        // Collections.sort(score_nodes_with_the_same_cid, (o1, o2) ->
-        // o1.getTerm().compareTo(o2.getTerm()));
-        // final_term = score_nodes_with_the_same_cid.get(0).getTerm();
-        // }
-        // plan_node.setFinal_term(final_term);
-        // }
+        for (Plan plan_node : plan_nodes) {// 确定计划课程列表中每一门计划课程计入学分绩计算的学期，选修过一门计划课程相关的课，这门计划课程才计入学分绩计算，并且计入最早的选修记录所在的那个学期
+            ArrayList<Score> score_nodes_with_the_same_cid = new ArrayList<>();
+            for (Score score : score_nodes) {// 从成绩列表中选出课程代码相同的成绩
+                if (plan_node.getPlan_course_id().equals(score.getCourse_id())) {
+                    score_nodes_with_the_same_cid.add(score);
+                }
+            }
+            String final_term;
 
-        // plan_nodes.removeIf(new Predicate<Plan>() {
-        // @Override
-        // public boolean test(Plan plan) {
-        // return plan.getFinal_term() == null;// 移除不计入学分绩计算的计划课程
-        // }
-        // });
+            if (score_nodes_with_the_same_cid.isEmpty()) {// 没有此计划课程代码的成绩记录
+                if (plan_node.getSterm() != null && !plan_node.getSterm().isEmpty()) {// 如果有入选成绩，则取入选成绩的选修学期作为最终计入学分绩计算的学期
+                    final_term = plan_node.getSterm();
+                } else {// 没有入选成绩，此计划课程不计入学分绩计算
+                    final_term = null;
+                }
+            } else {// 存在此计划课程代码的成绩记录，取其中最早的成绩记录的选修学期作为最终计入学分绩计算的学期
+                Collections.sort(score_nodes_with_the_same_cid, (o1, o2) -> o1.getTerm().compareTo(o2.getTerm()));
+                final_term = score_nodes_with_the_same_cid.get(0).getTerm();
+            }
+            plan_node.setFinal_term(final_term);
+        }
 
-        // if (use_plan_term) {// 如果指定按计划应修学期来计算学分绩，则把计入学分绩计算的每一门计划课程的计入学期都设置为计划学期
-        // for (Plan plan : plan_nodes) {
-        // plan.setFinal_term(plan.getPlan_term());
-        // }
-        // }
+        plan_nodes.removeIf(new Predicate<Plan>() {
+            @Override
+            public boolean test(Plan plan) {
+                return plan.getFinal_term() == null;// 移除不计入学分绩计算的计划课程
+            }
+        });
 
+        if (use_plan_term) {// 如果指定按计划应修学期来计算学分绩，则把计入学分绩计算的每一门计划课程的计入学期都设置为计划学期
+            for (Plan plan : plan_nodes) {
+                plan.setFinal_term(plan.getPlan_term());
+            }
+        }
         // 对于某些情况，例如入伍，可能会存在早于当前年级的选修学期/计划应修学期，因此应当生成一个新的学期列表，把这些不存在于参数传入的学期列表中的学期也添加到这个列表中
-        // List<String> new_term_id_list = new LinkedList<>(term_id_list);
-        // for (Plan plan : plan_nodes) {// 将所有plan中的要计算到那个学习学期拿出来
-        // if (!new_term_id_list.contains(plan.getFinal_term())) {
-        // new_term_id_list.add(plan.getFinal_term());
-        // }
-        // }
+        List<String> new_term_id_list = new LinkedList<>(term_id_list);
+        for (Plan plan : plan_nodes) {// 将所有plan中的要计算到那个学习学期拿出来
+            if (!new_term_id_list.contains(plan.getFinal_term())) {
+                new_term_id_list.add(plan.getFinal_term());
+            }
+        }
 
         // 基于补充后的学期列表生成一个学年列表，后续将基于这个学年列表构造用于构建返回值的 <学年, 计划课程列表> Map
-        // List<String> year_list = new LinkedList<>();
-        // for (String term_id : new_term_id_list) {
-        // String year_code;
-        // try {
-        // year_code = term_id.substring(0, UrlProcess.isInternational() ? 4 : 9);
-        // } catch (Exception e) {
-        // LogMe.e("Xfj", "Exception caught. Roll back to 4");
-        // year_code = term_id.substring(0, 4);
-        // }
-        // if (!year_list.contains(year_code)) {
-        // year_list.add(year_code);
-        // }
-        // }
+        List<String> year_list = new LinkedList<>();
+        for (String term_id : new_term_id_list) {
+            String year_code;
+            try {
+                year_code = term_id.substring(0, UrlProcess.isInternational() ? 4 : 9);
+            } catch (Exception e) {
+                LogMe.e("Xfj", "Exception caught. Roll back to 4");
+                year_code = term_id.substring(0, 4);
+            }
+            if (!year_list.contains(year_code)) {
+                year_list.add(year_code);
+            }
+        }
 
         // 构造用于构建返回值的 <学年, 计划课程列表> Map 的雏形，此时每一门计划课程尚未归入此 Map
-        // Map<String, List<Plan>> year_plans_map = new HashMap<>();//将每个创建 key
-        // :空List的数据结构
-        // for (String year : year_list) {
-        // year_plans_map.put(year, new LinkedList<>());
-        // }
+        Map<String, List<Plan>> year_plans_map = new HashMap<>();// 将每个创建 key:空List的数据结构
+        for (String year : year_list) {
+            year_plans_map.put(year, new LinkedList<>());
+        }
 
         // 将计入学分绩计算的每一门计划课程归入此
         // Map，注意：所有计入学分绩计算的计划课程归入完毕后，仍然可能会存在不包含任何计划课程的学年，那么这个学年最后的学分绩应当取默认值（例如 100 ）
-        // for (Plan plan : plan_nodes) {
-        // String year_code_of_plan;
-        // try {
-        // year_code_of_plan = plan.getFinal_term().substring(0,
-        // UrlProcess.isInternational() ? 4 : 9);
-        // } catch (Exception e) {
-        // LogMe.e("Xfj", "Exception caught. Roll back to 4");
-        // year_code_of_plan = plan.getFinal_term().substring(0, 4);
-        // }
-        // year_plans_map.get(year_code_of_plan).add(plan);
-        // }
+        for (Plan plan : plan_nodes) {
+            String year_code_of_plan;
+            try {
+                year_code_of_plan = plan.getFinal_term().substring(0,
+                        UrlProcess.isInternational() ? 4 : 9);
+            } catch (Exception e) {
+                LogMe.e("Xfj", "Exception caught. Roll back to 4");
+                year_code_of_plan = plan.getFinal_term().substring(0, 4);
+            }
+            year_plans_map.get(year_code_of_plan).add(plan);
+        }
 
         // 构建返回值雏形：<学年, 学年学分绩> 列表
         List<Map.Entry<String, Double>> res = new LinkedList<>();

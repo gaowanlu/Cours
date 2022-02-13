@@ -1,5 +1,11 @@
 # WebAssembly  Cours to Pro
 
+## 构建  
+```shell
+bash build.sh  
+```
+
+
 ## Linux环境搭建  
 
 ```shell

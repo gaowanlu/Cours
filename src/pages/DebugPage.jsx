@@ -3,8 +3,6 @@ import useAssembly from "../utils/useAssembly";
 import PageContainer from "../components/PageContainer";
 import PageHeader from "../components/PageHeader";
 import PageNavigationBar from "../components/PageNavigationBar";
-import { isCompositeComponent } from "react-dom/test-utils";
-import xfjCalc from "../data/xfjCalc";
 
 function DebugPage() {
   const [assembly] = useAssembly("/assembly/main.wasm");
@@ -20,8 +18,8 @@ function DebugPage() {
     setC(assembly.instance.exports.add(a, b));
     // console.log("计算");
     // console.log(assembly.instance.exports);
-    let memory = new WebAssembly.Memory({ initial: 10 });
-    let float_array = new Float32Array(memory.buffer);
+    //let memory = new WebAssembly.Memory({ initial: 10 });
+    //let float_array = new Float32Array(memory.buffer);
     let DATA = new Uint8Array(
       assembly.instance.exports.memory.buffer,
       assembly.instance.exports.getOffset(),
@@ -37,7 +35,6 @@ function DebugPage() {
     DATA.set(TEMP_ARRAY);
     // console.log(String.fromCharCode.apply(null, DATA,19));
     //console.log(assembly.instance.exports.myFunction());
-    xfjCalc();
     DATA[0] = a;
     DATA[1] = b;
   };

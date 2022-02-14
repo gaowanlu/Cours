@@ -338,7 +338,7 @@ function service(callback, username, password) {
                 rawData += chunk;
             });
             res.on('end', () => {
-                //console.log('rawData', rawData);
+                if (DEBUG) console.log('rawData', rawData);
                 errorBack(() => {
                     getPerson(wengine_vpn_ticket, show_vpn, ST);
                 }, callback);
@@ -400,7 +400,7 @@ function service(callback, username, password) {
             });
             res.on('end', () => {
                 errorBack(() => {
-                    //console.log(`获取学期时间对照成功 ${rawData}`.red);
+                    if (DEBUG) console.log(`获取学期时间对照成功 ${rawData}`.red);
                     const TIME = JSON.parse(rawData);
                     RETURN_RESULT.terTime = TIME;
                     //console.log(parsedData);
@@ -436,8 +436,9 @@ function service(callback, username, password) {
                     const stuTable = JSON.parse(rawData);
                     RETURN_RESULT.stuTable = stuTable;
                     if (DEBUG) console.log(`获取所有课程课表成功`.red);
-                    //console.log(parsedData);
-                    genstufee(wengine_vpn_ticket, show_vpn, ST);
+                    if (DEBUG) console.log(stuTable);
+                    //genstufee(wengine_vpn_ticket, show_vpn, ST);
+                    getyxxf(wengine_vpn_ticket, show_vpn, ST);
                 }, callback);
             });
         });
@@ -446,8 +447,8 @@ function service(callback, username, password) {
         });
     }
 
-
-    /*获得是否欠费*/
+/*
+    //获得是否欠费
     function genstufee(wengine_vpn_ticket, show_vpn, ST) {
         const requestBody = "ctype=byyqxf&stid=1901420313&grade=2019&spno=080611W";
         const req = https.request({
@@ -483,6 +484,7 @@ function service(callback, username, password) {
         req.write(requestBody);
         req.end();
     }
+*/
 
     /*已修课程情况信息*/
     function getyxxf(wengine_vpn_ticket, show_vpn, ST) {

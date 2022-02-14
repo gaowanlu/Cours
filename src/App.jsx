@@ -4,6 +4,8 @@ import DayPage from "./pages/DayPage";
 import WeekPage from "./pages/WeekPage";
 import SuspenseCover from "./components/SuspenseCover";
 import DebugPage from "./pages/DebugPage";
+import MoviePage from "./pages/MoviePage";
+
 /*组件懒加载*/
 const SelfInfoPage = React.lazy(() => import("./pages/SelfInfoPage"));
 const MorePage = React.lazy(() => import("./pages/MorePage"));
@@ -31,6 +33,7 @@ function App() {
           <Route path="/exam" element={<ExamPage />} />
           <Route path="/talk" element={<TalkPage />} />
           <Route path="/debug" element={<DebugPage />} />
+          <Route path="/movie" element={<MoviePage />} />
           <Route index path="*" element={<DayPage />} />
         </Routes>
       </Suspense>

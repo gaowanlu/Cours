@@ -5,6 +5,7 @@ const requestJson = require('../utils/requestJson');
 const http = require('http');
 const proxyHTTPSRequest = require('../service/proxyHTTPSRequest');
 const userDao = require('../dao/userDao');
+const movie = require('../service/movie/movie');
 
 /**
  * 业务代理请求服务器
@@ -88,6 +89,10 @@ function proxy(server) {
                 });
                 //res.end();
             },
+            //电影搜索
+            '/movie/search': movie.search,
+            //电影详情
+            '/movie/detail': movie.detail,
             //未知路由————————————————————
             'none': (req, res) => {
                 res.writeHead(200, {

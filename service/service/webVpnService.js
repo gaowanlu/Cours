@@ -34,6 +34,7 @@ const VPN_HASH = '77726476706e69737468656265737421f3f652d220256d44300d8db9d6562d
 const BKJW_HTTPS_HASH = () => {
     return `/https/77726476706e69737468656265737421f2fc4b8b69377d556a468ca88d1b203b`;
 }
+//现在的学期编号
 const NOW_TERM = '2021-2022_2';
 
 const BKJW_Referer = (ST) => {
@@ -447,44 +448,44 @@ function service(callback, username, password) {
         });
     }
 
-/*
-    //获得是否欠费
-    function genstufee(wengine_vpn_ticket, show_vpn, ST) {
-        const requestBody = "ctype=byyqxf&stid=1901420313&grade=2019&spno=080611W";
-        const req = https.request({
-            method: 'POST',
-            host: VPN_HOST,
-            path: `${BKJW_HTTPS_HASH()}/student/genstufee`,
-            headers: {
-                'User-Agent': USER_AGENT,
-                'Content-Type': 'application/x-www-form-urlencoded;charset="UTF-8"',
-                'Referer': BKJW_Referer(ST),
-                'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=${show_vpn}`,
-                'x-requested-with': 'XMLHttpRequest'
-            }
-        }, (res) => {
-            res.setEncoding('utf8');
-            let rawData = '';
-            res.on('data', (chunk) => {
-                rawData += chunk;
+    /*
+        //获得是否欠费
+        function genstufee(wengine_vpn_ticket, show_vpn, ST) {
+            const requestBody = "ctype=byyqxf&stid=1901420313&grade=2019&spno=080611W";
+            const req = https.request({
+                method: 'POST',
+                host: VPN_HOST,
+                path: `${BKJW_HTTPS_HASH()}/student/genstufee`,
+                headers: {
+                    'User-Agent': USER_AGENT,
+                    'Content-Type': 'application/x-www-form-urlencoded;charset="UTF-8"',
+                    'Referer': BKJW_Referer(ST),
+                    'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=${show_vpn}`,
+                    'x-requested-with': 'XMLHttpRequest'
+                }
+            }, (res) => {
+                res.setEncoding('utf8');
+                let rawData = '';
+                res.on('data', (chunk) => {
+                    rawData += chunk;
+                });
+                res.on('end', () => {
+                    errorBack(() => {
+                        const fee = JSON.parse(rawData);
+                        RETURN_RESULT.fee = fee;
+                        if (DEBUG) console.log(`获取费用信息成功 ${fee.msg}`.red);
+                        //console.log(parsedData);
+                        getyxxf(wengine_vpn_ticket, show_vpn, ST);
+                    }, callback);
+                });
             });
-            res.on('end', () => {
-                errorBack(() => {
-                    const fee = JSON.parse(rawData);
-                    RETURN_RESULT.fee = fee;
-                    if (DEBUG) console.log(`获取费用信息成功 ${fee.msg}`.red);
-                    //console.log(parsedData);
-                    getyxxf(wengine_vpn_ticket, show_vpn, ST);
-                }, callback);
+            req.on('error', (e) => {
+                responseError(callback, e);
             });
-        });
-        req.on('error', (e) => {
-            responseError(callback, e);
-        });
-        req.write(requestBody);
-        req.end();
-    }
-*/
+            req.write(requestBody);
+            req.end();
+        }
+    */
 
     /*已修课程情况信息*/
     function getyxxf(wengine_vpn_ticket, show_vpn, ST) {

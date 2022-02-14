@@ -9,6 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.10",
     "color.js": "^1.2.0",
     "colors": "^1.4.0",
     "mysql2": "^2.3.3",

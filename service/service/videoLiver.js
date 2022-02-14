@@ -9,7 +9,7 @@ const config = {
         port: 1935,
         chunk_size: 2000,
         gop_cache: true,
-        gop_cache_size:2000,
+        gop_cache_size: 2000,
         ping: 60,
         ping_timeout: 30,
         allow_origin: '*'
@@ -18,7 +18,7 @@ const config = {
         port: 5559,
         allow_origin: '*',
         //key:'./SSL/linkway.site.key',
-    	//cert:'./SSL/linkway.site_bundle.pem',
+        //cert:'./SSL/linkway.site_bundle.pem',
     }
 };
 

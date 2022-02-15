@@ -6,6 +6,7 @@ const http = require('http');
 const proxyHTTPSRequest = require('../service/proxyHTTPSRequest');
 const userDao = require('../dao/userDao');
 const movie = require('../service/movie/movie');
+const master = require('../service/webVpnMasterService');
 
 /**
  * 业务代理请求服务器
@@ -89,10 +90,12 @@ function proxy(server) {
                 });
                 //res.end();
             },
-            //电影搜索
+            //电影搜索————————————————————
             '/movie/search': movie.search,
-            //电影详情
+            //电影详情————————————————————
             '/movie/detail': movie.detail,
+            //研究生课表
+            '/master': master,
             //未知路由————————————————————
             'none': (req, res) => {
                 res.writeHead(200, {

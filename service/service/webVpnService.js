@@ -4,8 +4,6 @@ import setting from './setting';
  */
 require('colors');
 const https = require('https');
-const setting = require('../utils/setting.js');
-const link = require('../utils/link.js')();
 const webVpnServiceTest = require('./webVpnService.test.js');
 
 //是否进行调试 console.log open?
@@ -438,7 +436,6 @@ function service(callback, username, password) {
                     RETURN_RESULT.stuTable = stuTable;
                     if (DEBUG) console.log(`获取所有课程课表成功`.red);
                     if (DEBUG) console.log(stuTable);
-                    //genstufee(wengine_vpn_ticket, show_vpn, ST);
                     getyxxf(wengine_vpn_ticket, show_vpn, ST);
                 }, callback);
             });
@@ -447,45 +444,6 @@ function service(callback, username, password) {
             responseError(callback, e);
         });
     }
-
-    /*
-        //获得是否欠费
-        function genstufee(wengine_vpn_ticket, show_vpn, ST) {
-            const requestBody = "ctype=byyqxf&stid=1901420313&grade=2019&spno=080611W";
-            const req = https.request({
-                method: 'POST',
-                host: VPN_HOST,
-                path: `${BKJW_HTTPS_HASH()}/student/genstufee`,
-                headers: {
-                    'User-Agent': USER_AGENT,
-                    'Content-Type': 'application/x-www-form-urlencoded;charset="UTF-8"',
-                    'Referer': BKJW_Referer(ST),
-                    'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=${show_vpn}`,
-                    'x-requested-with': 'XMLHttpRequest'
-                }
-            }, (res) => {
-                res.setEncoding('utf8');
-                let rawData = '';
-                res.on('data', (chunk) => {
-                    rawData += chunk;
-                });
-                res.on('end', () => {
-                    errorBack(() => {
-                        const fee = JSON.parse(rawData);
-                        RETURN_RESULT.fee = fee;
-                        if (DEBUG) console.log(`获取费用信息成功 ${fee.msg}`.red);
-                        //console.log(parsedData);
-                        getyxxf(wengine_vpn_ticket, show_vpn, ST);
-                    }, callback);
-                });
-            });
-            req.on('error', (e) => {
-                responseError(callback, e);
-            });
-            req.write(requestBody);
-            req.end();
-        }
-    */
 
     /*已修课程情况信息*/
     function getyxxf(wengine_vpn_ticket, show_vpn, ST) {

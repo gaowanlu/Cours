@@ -15,6 +15,7 @@ const ios = {
   live: "https://cdn.jim-nielsen.com/ios/512/yubo-make-friends-go-live-2021-09-16.png",
   debug:
     "https://cdn.jim-nielsen.com/ios/512/scanner-air-scan-documents-2021-08-16.png",
+  movie: "https://cdn.jim-nielsen.com/ios/512/netflix-2018-11-01.png",
 };
 
 /**
@@ -84,6 +85,12 @@ function SimpleSlider() {
             <p>Assembly</p>
           </ApplicationIconBlockLink>
         </div>
+        <div>
+          <ApplicationIconBlockLink to="/movie">
+            <ApplicationIcon src={ios.movie} alt="" />
+            <p>Movie</p>
+          </ApplicationIconBlockLink>
+        </div>
       </Section>
       <Section>
         <PageHeader title="Stay hungry,Stay foolish" size={1} />
@@ -138,6 +145,7 @@ const Section = styled.div`
   box-sizing: border-box;
   color: var(--color-color);
   display: flex !important;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   @media screen and (min-width: 1000px) {
     padding: 2rem;

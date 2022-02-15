@@ -8,8 +8,9 @@ const userDao = {
         }
         try {
             connections.pool.getConnection((err, connection) => {
-                if (err) throw err;
+                if (err) {connection.release();throw err;}
                 connection.query('SELECT * FROM user', (error, results, fields) => {
+		    console.log(results);
                     callback(results);
                     connection.release();
                     if (error) throw error;
@@ -31,7 +32,7 @@ const userDao = {
                     //console.log(`INSERT INTO user VALUES ('${userid}')`);
                     //console.log(results);
                     connection.release();
-                    if (error) throw error;
+                    if (error) {connection.release();throw error;};
                 });
             });
         } catch (e) {

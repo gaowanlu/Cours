@@ -200,6 +200,7 @@ const Form = styled.form`
     border: 0px;
     padding: 0.5rem;
     background-color: var(--color-background);
+    color: var(--color-color);
   }
   button {
     margin-top: 1rem;
@@ -252,7 +253,6 @@ const VideoItem = styled.div`
     line-height: 1.4rem;
   }
   button {
-    width: 30%;
     height: 2rem;
     border: none;
     cursor: pointer;

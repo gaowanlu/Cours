@@ -1,5 +1,6 @@
 const connections = require('./connections');
 const config = require('./config');
+const mysql = require('mysql2');
 
 const userDao = {
     SELECT: async (callback) => {
@@ -8,8 +9,9 @@ const userDao = {
         }
         try {
             connections.pool.getConnection((err, connection) => {
-                if (err) throw err;
+                if (err) {connection.release();throw err;}
                 connection.query('SELECT * FROM user', (error, results, fields) => {
+		    console.log(">>检索用户学号列表");
                     callback(results);
                     connection.release();
                     if (error) throw error;
@@ -26,12 +28,11 @@ const userDao = {
         }
         try {
             connections.pool.getConnection((err, connection) => {
-                if (err) throw err;
-                connection.query(`INSERT INTO user VALUES ('${userid}')`, (error, results, fields) => {
-                    //console.log(`INSERT INTO user VALUES ('${userid}')`);
-                    //console.log(results);
+                if (err) {connection.release();throw err;}
+                connection.query(mysql.format("INSERT INTO ?? VALUES(?)",['user',userid]), (error, results, fields) => {
+                    console.log(">>插入学号信息");
                     connection.release();
-                    if (error) throw error;
+                    if (error) {connection.release();throw error;};
                 });
             });
         } catch (e) {

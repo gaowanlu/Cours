@@ -212,10 +212,8 @@ const Form = styled.form`
     font-size: 1rem;
     border: 0px;
     background-color: var(--color-background);
-    &:hover {
-      background-color: var(--color-primary);
-      color: #fafafa;
-    }
+    background-color: var(--color-primary);
+    color: #fafafa;
   }
   background-color: var(--color-background-front);
   padding: 2rem 1rem;
@@ -258,10 +256,8 @@ const VideoItem = styled.div`
     cursor: pointer;
     border-radius: 1rem;
     margin-top: 1rem;
-    &:hover {
-      background-color: var(--color-primary);
-      color: #fafafa;
-    }
+    background-color: var(--color-primary);
+    color: #fafafa;
     padding: 0 0.5rem;
   }
   position: relative;

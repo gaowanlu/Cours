@@ -262,6 +262,7 @@ const VideoItem = styled.div`
       background-color: var(--color-primary);
       color: #fafafa;
     }
+    padding: 0 0.5rem;
   }
   position: relative;
   padding: 1rem 0;

@@ -6,7 +6,7 @@ const talkService = require('./service/talkService');
 const proxy = require('./controller/proxy');
 
 //https开关 是否启用HTTPS
-const HTTPS = true;
+const HTTPS = false;
 
 /*加载SSL KEY*/
 const OPTIONS_SSL = {

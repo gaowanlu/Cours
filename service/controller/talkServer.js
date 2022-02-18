@@ -3,7 +3,7 @@
  * @param {*} server_talk HTTP or HTTPS node server
  * @returns 闭包函数
  */
-function talkService(server_talk) {
+function talkServer(server_talk) {
     return () => {
         /**
          *计数器
@@ -71,4 +71,4 @@ function talkService(server_talk) {
     }
 }
 
-module.exports = talkService;
+module.exports = talkServer;

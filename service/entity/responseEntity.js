@@ -1,4 +1,13 @@
+/**
+ * 返回JSON实体类
+ */
 class ResponseEntity {
+    /**
+     * 
+     * @param {响应状态} status 
+     * @param {描述信息} message 
+     * @param {Object:JSON Object} data 
+     */
     constructor(status, message, data) {
         if (status === undefined) {
             status = 404;

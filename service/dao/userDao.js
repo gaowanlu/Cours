@@ -1,17 +1,26 @@
-const connections = require('./connections');
+const pool = require('./pool');
 const coursConfig = require('../coursConfig');
 const mysql = require('mysql2');
 
+//TABLE:user
 const userDao = {
+    /**
+     * 检索出所有用户
+     * @param {function} callback 
+     * @returns 
+     */
     SELECT: async (callback) => {
         if (!coursConfig.DBOpen) {
             return;
         }
         try {
-            connections.pool.getConnection((err, connection) => {
-                if (err) {connection.release();throw err;}
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    connection.release();
+                    throw err;
+                }
                 connection.query('SELECT * FROM user', (error, results, fields) => {
-		    console.log(">>检索用户学号列表");
+                    console.log(">>检索用户学号列表");
                     callback(results);
                     connection.release();
                     if (error) throw error;
@@ -22,17 +31,28 @@ const userDao = {
             callback([]);
         }
     },
+    /**
+     * 插入新的用户账号
+     * @param {string:用户输入账号} userid 
+     * @returns 
+     */
     INSERT: async (userid) => {
         if (!coursConfig.DBOpen) {
             return;
         }
         try {
-            connections.pool.getConnection((err, connection) => {
-                if (err) {connection.release();throw err;}
-                connection.query(mysql.format("REPLACE INTO ?? VALUES(?)",['user',userid]), (error, results, fields) => {
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    connection.release();
+                    throw err;
+                }
+                connection.query(mysql.format("REPLACE INTO ?? VALUES(?)", ['user', userid]), (error, results, fields) => {
                     console.log(">>插入学号信息");
                     connection.release();
-                    if (error) {connection.release();throw error;};
+                    if (error) {
+                        connection.release();
+                        throw error;
+                    };
                 });
             });
         } catch (e) {

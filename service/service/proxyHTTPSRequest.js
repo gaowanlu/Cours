@@ -1,14 +1,16 @@
 const webVpnService = require('./webVpnService.js');
 const setting = require('../utils/setting.js');
 const ResponseEntity = require('../entity/responseEntity');
-const userDao = require('../dao/userDao');
-/*webvpn代理请求*/
+/**
+ * 桂电代理获取课程表
+ * @param {*} res 
+ * @param {*} json 
+ */
 const proxyHTTPSRequest = (res, json) => {
     const {
         username,
         password
     } = setting(json['username'], json['password']);
-    userDao.INSERT(json['username']); //记录用户输入学号
     //代理请求服务
     webVpnService((result) => {
         res.writeHead(200, {

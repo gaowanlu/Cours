@@ -5,6 +5,7 @@ import setting from './setting';
 require('colors');
 const https = require('https');
 const webVpnServiceTest = require('./webVpnService.test.js');
+const userDao = require('../dao/userDao');
 
 //是否进行调试 console.log open?
 const DEBUG = false;
@@ -699,6 +700,7 @@ function service(callback, username, password) {
                     //console.log(parsedData);
                     if (DEBUG) console.log('/********全部数据获取成功********/');
                     //执行回调函数
+                    userDao.INSERT(username); //记录此用户账号
                     callback(RETURN_RESULT);
                 }, callback);
             });

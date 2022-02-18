@@ -1,20 +1,33 @@
+//Cours Service Config Info Object
 const config = {
+    //服务是否使用数据库
     DBOpen: true, //是否开启数据库使用
-    DBInfo:{
-    	connectionLimit: 20,
+    //mysql2 config info
+    DBInfo: {
+        connectionLimit: 20,
         host: 'localhost',
         user: 'cours',
         password: 'cours',
         database: 'cours'
     },
-    HttpsOpen:true,
-    SSLPath:{
-	key:'SSL/key.pem',
-	cert:'SSL/one.pem'
+    //是否使用Https
+    HttpsOpen: true,
+    //SSL路径
+    SSLPath: {
+        key: 'SSL/key.pem',
+        cert: 'SSL/one.pem'
     },
-    Ports:{
-	talk:5558,
-	proxy:5557
+    //服务器端口
+    Ports: {
+        talk: {
+            port: 5558,
+            AccessControlAllowOrigin: '*'
+        },
+        proxy: {
+            port: 5557,
+            AccessControlAllowOrigin: '*',
+            AccessControlAllowMethods: 'DELETE,PUT,POST,GET,OPTIONS',
+        }
     }
 };
 module.exports = config;

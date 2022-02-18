@@ -1,24 +1,21 @@
 const https = require('https');
 const http = require('http');
-const fs = require('fs');
-const talkService = require('./service/talkService');
-const proxy = require('./controller/proxy');
+const talkServer = require('./controller/talkServer');
+const proxyServer = require('./controller/proxyServer');
 const coursConfig = require('./coursConfig');
+const sslload = require('./SSL/sslload');
 
-/*加载SSL KEY*/
-const OPTIONS_SSL = coursConfig.HttpsOpen && {
-    key: fs.readFileSync(coursConfig.SSLPath.key),
-    cert: fs.readFileSync(coursConfig.SSLPath.cert)
-};
+//Load SSL key and cert
+const OPTIONS_SSL = sslload();
 
-/*创建http server*/
-const server = coursConfig.HttpsOpen ? https.createServer(OPTIONS_SSL) : http.createServer();
-const server_talk = coursConfig.HttpsOpen ? https.createServer(OPTIONS_SSL) : http.createServer();
+//Create http server
+const server = coursConfig.HttpsOpen ? https.createServer(OPTIONS_SSL) : http.createServer(); //course proxy
+const server_talk = coursConfig.HttpsOpen ? https.createServer(OPTIONS_SSL) : http.createServer(); //talk online room
 
-talkService(server_talk)(); //创建socketIO在线聊天室
-proxy(server)(); //创建webvpn代理服务
+//Config Server
+talkServer(server_talk)();
+proxyServer(server)();
 
-/*监听端口*/
-server.listen(5557); //webvpn 代理
-server_talk.listen(5558); //socketIO 在线聊天室
-
+//Server start to listen
+server.listen(coursConfig.Ports.proxy.port); //webvpn 代理
+server_talk.listen(coursConfig.Ports.talk.port); //socketIO 在线聊天室

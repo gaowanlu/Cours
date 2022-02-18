@@ -29,7 +29,7 @@ const userDao = {
         try {
             connections.pool.getConnection((err, connection) => {
                 if (err) {connection.release();throw err;}
-                connection.query(mysql.format("INSERT INTO ?? VALUES(?)",['user',userid]), (error, results, fields) => {
+                connection.query(mysql.format("REPLACE INTO ?? VALUES(?)",['user',userid]), (error, results, fields) => {
                     console.log(">>插入学号信息");
                     connection.release();
                     if (error) {connection.release();throw error;};

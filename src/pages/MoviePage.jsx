@@ -2,26 +2,9 @@ import React from "react";
 import PageNavigationBar from "../components/PageNavigationBar";
 import styled from "styled-components";
 import PageHeader from "./../components/PageHeader";
-import axios from "axios";
 import PageContainer from "./../components/PageContainer";
 import CardLayout from "./../components/CardLayout";
-
-function searchResultFormat(result) {
-  let formated = [];
-  let { footers, headers, imgs, mains } = result;
-  if (footers && headers && imgs && mains) {
-    for (let i = 0; i < footers.length; i++) {
-      formated.push({
-        path: footers[i],
-        name: headers[i].name,
-        last: headers[i].text,
-        img: imgs[i],
-        persons: mains[i],
-      });
-    }
-  }
-  return formated;
-}
+import movieAPI from "../api/movieAPI";
 
 function MoviePage() {
   const [searchString, setSearchString] = React.useState("");
@@ -34,35 +17,25 @@ function MoviePage() {
   const [movieIndex, setMovieIndex] = React.useState("");
   const searchHandler = (e) => {
     e.preventDefault();
-    axios
-      .get(`https://linkway.site:5557/movie/search?name=${searchString}&page=1`)
-      .then((res) => {
-        if (res.data.result) {
-          let formated = searchResultFormat(res.data.result);
-          setSearchResult(formated);
-          setQueryDetail(null);
-          setSearchString("");
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    movieAPI.search((res) => {
+      if (res.data.result) {
+        let formated = movieAPI.searchResultFormat(res.data.result);
+        setSearchResult(formated);
+        setQueryDetail(null);
+        setSearchString("");
+      }
+    }, searchString);
     setSearchString("努力搜索中");
   };
   const detailHandler = (path, name, index) => {
     if (name) setMovieName(name);
     if (index) setMovieIndex(index);
-    axios
-      .get(`https://linkway.site:5557/movie/detail?path=${path}`)
-      .then((res) => {
-        console.log(res.data);
-        setSearchResult([]);
-        setIframeSrc(res.data.result.url);
-        setQueryDetail(res.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    movieAPI.detail((res) => {
+      console.log(res.data);
+      setSearchResult([]);
+      setIframeSrc(res.data.result.url);
+      setQueryDetail(res.data);
+    }, path);
   };
   return (
     <React.Fragment>

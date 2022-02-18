@@ -1,10 +1,10 @@
 const connections = require('./connections');
-const config = require('./config');
+const coursConfig = require('../coursConfig');
 const mysql = require('mysql2');
 
 const userDao = {
     SELECT: async (callback) => {
-        if (!config.open) {
+        if (!coursConfig.DBOpen) {
             return;
         }
         try {
@@ -23,7 +23,7 @@ const userDao = {
         }
     },
     INSERT: async (userid) => {
-        if (!config.open) {
+        if (!coursConfig.DBOpen) {
             return;
         }
         try {

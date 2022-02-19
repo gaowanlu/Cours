@@ -17,6 +17,7 @@ import PageHeader from "../components/PageHeader";
 import PageNavigationBar from "../components/PageNavigationBar";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
+import RequestPageIcon from "@mui/icons-material/RequestPage";
 
 function MorePage() {
   const [updateDataDialogShow, setUpdateDataDialogShow] = useState(false); //更新数据弹窗显示状态
@@ -62,6 +63,7 @@ function MorePage() {
     { Icon: DateRangeIcon, text: "时间设置", to: "/dateSetting" },
     { Icon: BusinessIcon, text: "关于我们", to: "/aboutUs" },
     { Icon: VideogameAssetIcon, text: "Cours OS", to: "/other" },
+    { Icon: RequestPageIcon, text: "意见反馈", to: "/qa/form?content=" },
   ];
 
   return (

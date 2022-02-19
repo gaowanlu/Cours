@@ -15,6 +15,7 @@ const AboutUsPage = React.lazy(() => import("./pages/AboutUsPage"));
 const ExamPage = React.lazy(() => import("./pages/ExamPage"));
 const TalkPage = React.lazy(() => import("./pages/TalkPage"));
 const CoursOSPage = React.lazy(() => import("./pages/CoursOSPage"));
+const QAPage = React.lazy(() => import("./pages/QAPage"));
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="/talk" element={<TalkPage />} />
           <Route path="/debug" element={<DebugPage />} />
           <Route path="/movie" element={<MoviePage />} />
+          <Route path="/qa/:view" element={<QAPage />} />
           <Route index path="*" element={<DayPage />} />
         </Routes>
       </Suspense>

@@ -7,7 +7,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import slickOveride from "../styles/SlickOveride.module.css";
-import PageHeader from "../components/PageHeader";
 import { Link } from "react-router-dom";
 
 const ios = {
@@ -82,7 +81,7 @@ function SimpleSlider() {
         <div>
           <ApplicationIconBlockLink to="/debug">
             <ApplicationIcon src={ios.debug} alt="" />
-            <p>Assembly</p>
+            <p>Assemb</p>
           </ApplicationIconBlockLink>
         </div>
         <div>
@@ -92,9 +91,7 @@ function SimpleSlider() {
           </ApplicationIconBlockLink>
         </div>
       </Section>
-      <Section>
-        <PageHeader title="Stay hungry,Stay foolish" size={1} />
-      </Section>
+      <Section></Section>
     </Slider>
   );
 }
@@ -144,11 +141,17 @@ const Section = styled.div`
   padding: 1rem;
   box-sizing: border-box;
   color: var(--color-color);
-  display: flex !important;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  @media screen and (min-width: 1000px) {
-    padding: 2rem;
+  display: grid !important;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: auto auto auto;
+  justify-items: center;
+  align-items: center;
+  @media screen and (max-width: 400px) {
+    grid-template-rows: auto auto auto;
+    grid-template-columns: auto auto;
+  }
+  & > div {
+    /* background-color: red; */
   }
 `;
 
@@ -171,7 +174,7 @@ const ApplicationIconBlockLink = styled(Link)`
     padding-top: 0.4rem;
   }
   text-decoration: none;
-  border-radius: 0.8rem;
+  border-radius: 0.7rem;
   margin: 10px;
   background-color: var(--color-background-front);
   padding: 1rem;
@@ -181,6 +184,7 @@ const ApplicationIconBlockLink = styled(Link)`
   &:hover {
     transform: scale(1.05);
     transition: transform 200ms ease-in-out;
+    background-color: var(--color-primary);
   }
 `;
 

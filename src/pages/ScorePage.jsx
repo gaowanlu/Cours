@@ -6,8 +6,8 @@ import PageNavigationBar from "../components/PageNavigationBar";
 import Table from "../components/Table";
 import courseBase from "../data/courseBase";
 import xfjCalc from "../data/xfjCalc";
-import { Swiper, SwiperSlide } from "swiper/react";
-import styled from "styled-components";
+import ViewPagerNav from "../components/ViewPagerNav";
+import ViewPager from "../components/ViewPager";
 import "swiper/css";
 
 /**
@@ -61,81 +61,22 @@ function ScorePage() {
       <PageNavigationBar title="成绩查询" backTitle="更多" backPath="/more" />
       <PageContainer className="animate__animated animate__fadeInRight animate__faster">
         <PageHeader title="成绩查询" />
-        <ViewPagerNav>
-          <ViewPagerNavButton
-            onClick={(e) => viewPagerClickHandle(0)}
-            active={nowPageIndex === 0}
-          >
-            成绩单
-          </ViewPagerNavButton>
-          <ViewPagerNavButton
-            onClick={(e) => viewPagerClickHandle(1)}
-            active={nowPageIndex === 1}
-          >
-            学分绩
-          </ViewPagerNavButton>
-        </ViewPagerNav>
-        <Swiper
-          spaceBetween={50}
-          slidesPerView={1}
-          onSlideChange={(swiper) => {
-            setNowPageIndex(swiper.activeIndex);
-          }}
-          onSwiper={(swiper) => setSwiper(swiper)}
-        >
-          <SwiperSlide>
-            <CardLayout>
-              <Table head={tableHead} rows={tableRows} />
-            </CardLayout>
-          </SwiperSlide>
-          <SwiperSlide>
-            <CardLayout>
-              <Table head={tableHead1} rows={tableRows1} />
-            </CardLayout>
-          </SwiperSlide>
-        </Swiper>
+        <ViewPagerNav
+          textList={["成绩单", "学分绩"]}
+          nowPageIndex={nowPageIndex}
+          indexChangeCallback={viewPagerClickHandle}
+        />
+        <ViewPager setNowPageIndex={setNowPageIndex} setSwiper={setSwiper}>
+          <CardLayout>
+            <Table head={tableHead} rows={tableRows} />
+          </CardLayout>
+          <CardLayout>
+            <Table head={tableHead1} rows={tableRows1} />
+          </CardLayout>
+        </ViewPager>
       </PageContainer>
     </React.Fragment>
   );
 }
-
-const ViewPagerNav = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  height: 3rem;
-  border-radius: 0.5rem;
-  box-sizing: border-box;
-  padding: 1rem;
-`;
-
-const ViewPagerNavButton = styled.button`
-  background-color: var(--color-background);
-  color: ${(props) =>
-    props.active ? "var(--color-primary)" : "var(--color-color)"};
-  height: 2rem;
-  width: 6rem;
-  border: none;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  margin-right: 1rem;
-  font-weight: bold;
-  position: relative;
-  &::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 0.4rem;
-    background-color: var(--color-primary);
-    left: 0;
-    bottom: -0.5rem;
-    border-radius: 0.25rem;
-    display: ${(props) => (props.active ? "default" : "none")};
-    &:focus {
-      outline: 0;
-    }
-  }
-`;
 
 export default ScorePage;

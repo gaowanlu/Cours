@@ -39,11 +39,7 @@ function MoviePage() {
   };
   return (
     <React.Fragment>
-      <PageNavigationBar
-        title="Cours Movie"
-        backTitle="更多"
-        backPath="/other"
-      />
+      <PageNavigationBar title="Movie" backTitle="OS" backPath="/other" />
       <PageContainer style={{ minHeight: "auto" }}>
         <PageHeader
           title={"正在播放: " + movieName + " " + movieIndex}

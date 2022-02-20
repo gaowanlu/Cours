@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Footer from "../components/Footer";
 import WeekTable from "../components/WeekTable.jsx";
 import DialogWindow from "../components/DialogWindow";
 import CourseDetailList from "../components/CourseDetailList";
@@ -26,7 +25,7 @@ const detailListCreator = (courseItem) => {
  * 周课表页面
  * @returns
  */
-function WeekPage() {
+function WeekView() {
   const [dialogShow, setDialogShow] = useState(false);
   const [detailList, setDetailList] = useState([]);
   let nowWeek = courseBase.nowWeek(); //加载现在是第几周
@@ -57,8 +56,6 @@ function WeekPage() {
           <CourseDetailList list={detailList} />
         </DialogWindow>
       )}
-      {/* 底部导航栏 */}
-      <Footer fill="week" />
     </React.Fragment>
   );
 }
@@ -71,4 +68,4 @@ const Content = styled.div`
   padding: 1rem;
 `;
 
-export default WeekPage;
+export default WeekView;

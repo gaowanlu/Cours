@@ -69,7 +69,7 @@ function MorePage() {
   return (
     <React.Fragment>
       {/*导航栏*/}
-      <PageNavigationBar title="更多" backTitle="日课表" backPath="/" />
+      <PageNavigationBar title="更多" backTitle="主页" backPath="/" />
       <PageContainer className="animate__animated animate__zoomIn animate__faster">
         {/*头部*/}
         <PageHeader title={"更多"} />

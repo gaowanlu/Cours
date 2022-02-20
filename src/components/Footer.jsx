@@ -9,7 +9,7 @@ import Tooltip from "@mui/material/Tooltip";
 
 /*根据所在页面 选择不同的icon*/
 function FooterIconConfig(props) {
-  let { index, fill } = { ...props };
+  let { index, fillIndex } = { ...props };
   let iconStyle = {
     color: "var(--color-primary)",
     fontSize: "2rem",
@@ -18,14 +18,14 @@ function FooterIconConfig(props) {
     <React.Fragment>
       {index === 0 && (
         <React.Fragment>
-          {fill === "table" && <ArticleIcon style={iconStyle} />}
-          {fill !== "table" && <ArticleOutlinedIcon style={iconStyle} />}
+          {fillIndex === 0 && <ArticleIcon style={iconStyle} />}
+          {fillIndex !== 0 && <ArticleOutlinedIcon style={iconStyle} />}
         </React.Fragment>
       )}
       {index === 1 && (
         <React.Fragment>
-          {fill === "week" && <AssessmentIcon style={iconStyle} />}
-          {fill !== "week" && <AssessmentOutlinedIcon style={iconStyle} />}
+          {fillIndex === 1 && <AssessmentIcon style={iconStyle} />}
+          {fillIndex !== 1 && <AssessmentOutlinedIcon style={iconStyle} />}
         </React.Fragment>
       )}
     </React.Fragment>
@@ -38,25 +38,34 @@ function FooterIconConfig(props) {
  * @returns
  */
 function Footer(props) {
-  let fill = props.fill;
+  let fillIndex = props.fillIndex;
+  const list = [
+    { title: "日课表", to: "#", index: 0 },
+    { title: "周课表", to: "#", index: 1 },
+  ];
+  const linkClickHandler = (e, index) => {
+    e.preventDefault();
+    props.click(index);
+  };
   return (
     <Container>
       <Row>
-        <Tooltip title="日课表" placement="top">
-          <IconBox>
-            <Link to="/table">
-              <FooterIconConfig fill={fill} index={0} />
-            </Link>
-          </IconBox>
-        </Tooltip>
-
-        <Tooltip title="周课表" placement="top">
-          <IconBox>
-            <Link to="/week">
-              <FooterIconConfig fill={fill} index={1} />
-            </Link>
-          </IconBox>
-        </Tooltip>
+        {list.map((o) => {
+          return (
+            <Tooltip title={o.title} placement="top" key={o.index}>
+              <IconBox>
+                <Link
+                  to={o.to}
+                  onClick={(e) => {
+                    linkClickHandler(e, o.index);
+                  }}
+                >
+                  <FooterIconConfig fillIndex={fillIndex} index={o.index} />
+                </Link>
+              </IconBox>
+            </Tooltip>
+          );
+        })}
       </Row>
     </Container>
   );
@@ -73,6 +82,7 @@ const Container = styled.footer`
   align-items: center;
   flex-wrap: wrap;
   box-shadow: var(--box-shadow);
+  z-index: 999;
 `;
 
 const Row = styled.div`

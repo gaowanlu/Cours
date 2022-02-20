@@ -3,12 +3,11 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import courseBase from "../data/courseBase";
 import PlanCard from "../components/PlanCard";
-import Footer from "../components/Footer";
 import Fade from "react-reveal/Fade";
 import MoreIcon from "@mui/icons-material/More";
 import Tooltip from "@mui/material/Tooltip";
 
-function DayPage() {
+function DayView() {
   /*获取日课表数据*/
   let dayCourses = courseBase.dayViewFormat();
 
@@ -39,14 +38,13 @@ function DayPage() {
           })}
         </Content>
       </PageContainerStyled>
-      {/* 底部导航栏 */}
-      <Footer fill="table" />
     </React.Fragment>
   );
 }
 
 const PageContainerStyled = styled.div`
   padding: 0px;
+  min-height: 100vh;
 `;
 
 const Title = styled.div`
@@ -85,5 +83,4 @@ const Content = styled.div`
   padding: 0px 1rem 1rem 1rem;
 `;
 
-export { Title, DateText };
-export default DayPage;
+export default DayView;

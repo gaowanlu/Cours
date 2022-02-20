@@ -41,11 +41,11 @@ function DialogWindow(props) {
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
-  position: fixed;
-  z-index: 997;
+  height: calc(100vh - 4rem);
+  position: absolute;
+  z-index: 1000;
   top: 0;
-  bottom: 0;
+  bottom: 4rem;
   left: 0;
   right: 0;
   backdrop-filter: blur(3px);
@@ -60,7 +60,7 @@ const Card = styled.div`
   box-shadow: 0px 0px 10px 2px #61606023;
   border-top-left-radius: 1.2rem;
   border-top-right-radius: 1.2rem;
-  margin-top: 20vh;
+  margin-top: calc(20vh - 4rem);
   padding: 1rem;
   padding-top: 0;
   box-sizing: border-box;

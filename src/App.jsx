@@ -1,10 +1,6 @@
 import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import DayPage from "./pages/DayPage";
-import WeekPage from "./pages/WeekPage";
 import SuspenseCover from "./components/SuspenseCover";
-import DebugPage from "./pages/DebugPage";
-import MoviePage from "./pages/MoviePage";
 
 /*组件懒加载*/
 const SelfInfoPage = React.lazy(() => import("./pages/SelfInfoPage"));
@@ -16,14 +12,15 @@ const ExamPage = React.lazy(() => import("./pages/ExamPage"));
 const TalkPage = React.lazy(() => import("./pages/TalkPage"));
 const CoursOSPage = React.lazy(() => import("./pages/CoursOSPage"));
 const QAPage = React.lazy(() => import("./pages/QAPage"));
+const MoviePage = React.lazy(() => import("./pages/MoviePage"));
+const DebugPage = React.lazy(() => import("./pages/DebugPage"));
+const IndexPage = React.lazy(() => import("./pages/IndexPage"));
 
 function App() {
   return (
     <React.Fragment>
       <Suspense fallback={<SuspenseCover />}>
         <Routes>
-          <Route path="/table" element={<DayPage />} />
-          <Route path="/week" element={<WeekPage />} />
           <Route exact path="/selfInfo" element={<SelfInfoPage />} />
           <Route exact path="/more" element={<MorePage />} />
           <Route exact path="/suspenseCover" element={<SuspenseCover />} />
@@ -35,8 +32,9 @@ function App() {
           <Route path="/talk" element={<TalkPage />} />
           <Route path="/debug" element={<DebugPage />} />
           <Route path="/movie" element={<MoviePage />} />
+          <Route path="/index" element={<IndexPage />} />
           <Route path="/qa/:view" element={<QAPage />} />
-          <Route index path="*" element={<DayPage />} />
+          <Route index path="*" element={<IndexPage />} />
         </Routes>
       </Suspense>
     </React.Fragment>

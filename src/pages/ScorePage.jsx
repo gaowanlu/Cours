@@ -8,7 +8,6 @@ import courseBase from "../data/courseBase";
 import xfjCalc from "../data/xfjCalc";
 import ViewPagerNav from "../components/ViewPagerNav";
 import ViewPager from "../components/ViewPager";
-import "swiper/css";
 
 /**
  * 个人成绩页面

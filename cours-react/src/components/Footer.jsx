@@ -82,7 +82,7 @@ const Container = styled.footer`
   align-items: center;
   flex-wrap: wrap;
   box-shadow: var(--box-shadow);
-  z-index: 999;
+  z-index: 995;
 `;
 
 const Row = styled.div`

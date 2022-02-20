@@ -44,7 +44,11 @@ function DayView() {
 
 const PageContainerStyled = styled.div`
   padding: 0px;
-  min-height: 100vh;
+  height: calc(100vh - 4rem);
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 0;
+  }
 `;
 
 const Title = styled.div`

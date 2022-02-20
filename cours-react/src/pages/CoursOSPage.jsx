@@ -142,10 +142,15 @@ const Section = styled.div`
   box-sizing: border-box;
   color: var(--color-color);
   display: grid !important;
-  grid-template-rows: auto auto auto;
+  max-height: calc(100vh - 11rem);
+  grid-template-rows: auto auto;
   grid-template-columns: auto auto auto;
   justify-items: center;
   align-items: center;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    width: 0;
+  }
   @media screen and (max-width: 400px) {
     grid-template-rows: auto auto auto;
     grid-template-columns: auto auto;
@@ -157,6 +162,7 @@ const Section = styled.div`
 
 const ApplicationIcon = styled.img`
   width: 3.2rem;
+  height: 3.2rem;
   border-radius: 0.6rem;
   display: inline-block;
 `;

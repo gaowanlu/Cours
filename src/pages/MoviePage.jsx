@@ -40,12 +40,9 @@ function MoviePage() {
   return (
     <React.Fragment>
       <PageNavigationBar title="Movie" backTitle="OS" backPath="/other" />
-      <PageContainer style={{ minHeight: "auto" }}>
-        <PageHeader
-          title={"正在播放: " + movieName + " " + movieIndex}
-          color={"var(--color-primary)"}
-          size={1}
-        />
+      <PageContainer
+        style={{ minHeight: "auto", paddingTop: "0", paddingBottom: "0" }}
+      >
         <GridContainer>
           <VideoIframe
             title="Cours Movie"
@@ -63,7 +60,12 @@ function MoviePage() {
             webkitallowfullscreen="webkitallowfullscreen"
           ></VideoIframe>
           <Board>
-            <PageHeader title="资源搜索" size={1} />
+            <PageHeader
+              title={"正在播放: " + movieName + " " + movieIndex}
+              color={"var(--color-primary)"}
+              size={1}
+            />
+            <PageHeader title="资源搜索" size={2} />
             <Form>
               <input
                 value={searchString}
@@ -72,7 +74,7 @@ function MoviePage() {
               />
               <button onClick={searchHandler}>搜索</button>
             </Form>
-            <PageHeader title="资源详情" size={1} />
+            <PageHeader title="资源详情" size={2} />
             <CardLayout>
               {queryDetail &&
                 queryDetail.details.map((detailItem, i) => {
@@ -100,7 +102,7 @@ function MoviePage() {
                   );
                 })}
             </CardLayout>
-            <PageHeader title="搜索结果 暂不支持翻页" size={1} />
+            <PageHeader title="搜索结果 暂不支持翻页" size={2} />
             <CardLayout>
               {searchResult &&
                 searchResult.map((item) => (
@@ -138,7 +140,7 @@ function MoviePage() {
 
 const Board = styled.div`
   width: 100%;
-  height: calc(60vh - 8rem);
+  height: calc(65vh - 5rem);
   /* background-color: var(--color-background-front); */
   border-radius: 0.5rem;
   box-sizing: border-box;
@@ -193,7 +195,7 @@ const Form = styled.form`
 
 const GridContainer = styled.div`
   display: grid;
-  grid-template-rows: auto;
+  grid-template-rows: calc(100vh - 4rem);
   grid-template-columns: 50fr 50fr;
   row-gap: 1rem;
   column-gap: 1rem;

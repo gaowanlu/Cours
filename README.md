@@ -5,39 +5,34 @@
 使用方式 `ios/ipad:webclip` 或 `Browser`  
 预览 https://cours.vercel.app  
 
-### create-react-app
+### coursReact
 
 前端项目 [/cours-react/](./cours-react/) 
 
-```shell
-npm install  
-npm start 
-npm run build
-```
+### coursService  
 
-### Cours Service  
+Node网络服务 [/service/](./service/)
 
-node web project [/service/](./service/)
 
-* 代理工具node项目 在 `service` 文件夹下
-* 本项目不不承担任何责任、使用者后果自付。  
-* 如有侵犯您的权益请及时联系我们。
-* 我们不会在服务器保存您的任何信息与操作记录。  
-* 代理请求服务器监听端口为5557 聊天室服务端口5558  
-
-### WebAssembly  
+### webAssembly  
 
 C++程序 [/assembly/](./assembly/)  
 
 * 主要用于学分绩的计算/同时为了技术的学习  
+* 目前正在研究
 
-### NextJS  
+### next-app  
 
 Next-App [/next-app/](/next-app/)  
 
 * 计划从create-react-app 向 Next.js SSR 迁移  
 
-### WebClip  
+### android  
+
+基于WebView的在线方案 [/android/](./android/)
+
+### webClip  
+
 ios webclip Web封装 [/webClip/](./webClip/) 
 下载地址 https://wwu.lanzout.com/iROctz04qch  
 密码 `cours`  

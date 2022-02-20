@@ -61,9 +61,9 @@ function MorePage() {
   /*选择列表2*/
   const card2 = [
     { Icon: DateRangeIcon, text: "时间设置", to: "/dateSetting" },
-    { Icon: BusinessIcon, text: "关于我们", to: "/aboutUs" },
     { Icon: VideogameAssetIcon, text: "Cours OS", to: "/other" },
     { Icon: RequestPageIcon, text: "意见反馈", to: "/qa/form?content=" },
+    { Icon: BusinessIcon, text: "关于我们", to: "/aboutUs" },
   ];
 
   return (

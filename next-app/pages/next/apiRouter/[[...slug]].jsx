@@ -15,6 +15,7 @@ function Page() {
       </p>
       <a
         target="_blank"
+        rel="noreferrer"
         href="https://nextjs.org/docs/api-routes/dynamic-api-routes"
       >
         https://nextjs.org/docs/api-routes/dynamic-api-routes

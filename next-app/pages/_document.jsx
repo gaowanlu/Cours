@@ -1,6 +1,5 @@
-import Document from "next/document";
 import { ServerStyleSheet } from "styled-components";
-import { Html, Head, Main, NextScript } from "next/document";
+import Document, { Html, Head, Main, NextScript } from "next/document";
 
 //用于styled-components适配next.js
 export default class MyDocument extends Document {
@@ -32,10 +31,10 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          {/* <link
+          <link
             href="https://fonts.googleapis.com/css2?family=Inter&display=optional"
             rel="stylesheet"
-          /> */}
+          />
         </Head>
         <body>
           <Main />

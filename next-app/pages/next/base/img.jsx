@@ -20,7 +20,10 @@ function img() {
           // placeholder="blur" // Optional blur-up while loading
         />
       </ImgSize>
-      <img src="http://localhost:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.4b76de4f.png&w=640&q=75" />
+      <Image
+        src="http://localhost:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.4b76de4f.png&w=640&q=75"
+        alt="unknow"
+      />
     </div>
   );
 }

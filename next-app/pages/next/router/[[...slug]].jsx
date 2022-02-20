@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 /*next中为单页面程序*/
-function route() {
+function Route() {
   const router = useRouter();
   console.log(router);
   return (
@@ -40,6 +40,7 @@ function route() {
         doc
         <a
           target="_blank"
+          rel="noreferrer"
           href="https://nextjs.org/docs/api-reference/next/router#userouter"
         >
           https://nextjs.org/docs/api-reference/next/router#userouter
@@ -51,6 +52,7 @@ function route() {
         的区分 <br />
         <a
           target="_blank"
+          rel="noreferrer"
           href="https://nextjs.org/docs/routing/dynamic-routes"
         >
           https://nextjs.org/docs/routing/dynamic-routes
@@ -67,4 +69,4 @@ function route() {
   );
 }
 
-export default route;
+export default Route;

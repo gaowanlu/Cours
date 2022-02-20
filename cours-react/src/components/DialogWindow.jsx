@@ -41,11 +41,11 @@ function DialogWindow(props) {
 
 const Container = styled.div`
   width: 100%;
-  height: calc(100vh - 4rem);
+  height: 100vh;
   position: absolute;
-  z-index: 1000;
+  z-index: 999;
   top: 0;
-  bottom: 4rem;
+  bottom: 0rem;
   left: 0;
   right: 0;
   backdrop-filter: blur(3px);
@@ -60,7 +60,7 @@ const Card = styled.div`
   box-shadow: 0px 0px 10px 2px #61606023;
   border-top-left-radius: 1.2rem;
   border-top-right-radius: 1.2rem;
-  margin-top: calc(20vh - 4rem);
+  margin-top: 20vh;
   padding: 1rem;
   padding-top: 0;
   box-sizing: border-box;
@@ -69,8 +69,9 @@ const Card = styled.div`
   text-align: justify;
   background-color: var(--color-background);
   &::-webkit-scrollbar {
-    /* width: 1rem; */
+    width: 0;
   }
+  padding-bottom: 4rem;
 `;
 
 const WhiteSpace = styled.div`

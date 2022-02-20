@@ -14,7 +14,10 @@ function IndexPage() {
   };
   return (
     <React.Fragment>
-      <ViewPager setNowPageIndex={setNowPageIndex} setSwiper={setSwiper}>
+      <ViewPager
+        setNowPageIndex={setNowPageIndex}
+        setSwiper={setSwiper}
+      >
         <DayView />
         <WeekView />
       </ViewPager>

@@ -1,0 +1,15 @@
+package app.vercel.cours.activity;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+import app.vercel.cours.R;
+
+public class CoursActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_cours);
+    }
+}

@@ -62,7 +62,10 @@ function WeekView() {
 
 const Container = styled.div`
   /* width: 100vw; */
-  min-height: 100vh;
+  height: calc(100vh - 4rem);
+  &::-webkit-scrollbar {
+    width: 0;
+  }
 `;
 const Content = styled.div`
   padding: 1rem;

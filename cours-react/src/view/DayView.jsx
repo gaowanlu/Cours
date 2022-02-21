@@ -10,7 +10,7 @@ import Tooltip from "@mui/material/Tooltip";
 function DayView() {
   /*获取日课表数据*/
   let dayCourses = courseBase.dayViewFormat();
-
+  //console.log(dayCourses);
   return (
     <React.Fragment>
       <PageContainerStyled className="animate__animated animate__slideInLeft animate__faster">
@@ -32,7 +32,7 @@ function DayView() {
           {dayCourses.map((item, index) => {
             return (
               <Fade bottom key={index}>
-                <PlanCard {...item} />
+                <PlanCard {...item} memo={item.hours.memo} />
               </Fade>
             ); //key这样写是错误的 但对于此情况 没有关系 无忧状态关联
           })}

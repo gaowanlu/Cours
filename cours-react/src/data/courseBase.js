@@ -42,7 +42,7 @@ class CourseBaseFatory {
         }
         let result = (this.store.getItem('autoTime') === true).toString();
         //处理没有此key value情况
-        console.log(typeof result, result);
+        //console.log(typeof result, result);
         if (result === "true" || result === "false") {
             return result === "true";
         } else {
@@ -178,16 +178,31 @@ class CourseBaseFatory {
     }
 
     /**
+     * 获得课程时间对照
+     */
+    getHours() {
+        let result = this.store.getItem('hours');
+        if (result)
+            return this.store.getItem('hours');
+        return {
+            data: []
+        };
+    }
+
+    /**
      * 获取日课程列表视图格式数据列表
      */
     dayViewFormat() {
+        let hours = this.getHours().data;
         let result = this.day();
+        //console.log("result", result);
         result = result.map(item => {
             return {
                 seq: `第${item.seq}节`,
                 cname: `${item.cname}`,
                 room: `${item.croomno}`,
-                teacher: `${item.name}`
+                teacher: `${item.name}`,
+                hours: hours[parseInt(item.seq) - 1] //这节课在什么时间时上课信息
             }
         })
         return result;

@@ -11,7 +11,8 @@ function PlanCard(props) {
   return (
     <Card onClick={cardClick}>
       <p>
-        {props.seq} {props.cname}
+        <span>{props.seq} </span>
+        <span>{props.cname}</span>
       </p>
       <p>
         教室 {props.room} {props.memo}
@@ -25,8 +26,9 @@ const Card = styled.div`
   border-radius: 12px;
   margin-bottom: 14px;
   padding: 0.6rem;
-  & p:first-child {
-    color: var(--color-primary);
+  & p:first-child > span:first-child {
+    /* color: var(--color-primary); */
+    /* font-size: 1.1rem; */
   }
   p {
     margin: 0.3rem;

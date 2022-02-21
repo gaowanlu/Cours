@@ -81,6 +81,7 @@ function WeekTable(props) {
           <CourseBox
             bg={bgFunc(item.text.split("@")[0])}
             key={index}
+            size={item.obj.length} //客户块表示几门课程
             style={Coordinate.courseBoxStyle(item.x, item.y * 2, 2)}
             onClick={(e) => courseClick(e, item)}
           >
@@ -136,14 +137,17 @@ const CourseBox = styled.div`
   align-items: center;
   background-color: #d1eeff; /* fallback for old browsers */
   background: ${(props) => props.bg};
-  background: ${(props) => props.bg};
   border-radius: 10px;
   padding: 6px;
   font-size: 0.7rem;
   box-sizing: border-box;
   /* font-weight: bold; */
-  color: #fafafa;
-  text-shadow: 0 0 2px #707070;
+  color: ${(props) => {
+    return props.size > 1 ? "#f5f793" : "#fafafa";
+  }};
+  text-shadow: ${(props) => {
+    return props.size > 1 ? "0 0 1px #dd6f6f" : "0 0 2px #707070";
+  }};
   min-height: calc(10% - 0.14rem);
   cursor: pointer;
   flex-wrap: wrap;

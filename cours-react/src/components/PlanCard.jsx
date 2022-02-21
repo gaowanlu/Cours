@@ -7,15 +7,15 @@ import styled from "styled-components";
  * @returns
  */
 function PlanCard(props) {
-  const cardClick = (e) => {
-    props.onClick("show", props);
-  };
+  const cardClick = (e) => {};
   return (
     <Card onClick={cardClick}>
       <p>
         {props.seq} {props.cname}
       </p>
-      <p>教室 {props.room}</p>
+      <p>
+        教室 {props.room} {props.memo}
+      </p>
       <p>讲授 {props.teacher}</p>
     </Card>
   );

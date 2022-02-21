@@ -25,6 +25,9 @@ const Card = styled.div`
   border-radius: 12px;
   margin-bottom: 14px;
   padding: 0.6rem;
+  & p:first-child {
+    color: var(--color-primary);
+  }
   p {
     margin: 0.3rem;
     line-height: 1.5rem;

@@ -9,12 +9,13 @@ const userDao = {
      * @param {function} callback 
      * @returns 
      */
-    SELECT: async (callback) => {
+    SELECT: async (callback, resolve) => {
         if (!coursConfig.DBOpen) {
-            return;
+            resolve();
+            return [];
         }
         try {
-            pool.getConnection((err, connection) => {
+            let p = pool.getConnection((err, connection) => {
                 if (err) {
                     connection.release();
                     throw err;
@@ -22,12 +23,14 @@ const userDao = {
                 connection.query('SELECT * FROM user', (error, results, fields) => {
                     console.log(">>检索用户学号列表");
                     callback(results);
+                    resolve();
                     connection.release();
                     if (error) throw error;
                 });
             });
         } catch (e) {
             console.log(e);
+            resolve();
             callback([]);
         }
     },

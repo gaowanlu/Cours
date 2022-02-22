@@ -3,10 +3,10 @@ const master = require('../service/webVpnMasterService');
 const coursConfig = require('../coursConfig');
 const index = require('./router/index');
 const liveFlv = require('./router/live.flv.js');
-const courseBase = require('./router/coursbase');
 const movieSearch = require('./router/movie/search');
 const movieDetail = require('./router/movie/detail');
 const noneRoute = require('./router/none.js');
+const analysis = require('./router/user/analysis');
 
 /**
  * 业务代理请求服务器
@@ -39,10 +39,10 @@ function proxyServer(server) {
         const map = {
             '/': index,
             '/live.flv': liveFlv,
-            '/coursbase': courseBase,
             '/movie/search': movieSearch,
             '/movie/detail': movieDetail,
             '/master': master,
+            '/user/analysis': analysis,
             'none': noneRoute
         };
 

@@ -58,7 +58,7 @@ export async function getStaticPaths() {
   //则会提前预渲染出 /next/1 /next/2 两个页面
   // 据博文列表生成所有需要预渲染的路径
   const paths = posts.map((post) => ({
-    params: { id: post.id }
+    params: { id: post.id },
   }));
 
   // We'll pre-render only these paths at build time.

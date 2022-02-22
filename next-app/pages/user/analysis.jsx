@@ -33,7 +33,7 @@ const Data = (data) => {
   };
 };
 
-function analysis() {
+function Analysis() {
   const [collegeData, setCollegeData] = React.useState({
     labels: [],
     data: [],
@@ -42,7 +42,7 @@ function analysis() {
     labels: [],
     data: [],
   });
-    const [count, setCount] = React.useState(0);
+  const [count, setCount] = React.useState(0);
   React.useEffect(() => {
     let p1 = fetch("https://linkway.site:5557/user/analysis");
     p1.then((res) => res.json()).then(({ count, distribution }) => {
@@ -69,7 +69,7 @@ function analysis() {
         labels: labels2,
         data: data2,
       });
-        setCount(count);
+      setCount(count);
     });
   }, []);
   return (
@@ -118,4 +118,4 @@ const FlexItem = styled.div`
   min-width: 100%;
 `;
 
-export default analysis;
+export default Analysis;

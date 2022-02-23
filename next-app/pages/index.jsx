@@ -5,6 +5,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import stringHashRGB from "../utils/stringHashRGB";
 import styled from "styled-components";
+import Footer from "../components/Footer";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -75,24 +76,27 @@ function Analysis() {
   return (
     <>
       <Header />
-      <PageContainer>
-        <h1>Cours用户分布</h1>
-        <h2>用户总量 {count}</h2>
-        <Flex>
-          <FlexItem>
-            <h2>学院分布</h2>
-            <ChartContainer>
-              <Pie data={Data(collegeData)} />
-            </ChartContainer>
-          </FlexItem>
-          <FlexItem>
-            <h2>年级分布</h2>
-            <ChartContainer>
-              <Pie data={Data(gradeData)} />
-            </ChartContainer>
-          </FlexItem>
-        </Flex>
-      </PageContainer>
+      <main>
+        <PageContainer>
+          <h1>Welcome Cours Tools</h1>
+          <h2>用户总量 {count}</h2>
+          <Flex>
+            <FlexItem>
+              <h2>学院分布</h2>
+              <ChartContainer>
+                <Pie data={Data(collegeData)} />
+              </ChartContainer>
+            </FlexItem>
+            <FlexItem>
+              <h2>年级分布</h2>
+              <ChartContainer>
+                <Pie data={Data(gradeData)} />
+              </ChartContainer>
+            </FlexItem>
+          </Flex>
+        </PageContainer>
+      </main>
+      <Footer />
     </>
   );
 }

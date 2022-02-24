@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Cours</string>
+    <string name="app_web_path">https://cours.vercel.app</string>
 </resources>

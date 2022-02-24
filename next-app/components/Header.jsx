@@ -4,7 +4,7 @@ function Header() {
   return (
     <>
       <Container>
-        <Logo>Cours Tools</Logo>
+        <Logo>Cours Analysis</Logo>
         <ThemeButton />
       </Container>
       <Blank />
@@ -30,7 +30,7 @@ const Logo = styled.span`
   font-size: 1.2rem;
   line-height: 2.7rem;
   padding-left: 1rem;
-  cursor:pointer;
+  cursor: pointer;
 `;
 
 export default Header;

@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import slickOveride from "../styles/SlickOveride.module.css";
 import { Link } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const ios = {
   chat: "https://cdn.jim-nielsen.com/ios/512/fonts-by-fontkey-chat-ig-2021-06-02.png",
@@ -15,6 +16,8 @@ const ios = {
   debug:
     "https://cdn.jim-nielsen.com/ios/512/scanner-air-scan-documents-2021-08-16.png",
   movie: "https://cdn.jim-nielsen.com/ios/512/netflix-2018-11-01.png",
+  analysis:
+    "https://cdn.jim-nielsen.com/ios/128/mobile-cleaner-space-saver-2020-08-25.png",
 };
 
 /**
@@ -22,6 +25,7 @@ const ios = {
  * @returns
  */
 function DebugPage(props) {
+  // const navigate = useNavigate();
   return (
     <React.Fragment>
       {/*导航栏*/}
@@ -88,6 +92,18 @@ function SimpleSlider() {
           <ApplicationIconBlockLink to="/movie">
             <ApplicationIcon src={ios.movie} alt="" />
             <p>Movie</p>
+          </ApplicationIconBlockLink>
+        </div>
+        <div>
+          <ApplicationIconBlockLink
+            to="https://cours-next.vercel.app"
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.assign("https://cours-next.vercel.app");
+            }}
+          >
+            <ApplicationIcon src={ios.analysis} alt="Cours 数据分析平台" />
+            <p>Analysis</p>
           </ApplicationIconBlockLink>
         </div>
       </Section>
@@ -191,6 +207,7 @@ const ApplicationIconBlockLink = styled(Link)`
     transform: scale(1.05);
     transition: transform 200ms ease-in-out;
     background-color: var(--color-primary);
+    color: #fafafa;
   }
 `;
 

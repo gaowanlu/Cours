@@ -6,6 +6,7 @@ import PlanCard from "../components/PlanCard";
 import Fade from "react-reveal/Fade";
 import MoreIcon from "@mui/icons-material/More";
 import Tooltip from "@mui/material/Tooltip";
+import DownloadCard from "../components/DownloadCard";
 
 function DayView() {
   /*获取日课表数据*/
@@ -38,6 +39,7 @@ function DayView() {
           })}
         </Content>
       </PageContainerStyled>
+      <DownloadCard />
     </React.Fragment>
   );
 }

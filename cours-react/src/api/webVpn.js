@@ -4,18 +4,31 @@ import {
 } from './config';
 
 const webVpn = async (username, password, callback) => {
-    let rp = await axios.post(webVpnPath, {
-        username,
-        password
-    }, {
+    // let rp = await axios(webVpnPath, {
+    //     username,
+    //     password
+    // }, {
+    //     timeout: 120000
+    // });
+    let rp = axios({
+        method: 'post',
+        url: webVpnPath,
+        data: {
+            username,
+            password
+        },
         timeout: 120000
-    }).catch((e) => {
-        /*将最新内容存储。。。*/
+    });
+    rp.then((res) => {
+        console.log("RES", res);
+        callback(res);
+    });
+    rp.catch((e) => {
         callback({
             status: 500
         });
+        console.log("GET FROM PROXY ERROR", e);
     });
-    callback(rp);
 }
 
 export default webVpn;

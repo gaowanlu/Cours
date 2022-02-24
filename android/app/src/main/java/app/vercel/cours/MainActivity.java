@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void webViewSetting(){
-        //webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new WebViewClient());
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setAllowUniversalAccessFromFileURLs(true);

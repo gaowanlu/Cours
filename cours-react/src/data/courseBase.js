@@ -66,11 +66,14 @@ class CourseBaseFatory {
     /*获得第index周课表*/
     week(index) {
         //普通课表
+        console.log("this.stuTable().data", this.stuTable().data);
+        console.log("index", index);
+        console.log("nowTermCode", this.nowTermCode());
         let stuCourse = this.stuTable().data.filter(item => {
             return item.startweek <= index && item.endweek >= index && item.term === this.nowTermCode();
         });
         //实验课表
-        //console.log(stuCourse);
+        console.log("stuCourse", stuCourse);
         let labCourse = this.labTable().data.map(item => {
             return {
                 startweek: item.zc,
@@ -89,6 +92,7 @@ class CourseBaseFatory {
     day() {
         //获取这周的课表
         let weekCourse = this.weekFormat(this.nowWeek());
+        console.log("weekCourse", weekCourse);
         //获取现在时间
         let date = this.nowTime();
         let day = date.weekNum === 0 ? 7 : date.weekNum;
@@ -115,6 +119,7 @@ class CourseBaseFatory {
     /*获得第index周课表：格式化*/
     weekFormat(index) {
         let table = this.week(index);
+        console.log("table", table);
         let courses = [
             [],
             [],
@@ -195,7 +200,7 @@ class CourseBaseFatory {
     dayViewFormat() {
         let hours = this.getHours().data;
         let result = this.day();
-        //console.log("result", result);
+        console.log("result", result);
         result = result.map(item => {
             return {
                 seq: `第${item.seq}节`,
@@ -374,17 +379,17 @@ class CourseBaseFatory {
     /*获取现在的学期编号*/
     nowTermCode() {
         //根据学年 、 春0秋1三2季 、获得学期编号 
-        const last = ['2', '1', '3']; //后缀 
-        const nowYear = this.nowYear();
+        //const last = ['2', '1', '3']; //后缀 
+        //const nowYear = this.nowYear();
         // console.log("nowyear", this.nowYear());
         // console.log("nowTerm", this.nowTerm());
-        let code = String(nowYear - 1) + "-" + String(nowYear) + "_" + last[parseInt(this.nowTerm())];
+        //let code = String(nowYear - 1) + "-" + String(nowYear) + "_" + last[parseInt(this.nowTerm())];
         // console.log(code);
-        let term = this.store.getItem('terTime');
-        if (term && term.data) {
-            return term.data[0].term;
-        }
-        return code;
+        // let term = this.store.getItem('terTime');
+        // if (term && term.data) {
+        //     return term.data[0].term;
+        // }
+        return '2021-2022_2';
     }
     /*课程计划*/
     plancj() {

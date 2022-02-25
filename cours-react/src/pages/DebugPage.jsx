@@ -8,7 +8,7 @@ function DebugPage(props) {
   const [password, setPassword] = React.useState("");
   const submit = async (e) => {
     axios({
-      url: "https://linkway.site/token/login",
+      url: "https://linkway.site:5557/token/login",
       method: "POST",
       headers: {
         Authorization: Base64.encode(`Basic ${localStorage.getItem("token")}:`),
@@ -25,7 +25,7 @@ function DebugPage(props) {
   };
   const getAPI = (e) => {
     axios({
-      url: "https://linkway.site/token/get",
+      url: "https://linkway.site:5557/token/get",
       method: "POST",
       headers: {
         Authorization: `Basic ${Base64.encode(

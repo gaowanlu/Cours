@@ -9,10 +9,12 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "basic-auth": "^2.0.1",
     "cheerio": "^1.0.0-rc.10",
     "color.js": "^1.2.0",
     "colors": "^1.4.0",
     "iconv-lite": "^0.6.3",
+    "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
     "node-media-server": "^2.3.8",
     "socket.io": "^4.4.1"

@@ -66,8 +66,8 @@ function service(callback, username, password) {
     web vpn登录
     */
     function getTGT(wengine_vpn_ticket, show_vpn) {
-        if (DEBUG) console.log(`wengine_vpn_ticket :${wengine_vpn_ticket}`.green);
-        if (DEBUG) console.log(`show_vpn : ${show_vpn}`.green);
+        if (DEBUG) console.log(`getTGT wengine_vpn_ticket :${wengine_vpn_ticket}`.green);
+        if (DEBUG) console.log(`getTGT show_vpn : ${show_vpn}`.green);
         const requestBody = `loginType=&password=${password}&username=${username}`;
         let req = https.request({
             method: 'POST',
@@ -84,11 +84,12 @@ function service(callback, username, password) {
             }
         }, (res) => {
             res.setEncoding('utf8');
-            //console.log(res.headers);
+            if (DEBUG) console.log("getTGT", res.headers);
             res.on('data', (chunk) => {
                 //console.log(chunk);
             })
             let location = res.headers['location'];
+            if (DEBUG) console.log("getTGT location", location);
             errorBack(() => {
                 getST(wengine_vpn_ticket, show_vpn, location);
             }, callback)
@@ -730,7 +731,11 @@ function service(callback, username, password) {
         }, (res) => {
             let wengine_vpn_ticket = res.headers['set-cookie'][0].split(';')[0].split('=')[1];
             let show_vpn = res.headers['set-cookie'][1].split(';')[0].split('=')[1];
-            if (DEBUG) console.log(res.headers);
+            if (DEBUG) console.log("init", res.headers);
+            if (DEBUG) console.log("init", JSON.stringify({
+                wengine_vpn_ticket,
+                show_vpn
+            }).red);
             try {
                 getTGT(wengine_vpn_ticket, show_vpn);
             } catch (e) {

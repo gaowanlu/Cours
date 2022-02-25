@@ -1,7 +1,7 @@
 const https = require('https');
 const http = require('http');
-const talkServer = require('./controller/talkServer');
-const proxyServer = require('./controller/proxyServer');
+const talkRouter = require('./app/talkRouter');
+const proxyRouter = require('./app/proxyRouter');
 const coursConfig = require('./coursConfig');
 const sslload = require('./SSL/sslload');
 
@@ -13,8 +13,8 @@ const server = coursConfig.HttpsOpen ? https.createServer(OPTIONS_SSL) : http.cr
 const server_talk = coursConfig.HttpsOpen ? https.createServer(OPTIONS_SSL) : http.createServer(); //talk online room
 
 //Config Server
-talkServer(server_talk)();
-proxyServer(server)();
+talkRouter(server_talk)();
+proxyRouter(server)();
 
 //Server start to listen
 server.listen(coursConfig.Ports.proxy.port); //webvpn 代理

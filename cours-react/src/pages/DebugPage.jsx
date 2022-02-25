@@ -1,93 +1,53 @@
 import React from "react";
-import useAssembly from "../utils/useAssembly";
+import { Base64 } from "js-base64";
+// import styled from "styled-components";
 import PageContainer from "../components/PageContainer";
-import PageHeader from "../components/PageHeader";
-import PageNavigationBar from "../components/PageNavigationBar";
-
-function DebugPage() {
-  const [assembly] = useAssembly("/assembly/main.wasm");
-  const [a, setA] = React.useState(0);
-  const [b, setB] = React.useState(0);
-  const [c, setC] = React.useState(0);
-  //   if (assembly) {
-  //     console.log(assembly.instance.exports.add(111, 222));
-  //     let result = assembly.instance.exports.add(111, 222);
-  //     console.log(typeof result);
-  //   }
-  const calcHandle = (e) => {
-    setC(assembly.instance.exports.add(a, b));
-    // console.log("计算");
-    // console.log(assembly.instance.exports);
-    //let memory = new WebAssembly.Memory({ initial: 10 });
-    //let float_array = new Float32Array(memory.buffer);
-    let DATA = new Uint8Array(
-      assembly.instance.exports.memory.buffer,
-      assembly.instance.exports.getOffset(),
-      1024
-    );
-    for (let i = 0; i < DATA.length; i++) {
-      DATA[i] = 0;
-    }
-    let json = {
-      name: "gaowanlu",
-    };
-    let TEMP_ARRAY = new TextEncoder().encode(JSON.stringify(json));
-    DATA.set(TEMP_ARRAY);
-    // console.log(String.fromCharCode.apply(null, DATA,19));
-    //console.log(assembly.instance.exports.myFunction());
-    DATA[0] = a;
-    DATA[1] = b;
+import axios from "axios";
+function DebugPage(props) {
+  const [userid, setUserid] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const submit = async (e) => {
+    axios({
+      url: "https://linkway.site/token/login",
+      method: "POST",
+      headers: {
+        Authorization: Base64.encode(`Basic ${localStorage.getItem("token")}:`),
+      },
+      data: { username: "gaownalu", password: "123456" },
+    })
+      .then((res) => {
+        console.log(res.data.token);
+        if (res.data.token) {
+          localStorage.setItem("token", res.data.token);
+        }
+      })
+      .catch((e) => {});
+  };
+  const getAPI = (e) => {
+    axios({
+      url: "https://linkway.site/token/get",
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${Base64.encode(
+          localStorage.getItem("token") + ":"
+        )}`,
+      },
+    })
+      .then((res) => {
+        if (res.data.auth) {
+          setUserid(res.data.auth.userid);
+          setPassword(res.data.auth.password);
+        }
+      })
+      .catch((e) => {});
   };
   return (
     <PageContainer>
-      <PageNavigationBar title="Assembly" backTitle="OS" backPath="/other/" />
-      <PageHeader title="WebAssembly" />
-      <PageHeader
-        title={`assembly.instance.exports.add(${a}, ${b}) = ${c}`}
-        color="var(--color-primary)"
-        size={1}
-      />
-      <input
-        style={{
-          width: "100%",
-          marginTop: "1rem",
-          height: "2rem",
-          background: "var(--color-background-front)",
-          color: "var(--color-color)",
-        }}
-        type="number"
-        onChange={(e) => {
-          setA(parseInt(e.target.value));
-        }}
-        value={a}
-      />
-      <PageHeader title={`+`} />
-      <input
-        style={{
-          width: "100%",
-          height: "2rem",
-          background: "var(--color-background-front)",
-          color: "var(--color-color)",
-        }}
-        type="number"
-        onChange={(e) => {
-          setB(parseInt(e.target.value));
-        }}
-        value={b}
-      />
-      <PageHeader title={`= ${c}`} />
-      <button
-        style={{
-          width: "100%",
-          marginTop: "1rem",
-          height: "2rem",
-          background: "var(--color-background-front)",
-          color: "var(--color-color)",
-        }}
-        onClick={calcHandle}
-      >
-        计算
-      </button>
+      <h1>JWT-TOKEN DEBUG</h1>
+      <button onClick={submit}>发起请求获取Token</button>
+      <button onClick={getAPI}>获取内容</button>
+      <h2>{userid}</h2>
+      <h2>{password}</h2>
     </PageContainer>
   );
 }

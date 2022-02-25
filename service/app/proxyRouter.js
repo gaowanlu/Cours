@@ -1,12 +1,15 @@
 const url = require('url')
 const master = require('../service/webVpnMasterService');
 const coursConfig = require('../coursConfig');
-const index = require('./router/index');
-const liveFlv = require('./router/live.flv.js');
-const movieSearch = require('./router/movie/search');
-const movieDetail = require('./router/movie/detail');
-const noneRoute = require('./router/none.js');
-const analysis = require('./router/user/analysis');
+const index = require('./route/index');
+const liveFlv = require('./route/live.flv.js');
+const movieSearch = require('./route/movie/search');
+const movieDetail = require('./route/movie/detail');
+const noneRoute = require('./route/none.js');
+const analysis = require('./route/user/analysis');
+const token_login = require('./route/token/login');
+const token_get = require('./route/token/get');
+const authFilter = require('./filter/authFilter');
 
 /**
  * 业务代理请求服务器
@@ -43,6 +46,8 @@ function proxyServer(server) {
             '/movie/detail': movieDetail,
             '/master': master,
             '/user/analysis': analysis,
+            '/token/login': token_login,
+            '/token/get': authFilter(token_get),
             'none': noneRoute
         };
 
@@ -51,7 +56,7 @@ function proxyServer(server) {
             //设置允许跨域的域名，*代表允许任意域名跨域
             res.setHeader("Access-Control-Allow-Origin", coursConfig.Ports.proxy.AccessControlAllowOrigin);
             //允许的header类型
-            res.setHeader("Access-Control-Allow-Headers", "content-type");
+            res.setHeader("Access-Control-Allow-Headers", "*");
             //跨域允许的请求方式
             res.setHeader("Access-Control-Allow-Methods", coursConfig.Ports.proxy.AccessControlAllowMethods);
             if (req.method.toLowerCase() === 'options') { //响应浏览器预检

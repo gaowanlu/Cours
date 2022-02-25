@@ -28,6 +28,11 @@ const config = {
             AccessControlAllowOrigin: '*',
             AccessControlAllowMethods: 'DELETE,PUT,POST,GET,OPTIONS',
         }
+    },
+    //JWT Config
+    JWT: {
+        secretKey: '&#@*$#yfgue&$*@^#&gyvy*%&$)@JKFBWBCR*&RF#*HF*E#*',
+        expiresIn: 24 * 60 * 60
     }
 };
 module.exports = config;

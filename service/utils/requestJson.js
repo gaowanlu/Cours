@@ -1,3 +1,6 @@
+const checkContentType = require('./checkContentType');
+const requestReceiver = require('./requestReceiver');
+
 const requestJson = {
     /**
      * 
@@ -35,6 +38,21 @@ const requestJson = {
             error(e);
         }
     },
+    /**
+     * 从Request中接收JSON请求体
+     * @param {Request} req 
+     * @returns body JSON format
+     */
+    async jsonReceiver(req) {
+        if (checkContentType['application/json'](req.headers['content-type'])) {
+            let body = await requestReceiver(req);
+            requestJson.json2Object(body, (res) => body = res, (e) => body = {});
+            return body;
+        } else {
+            return null;
+        }
+    }
 }
 
 module.exports = requestJson;
+

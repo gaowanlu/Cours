@@ -83,7 +83,7 @@ function SimpleSlider() {
           </ApplicationIconBlockLink>
         </div>
         <div>
-          <ApplicationIconBlockLink to="/debug">
+          <ApplicationIconBlockLink to="/assembly">
             <ApplicationIcon src={ios.debug} alt="" />
             <p>Assemb</p>
           </ApplicationIconBlockLink>

@@ -15,6 +15,7 @@ const QAPage = React.lazy(() => import("./pages/QAPage"));
 const MoviePage = React.lazy(() => import("./pages/MoviePage"));
 const DebugPage = React.lazy(() => import("./pages/DebugPage"));
 const IndexPage = React.lazy(() => import("./pages/IndexPage"));
+const AssemblyPage = React.lazy(() => import("./pages/AssemblyPage"));
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/debug" element={<DebugPage />} />
           <Route path="/movie" element={<MoviePage />} />
           <Route path="/index" element={<IndexPage />} />
+          <Route path="/assembly" element={<AssemblyPage />} />
           <Route path="/qa/:view" element={<QAPage />} />
           <Route index path="*" element={<IndexPage />} />
         </Routes>

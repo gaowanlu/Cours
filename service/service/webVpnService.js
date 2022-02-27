@@ -6,9 +6,10 @@ require('colors');
 const https = require('https');
 const webVpnServiceTest = require('./webVpnService.test.js');
 const userDao = require('../dao/userDao');
+const setting = require('../utils/setting');
 
 //是否进行调试 console.log open?
-const DEBUG = false;
+const DEBUG = true;
 
 
 /*请求链出错处理*/

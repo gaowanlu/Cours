@@ -17,6 +17,7 @@
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
     "node-media-server": "^2.3.8",
-    "socket.io": "^4.4.1"
+    "socket.io": "^4.4.1",
+    "zlib": "^1.0.5"
   }
 }

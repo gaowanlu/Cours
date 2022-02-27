@@ -1,12 +1,15 @@
 const https = require('https');
+const http2 = require('http2');
 const cheerio = require('cheerio');
 const colors = require('colors');
 var iconv = require('iconv-lite');
+const setting = require('../utils/setting');
+const zlib = require('zlib');
 
 const USER_AGENT = 'insomnia/2021.7.2';
 const VPN_HOST = 'v.guet.edu.cn';
 const VPN_HASH = '77726476706e69737468656265737421f3f652d220256d44300d8db9d6562d';
-const DEBUG = false;
+const DEBUG = true;
 
 /*请求链出错处理*/
 function responseError(callback, e) {
@@ -51,7 +54,7 @@ function webVpnMasterService(callback, username, password) {
             }
         }, (res) => {
             res.setEncoding('utf8');
-            //console.log(res.headers);
+            console.log(res.headers);
             res.on('data', (chunk) => {
                 //console.log(chunk);
             })
@@ -176,7 +179,7 @@ function webVpnMasterService(callback, username, password) {
                 if (res.headers['location'] && res.headers['location'] === '/') {
                     if (DEBUG) console.log(`tokenlogin success`.green);
                     if (DEBUG) console.log(`location ${res.headers['location']}`.green);
-                    reviewRoot(wengine_vpn_ticket, show_vpn, TGT);
+                    reviewRoot(wengine_vpn_ticket, show_vpn, TGT, ST);
                 }
             }, callback);
         });
@@ -185,7 +188,7 @@ function webVpnMasterService(callback, username, password) {
         });
     }
 
-    function reviewRoot(wengine_vpn_ticket, show_vpn, TGT) {
+    function reviewRoot(wengine_vpn_ticket, show_vpn, TGT, ST) {
         const req = https.get({
             hostname: 'v.guet.edu.cn',
             path: `/`,
@@ -204,7 +207,7 @@ function webVpnMasterService(callback, username, password) {
             });
             res.on('end', () => {
                 errorBack(() => {
-                    getNavData(wengine_vpn_ticket, show_vpn, TGT);
+                    getNavData(wengine_vpn_ticket, show_vpn, TGT, ST);
                 }, callback);
             });
         });
@@ -214,7 +217,7 @@ function webVpnMasterService(callback, username, password) {
     }
 
 
-    function getNavData(wengine_vpn_ticket, show_vpn, TGT) {
+    function getNavData(wengine_vpn_ticket, show_vpn, TGT, ST) {
         const req = https.get({
             hostname: 'v.guet.edu.cn',
             path: `/user/portal_groups`,
@@ -236,7 +239,7 @@ function webVpnMasterService(callback, username, password) {
                     let nav = JSON.parse(rawData);
                     //console.log(rawData.yellow);
                     if (DEBUG) console.log("桂林电子科技大学WebVPN导航进入成功".blue.bgYellow);
-                    regetST(wengine_vpn_ticket, show_vpn, TGT);
+                    regetST(wengine_vpn_ticket, show_vpn, TGT, ST);
                 }, callback);
             });
         });
@@ -245,21 +248,21 @@ function webVpnMasterService(callback, username, password) {
         });
     }
 
+
     //获取教务系统ST
-    function regetST(wengine_vpn_ticket, show_vpn, TGT) {
+    function regetST(wengine_vpn_ticket, show_vpn, TGT, ST) {
         if (DEBUG) console.log(`TGT ${TGT}`.green);
         const req = https.request({
             method: 'POST',
             host: VPN_HOST,
             hostname: VPN_HOST,
-            path: `/https/77726476706e69737468656265737421e9fd529b2b7e6f457b1cc7a99c406d3670/admin/Default.aspx`,
+            path: `/https/77726476706e69737468656265737421f3f652d220256d44300d8db9d6562d/cas/v1/tickets/${TGT}`,
             headers: {
                 'User-Agent': USER_AGENT,
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=${show_vpn}`,
                 'X-Requested-With': `XMLHttpRequest`,
-                'Connection': 'keep-alive',
-                'Referer': 'https://v.guet.edu.cn/https/77726476706e69737468656265737421f3f652d220256d44300d8db9d6562d/cas/login?service=http://yjsgl.guet.edu.cn/ilogin.aspx'
+                'Connection': 'keep-alive'
             },
         }, (res) => {
             res.setEncoding('utf8');
@@ -268,63 +271,489 @@ function webVpnMasterService(callback, username, password) {
                 rawData += ST;
             });
             res.on('end', () => {
-                submitQuery(wengine_vpn_ticket, show_vpn, TGT);
+                if (DEBUG) console.log(`教务系统 ST ${rawData}`.green);
+                ilogin(wengine_vpn_ticket, show_vpn, TGT, rawData);
             });
         });
         req.on('error', (e) => {
             responseError(callback, e);
         });
+        req.write("service=http%3A%2F%2Fyjsgl.guet.edu.cn%2Filogin.aspx"); //
         req.end();
     }
 
-    //提交搜索项目
-    function submitQuery(wengine_vpn_ticket, show_vpn, TGT) {
-        console.log('提交搜索项目'.green);
-        if (DEBUG) console.log(`TGT ${TGT}`.green);
-        const req = https.request({
-            method: 'POST',
-            host: VPN_HOST,
-            hostname: VPN_HOST,
-            path: `/wengine-vpn/input`,
+    //访问主页
+    function ilogin(wengine_vpn_ticket, show_vpn, TGT, ST) {
+        const req = https.get({
+            hostname: 'v.guet.edu.cn',
+            path: `/https/77726476706e69737468656265737421e9fd529b2b7e6f457b1cc7a99c406d3670/ilogin.aspx?ticket=${ST}`,
             headers: {
                 'User-Agent': USER_AGENT,
-                'Content-Type': 'application/json',
                 'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=${show_vpn}`,
-                'X-Requested-With': `XMLHttpRequest`,
-                'Connection': 'keep-alive',
-                'Referer': 'https://v.guet.edu.cn/https/77726476706e69737468656265737421e9fd529b2b7e6f457b1cc7a99c406d3670/admin/BringUp/KC_studentcourse.aspx'
-            },
+            }
         }, (res) => {
+            res.setEncoding("utf-8");
+            //console.log(res.headers);
+            if (DEBUG) console.log(`review Root over`.magenta);
+            let rawData = '';
             res.on('data', (chunk) => {
-                console.log("Query响应");
+                rawData += chunk;
             });
             res.on('end', () => {
-                console.log("提交Query完毕");
-                studentCourse(wengine_vpn_ticket, show_vpn, TGT);
+                //let nav = JSON.parse(rawData);
+                console.log(rawData.yellow);
+                LoginRedirect(wengine_vpn_ticket, show_vpn, TGT, ST);
             });
         });
         req.on('error', (e) => {
             responseError(callback, e);
         });
-        req.write(`{"name":"ddlTerm","type":"select-one","value":"20212"}`);
+    } //	
+
+
+    function LoginRedirect(wengine_vpn_ticket, show_vpn, TGT, ST) {
+        const req = https.get({
+            hostname: 'v.guet.edu.cn',
+            path: `/https/77726476706e69737468656265737421e9fd529b2b7e6f457b1cc7a99c406d3670/LoginRedirect.aspx`,
+            headers: {
+                'User-Agent': USER_AGENT,
+                'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=${show_vpn}`,
+            }
+        }, (res) => {
+            res.setEncoding("utf-8");
+            //console.log(res.headers);
+            if (DEBUG) console.log(`review Root over`.magenta);
+            let rawData = '';
+            res.on('data', (chunk) => {
+                rawData += chunk;
+            });
+            res.on('end', () => {
+                //let nav = JSON.parse(rawData);
+                console.log(rawData.yellow);
+                IndexPage(wengine_vpn_ticket, show_vpn, TGT);
+                console.log(res.headers);
+            });
+        });
+        req.on('error', (e) => {
+            responseError(callback, e);
+        });
+    } //	/https/77726476706e69737468656265737421e9fd529b2b7e6f457b1cc7a99c406d3670/LoginRedirect.aspx
+
+
+    //访问主页
+    function IndexPage(wengine_vpn_ticket, show_vpn, TGT) {
+        const req = https.get({
+            hostname: 'v.guet.edu.cn',
+            path: `/https/77726476706e69737468656265737421e9fd529b2b7e6f457b1cc7a99c406d3670/admin/Default.aspx`,
+            headers: {
+                'User-Agent': USER_AGENT,
+                'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=${show_vpn}`,
+            }
+        }, (res) => {
+            res.setEncoding("utf-8");
+            //console.log(res.headers);
+            if (DEBUG) console.log(`review Root over`.magenta);
+            let rawData = '';
+            res.on('data', (chunk) => {
+                rawData += chunk;
+            });
+            res.on('end', () => {
+                //let nav = JSON.parse(rawData);
+                console.log(rawData.yellow);
+                if (DEBUG) console.log("IndexPage进入成功".blue.bgYellow);
+                console.log(res.headers);
+                TopASPX(wengine_vpn_ticket, show_vpn, TGT);
+            });
+        });
+        req.on('error', (e) => {
+            responseError(callback, e);
+        });
+    }
+
+    //课程内容
+    function TopASPX(wengine_vpn_ticket, show_vpn, TGT) {
+        const req = https.request({
+            method: 'GET',
+            host: VPN_HOST,
+            hostname: VPN_HOST,
+            path: `/https/77726476706e69737468656265737421e9fd529b2b7e6f457b1cc7a99c406d3670/admin/top.aspx`,
+            headers: {
+                'User-Agent': ` Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0`,
+                'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=1;refresh=1`,
+                'Connection': 'keep-alive',
+                'Upgrade-Insecure-Requests': '1',
+                'Sec-Fetch-Dest': 'frame',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'same-origin',
+                'TE': 'trailers',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+                'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+            },
+        }, (res) => {
+            console.log(res.headers);
+            let rawData = [];
+            let size = 0;
+            res.on('data', (chunk) => {
+                rawData.push(chunk);
+                size += chunk.length;
+            });
+            res.on('end', () => {
+                let buf = Buffer.concat(rawData);
+                let str = iconv.decode(buf, 'gb2312');
+                console.log(str);
+                const $ = cheerio.load(str);
+                let scriptSrcs = [];
+                $('script').each((i, el) => {
+                    let src = $(el).attr('src');
+                    if (src) {
+                        let target = src.indexOf('WebResource.axd') != -1 ||
+                            src.indexOf('ScriptResource.axd') != -1 ||
+                            src.indexOf('ScriptResource.axd') != -1;
+                        if (target) {
+                            console.log("script", src);
+                            scriptSrcs.push(src);
+                        }
+                    }
+                });
+                scriptRequest(wengine_vpn_ticket, show_vpn, TGT, scriptSrcs, 0, () => {
+                    TopMiddleASPX(wengine_vpn_ticket, show_vpn, TGT);
+                });
+            });
+        });
+        req.on('error', (e) => {
+            responseError(callback, e);
+        });
         req.end();
     }
 
     //课程内容
-    function studentCourse(wengine_vpn_ticket, show_vpn, TGT) {
-        if (DEBUG) console.log(`TGT ${TGT}`.green);
+    function TopMiddleASPX(wengine_vpn_ticket, show_vpn, TGT) {
+        const req = https.request({
+            method: 'GET',
+            host: VPN_HOST,
+            hostname: VPN_HOST,
+            path: `/https/77726476706e69737468656265737421e9fd529b2b7e6f457b1cc7a99c406d3670/admin/topMiddle.aspx`,
+            headers: {
+                'User-Agent': ` Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0`,
+                'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=1;refresh=1`,
+                'Connection': 'keep-alive',
+                'Upgrade-Insecure-Requests': '1',
+                'Sec-Fetch-Dest': 'frame',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'same-origin',
+                'TE': 'trailers',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+                'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+            },
+        }, (res) => {
+            console.log(res.headers);
+            let rawData = [];
+            let size = 0;
+            res.on('data', (chunk) => {
+                rawData.push(chunk);
+                size += chunk.length;
+            });
+            res.on('end', () => {
+                let buf = Buffer.concat(rawData);
+                let str = iconv.decode(buf, 'gb2312');
+                console.log(str);
+                LeftASPX(wengine_vpn_ticket, show_vpn, TGT);
+            });
+        });
+        req.on('error', (e) => {
+            responseError(callback, e);
+        });
+        req.end();
+    }
+
+    //课程内容
+    function LeftASPX(wengine_vpn_ticket, show_vpn, TGT) {
+        const req = https.request({
+            method: 'GET',
+            host: VPN_HOST,
+            hostname: VPN_HOST,
+            path: `/https/77726476706e69737468656265737421e9fd529b2b7e6f457b1cc7a99c406d3670/admin/left.aspx?name=1`,
+            headers: {
+                'User-Agent': ` Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0`,
+                'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=1;refresh=1`,
+                'Connection': 'keep-alive',
+                'Upgrade-Insecure-Requests': '1',
+                'Sec-Fetch-Dest': 'frame',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'same-origin',
+                'TE': 'trailers',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+                'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2'
+            },
+        }, (res) => {
+            console.log(res.headers);
+            let rawData = [];
+            let size = 0;
+            res.on('data', (chunk) => {
+                rawData.push(chunk);
+                size += chunk.length;
+            });
+            res.on('end', () => {
+                let buf = Buffer.concat(rawData);
+                let str = iconv.decode(buf, 'gb2312');
+                console.log(str);
+                changeASPX(wengine_vpn_ticket, show_vpn, TGT);
+            });
+        });
+        req.on('error', (e) => {
+            responseError(callback, e);
+        });
+        req.end();
+    }
+
+    //课程内容
+    function changeASPX(wengine_vpn_ticket, show_vpn, TGT) {
+        const req = https.request({
+            method: 'GET',
+            host: VPN_HOST,
+            hostname: VPN_HOST,
+            path: `/https/77726476706e69737468656265737421e9fd529b2b7e6f457b1cc7a99c406d3670/admin/change.aspx`,
+            headers: {
+                'User-Agent': ` Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0`,
+                'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=1;refresh=1`,
+                'Connection': 'keep-alive',
+                'Upgrade-Insecure-Requests': '1',
+                'Sec-Fetch-Dest': 'frame',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'same-origin',
+                'TE': 'trailers',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+                'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+            },
+        }, (res) => {
+            console.log(res.headers);
+            let rawData = [];
+            let size = 0;
+            res.on('data', (chunk) => {
+                rawData.push(chunk);
+                size += chunk.length;
+            });
+            res.on('end', () => {
+                let buf = Buffer.concat(rawData);
+                let str = iconv.decode(buf, 'gb2312');
+                console.log(str);
+                mainASPX(wengine_vpn_ticket, show_vpn, TGT);
+            });
+        });
+        req.on('error', (e) => {
+            responseError(callback, e);
+        });
+        req.end();
+    }
+
+    //课程内容
+    function mainASPX(wengine_vpn_ticket, show_vpn, TGT) {
+        const req = https.request({
+            method: 'GET',
+            host: VPN_HOST,
+            hostname: VPN_HOST,
+            path: `/https/77726476706e69737468656265737421e9fd529b2b7e6f457b1cc7a99c406d3670/admin/main.aspx`,
+            headers: {
+                'User-Agent': ` Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0`,
+                'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=1;refresh=1`,
+                'Connection': 'keep-alive',
+                'Upgrade-Insecure-Requests': '1',
+                'Sec-Fetch-Dest': 'frame',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'same-origin',
+                'TE': 'trailers',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+                'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+            },
+        }, (res) => {
+            console.log(res.headers);
+            let rawData = [];
+            let size = 0;
+            res.on('data', (chunk) => {
+                rawData.push(chunk);
+                size += chunk.length;
+            });
+            res.on('end', () => {
+                let buf = Buffer.concat(rawData);
+                let str = iconv.decode(buf, 'gb2312');
+                console.log(str);
+                studentCoursePrePre(wengine_vpn_ticket, show_vpn, TGT);
+            });
+        });
+        req.on('error', (e) => {
+            responseError(callback, e);
+        });
+        req.end();
+    }
+
+
+    //课程内容
+    function studentCoursePrePre(wengine_vpn_ticket, show_vpn, TGT) {
+        const req = https.request({
+            method: 'GET',
+            host: VPN_HOST,
+            hostname: VPN_HOST,
+            path: `/https/77726476706e69737468656265737421e9fd529b2b7e6f457b1cc7a99c406d3670/admin/BringUp/KC_studentcourse.aspx?vpn-12-o2-yjsgl.guet.edu.cn&cxsn=&sn=1004`,
+            headers: {
+                'User-Agent': ` Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0`,
+                'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=1;refresh=1`,
+                'Connection': 'keep-alive',
+                'Upgrade-Insecure-Requests': '1',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'Sec-Fetch-Dest': 'frame',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'same-origin',
+                'TE': 'trailers',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+                'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+            },
+        }, (res) => {
+            console.log(res.headers);
+            let rawData = [];
+            let size = 0;
+            res.on('data', (chunk) => {
+                rawData.push(chunk);
+                size += chunk.length;
+            });
+            res.on('end', () => {
+                let buf = Buffer.concat(rawData, size);
+                let str = '';
+                zlib.gunzip(buf, (err, decoded) => {
+                    str = decoded.toString();
+                    console.log(str.bgMagenta);
+                    studentCoursePre(wengine_vpn_ticket, show_vpn, TGT);
+                });
+            });
+        });
+        req.on('error', (e) => {
+            responseError(callback, e);
+        });
+        req.end();
+    }
+
+
+    //课程内容
+    function studentCoursePre(wengine_vpn_ticket, show_vpn, TGT) {
+        const req = https.request({
+            method: 'GET',
+            host: VPN_HOST,
+            hostname: VPN_HOST,
+            path: `/https/77726476706e69737468656265737421e9fd529b2b7e6f457b1cc7a99c406d3670/admin/BringUp/KC_studentcourse.aspx?vpn-12-o2-yjsgl.guet.edu.cn&cxsn=&sn=1004`,
+            headers: {
+                'User-Agent': ` Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0`,
+                'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=1;refresh=1`,
+                'Connection': 'keep-alive',
+                'Upgrade-Insecure-Requests': '1',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'Sec-Fetch-Dest': 'frame',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'same-origin',
+                'TE': 'trailers',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+                'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+            },
+        }, (res) => {
+            console.log(res.headers);
+            let rawData = [];
+            let size = 0;
+            res.on('data', (chunk) => {
+                rawData.push(chunk);
+                size += chunk.length;
+            });
+            res.on('end', () => {
+                let buf = Buffer.concat(rawData, size);
+                let str = '';
+                zlib.gunzip(buf, (err, decoded) => {
+                    str = decoded.toString();
+                    console.log(str.cyan);
+                    //开始进行DOM解析获取表单值
+                    const $ = cheerio.load(str);
+                    const __VIEWSTATE = $('#__VIEWSTATE').attr('value');
+                    const __VIEWSTATEGENERATOR = $('#__VIEWSTATEGENERATOR').attr('value');
+                    const __EVENTVALIDATION = $('#__EVENTVALIDATION').attr('value');
+                    console.log([__VIEWSTATE, __VIEWSTATEGENERATOR, __EVENTVALIDATION]);
+                    let scriptSrcs = [];
+                    $('script').each((i, el) => {
+                        let src = $(el).attr('src');
+                        if (src) {
+                            let target = src.indexOf('WebResource.axd') != -1 ||
+                                src.indexOf('ScriptResource.axd') != -1 ||
+                                src.indexOf('ScriptResource.axd') != -1;
+                            if (target) {
+                                console.log("script", src);
+                                scriptSrcs.push(src);
+                            }
+                        }
+                    });
+                    scriptRequest(wengine_vpn_ticket, show_vpn, TGT, scriptSrcs, 0, () => {
+                        studentCourse(wengine_vpn_ticket, show_vpn, TGT, __VIEWSTATE, __VIEWSTATEGENERATOR, __EVENTVALIDATION);
+                    });
+                });
+            });
+        });
+        req.on('error', (e) => {
+            responseError(callback, e);
+        });
+        req.end();
+    }
+
+    //script request
+    function scriptRequest(wengine_vpn_ticket, show_vpn, TGT, scriptSrcs, nowIndex, callback) {
+        if (nowIndex >= scriptSrcs.length) {
+            return callback();
+        }
+        const req = https.request({
+            method: 'GET',
+            host: VPN_HOST,
+            hostname: VPN_HOST,
+            path: scriptSrcs[nowIndex],
+            headers: {
+                'User-Agent': ` Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0`,
+                'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=1;refresh=1`,
+                'Connection': 'keep-alive'
+            },
+        }, (res) => {
+            let rawData = [];
+            res.on('data', (chunk) => {
+                rawData.push(chunk);
+            });
+            res.on('end', () => {
+                //console.log(rawData.join(''));
+                console.log("request.end");
+                console.log(res.headers);
+                nowIndex++;
+                scriptRequest(wengine_vpn_ticket, show_vpn, TGT, scriptSrcs, nowIndex, callback);
+            });
+        });
+        req.on('error', (e) => {
+            responseError(callback, e);
+        });
+        req.end();
+    }
+
+    //课程内容
+    function studentCourse(wengine_vpn_ticket, show_vpn, TGT, __VIEWSTATE, __VIEWSTATEGENERATOR, __EVENTVALIDATION) {
+        //if (DEBUG) console.log(`TGT ${TGT}`.green);
         const req = https.request({
             method: 'POST',
             host: VPN_HOST,
             hostname: VPN_HOST,
             path: `/https/77726476706e69737468656265737421e9fd529b2b7e6f457b1cc7a99c406d3670/admin/BringUp/KC_studentcourse.aspx?vpn-12-o2-yjsgl.guet.edu.cn&cxsn=&sn=1004`,
             headers: {
-                'User-Agent': USER_AGENT,
-                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-                'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=${show_vpn}`,
-                'X-Requested-With': `XMLHttpRequest`,
+                'User-Agent': ` Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0`,
+                'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=1;refresh=1`,
                 'Connection': 'keep-alive',
-                'Referer': 'https://v.guet.edu.cn/https/77726476706e69737468656265737421e9fd529b2b7e6f457b1cc7a99c406d3670/admin/BringUp/KC_studentcourse.aspx?vpn-12-o2-yjsgl.guet.edu.cn&cxsn=&sn=1004'
+                'Content-Type': ' application/x-www-form-urlencoded; charset=utf-8',
+                'Upgrade-Insecure-Requests': '1',
+                'Sec-Fetch-Dest': 'frame',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'same-origin',
+                'TE': 'trailers',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+                'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-MicrosoftAjax': 'Delta=true',
+                'origin': ' https://v.guet.edu.cn'
             },
         }, (res) => {
             //res.setEncoding('GB2312');
@@ -337,10 +766,15 @@ function webVpnMasterService(callback, username, password) {
             res.on('end', () => {
                 let buf = Buffer.concat(rawData, size);
                 let str = iconv.decode(buf, 'gb2312'); //编码gb2312
-                callback(str);
+                console.log(str.cyan);
+                //callback(str);
             });
         });
-        req.write(`ScriptManager1=UpdatePanel1%7CbtnQueryCourse&ddlTerm=20211&txt学号=21062301013`);
+        const ScriptManager1 = 'UpdatePanel1|btnQueryCourse';
+        console.log(`ScriptManager1=${ScriptManager1}&ddlTerm=20212&txt%E5%AD%A6%E5%8F%B7=${username}&btnQueryCourse=查询&__ASYNCPOST=true&__EVENTTARGET=&__EVENTARGUMENT=&__VIEWSTATE=${__VIEWSTATE}&__VIEWSTATEGENERATOR=${__VIEWSTATEGENERATOR}&__EVENTVALIDATION=${__EVENTVALIDATION}`);
+        req.write(`ddlTerm=20212&txt学号=${username}&btnQueryCourse=查询&__ASYNCPOST=true&__VIEWSTATE=${__VIEWSTATE}&__VIEWSTATEGENERATOR=${__VIEWSTATEGENERATOR}&__EVENTVALIDATION=${__EVENTVALIDATION}`);
+        //&__EVENTTARGET=&__EVENTARGUMENT=
+        //ScriptManager1=${ScriptManager1}&
         req.on('error', (e) => {
             responseError(callback, e);
         });
@@ -393,10 +827,20 @@ function master(req, res) {
             //console.log(result.green);
             //res.write(result);
             res.end();
-        }, '', '');
+        }, username, password);
     } catch (e) {
         res.end();
     }
 }
+
+(function () {
+    const {
+        username,
+        password
+    } = setting('21062301013', '');
+    webVpnMasterService((result) => {
+        console.log(result.green);
+    }, username, password);
+})();
 
 module.exports = master;

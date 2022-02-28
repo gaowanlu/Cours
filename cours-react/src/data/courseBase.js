@@ -23,7 +23,24 @@ class CourseBaseFatory {
     }
     /*现在为第几周*/
     nowWeek(newWeek) {
+        let autoTime = this.store.getItem('autoTime');
+        let real_time = 1;
+        //没有定义过autoTime 则自动使用autoTime
+        if (autoTime === undefined) {
+            this.store.setItem('autoTime', 'true');
+            autoTime = true;
+        }
+        if (autoTime) {
+            //动态计算学期第几周
+            const now = new Date();
+            const term_start = new Date(2022, 1, 21);
+            real_time = Math.ceil((now - term_start) / (60 * 60 * 24 * 1000) / 7);
+            console.log((now - term_start) / (60 * 60 * 24 * 1000) / 7);
+            this.store.setItem('nowWeek', real_time.toString());
+        }
+        console.log("现在为第几周", real_time);
         return this.storeCheckBack('nowWeek', '1', newWeek);
+        //return real_time;
     }
     /*现在那个学习年*/
     nowYear(newYear) {

@@ -38,6 +38,8 @@ function DateSettingPage() {
   const handleChange = (event) => {
     setChecked(event.target.checked);
     courseBase.autoTime(event.target.checked.toString());
+    //reload nowWeek if open auto time
+    if (event.target.checked) setWeek(parseInt(courseBase.nowWeek()));
   };
   //0 春季 1秋季 2小学期
   const getTermText = (term) => {
@@ -47,17 +49,17 @@ function DateSettingPage() {
   //年调整 infolist
   const yearList = listCreator(
     `${year} 年`,
-    <YearSetting setYear={setYear} value={year} />
+    <YearSetting setYear={setYear} value={year} disabled={checked} />
   );
   //学期调整 infolist
   const termList = listCreator(
     `${getTermText(term)}`,
-    <TermSetting setTerm={setTerm} value={term} />
+    <TermSetting setTerm={setTerm} value={term} disabled={checked} />
   );
   //周调整 infolist
   const weekList = listCreator(
     `第 ${week} 周`,
-    <WeekSetting setWeek={setWeek} value={week} />
+    <WeekSetting setWeek={setWeek} value={week} disabled={checked} />
   );
   return (
     <React.Fragment>
@@ -74,9 +76,9 @@ function DateSettingPage() {
         {/*周调整*/}
         <InfoList {...weekList} bottomAlert="" />
         {/*学期调整*/}
-        <InfoList {...termList} bottomAlert="🤦‍♂️功能正在调教中..." />
+        <InfoList {...termList} bottomAlert="🤦功能正在调教中..." />
         {/*年调整*/}
-        <InfoList {...yearList} bottomAlert="🤦‍♀️功能正在调教中..." />
+        <InfoList {...yearList} bottomAlert="🤦功能正在调教中..." />
       </PageContainer>
     </React.Fragment>
   );
@@ -106,6 +108,7 @@ function YearSetting(props) {
           marginRight: "1rem",
           width: "calc(100% - 2rem)",
         }}
+        disabled={props.disabled}
       />
     </React.Fragment>
   );
@@ -135,6 +138,7 @@ function TermSetting(props) {
           marginRight: "1rem",
           width: "calc(100% - 2rem)",
         }}
+        disabled={props.disabled}
       />
     </React.Fragment>
   );
@@ -164,6 +168,7 @@ function WeekSetting(props) {
           marginRight: "1rem",
           width: "calc(100% - 2rem)",
         }}
+        disabled={props.disabled}
       />
     </React.Fragment>
   );

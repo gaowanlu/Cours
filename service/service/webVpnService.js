@@ -9,7 +9,7 @@ const userDao = require('../dao/userDao');
 const setting = require('../utils/setting');
 
 //是否进行调试 console.log open?
-const DEBUG = true;
+const DEBUG = false;
 
 
 /*请求链出错处理*/
@@ -730,18 +730,19 @@ function service(callback, username, password) {
                 'Accept-Encoding': 'gzip',
             }
         }, (res) => {
-            let wengine_vpn_ticket = res.headers['set-cookie'][0].split(';')[0].split('=')[1];
-            let show_vpn = res.headers['set-cookie'][1].split(';')[0].split('=')[1];
-            if (DEBUG) console.log("init", res.headers);
-            if (DEBUG) console.log("init", JSON.stringify({
-                wengine_vpn_ticket,
-                show_vpn
-            }).red);
-            try {
-                getTGT(wengine_vpn_ticket, show_vpn);
-            } catch (e) {
-                callback({});
-            }
+            res.on('data', (slice) => {})
+            res.on('end', () => {
+                errorBack(() => {
+                    let wengine_vpn_ticket = res.headers['set-cookie'][0].split(';')[0].split('=')[1];
+                    let show_vpn = res.headers['set-cookie'][1].split(';')[0].split('=')[1];
+                    if (DEBUG) console.log("init", res.headers);
+                    if (DEBUG) console.log("init", JSON.stringify({
+                        wengine_vpn_ticket,
+                        show_vpn
+                    }).red);
+                    getTGT(wengine_vpn_ticket, show_vpn);
+                }, callback);
+            });
         });
         req.on('error', (e) => {
             responseError(callback, e);

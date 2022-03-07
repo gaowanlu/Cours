@@ -13,7 +13,8 @@ const TalkPage = React.lazy(() => import("./pages/TalkPage"));
 const CoursOSPage = React.lazy(() => import("./pages/CoursOSPage"));
 const QAPage = React.lazy(() => import("./pages/QAPage"));
 const MoviePage = React.lazy(() => import("./pages/MoviePage"));
-const DebugPage = React.lazy(() => import("./pages/DebugPage"));
+const DebugPage = React.lazy(() => import("./pages/DebugPage.jsx"));
+const TokenLoginPage = React.lazy(() => import("./pages/TokenLoginPage"));
 const IndexPage = React.lazy(() => import("./pages/IndexPage"));
 const AssemblyPage = React.lazy(() => import("./pages/AssemblyPage"));
 
@@ -32,6 +33,7 @@ function App() {
           <Route path="/exam" element={<ExamPage />} />
           <Route path="/talk" element={<TalkPage />} />
           <Route path="/debug" element={<DebugPage />} />
+          <Route path="/token" element={<TokenLoginPage />} />
           <Route path="/movie" element={<MoviePage />} />
           <Route path="/index" element={<IndexPage />} />
           <Route path="/assembly" element={<AssemblyPage />} />

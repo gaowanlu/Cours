@@ -1,55 +1,75 @@
 import React from "react";
-import { Base64 } from "js-base64";
-// import styled from "styled-components";
+import styled from "styled-components";
 import PageContainer from "../components/PageContainer";
-import axios from "axios";
-function DebugPage(props) {
-  const [userid, setUserid] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const submit = async (e) => {
-    axios({
-      url: "https://linkway.site:5557/token/login",
-      method: "POST",
-      headers: {
-        Authorization: Base64.encode(`Basic ${localStorage.getItem("token")}:`),
-      },
-      data: { username: "gaownalu", password: "123456" },
-    })
-      .then((res) => {
-        console.log(res.data.token);
-        if (res.data.token) {
-          localStorage.setItem("token", res.data.token);
-        }
-      })
-      .catch((e) => {});
-  };
-  const getAPI = (e) => {
-    axios({
-      url: "https://linkway.site:5557/token/get",
-      method: "POST",
-      headers: {
-        Authorization: `Basic ${Base64.encode(
-          localStorage.getItem("token") + ":"
-        )}`,
-      },
-    })
-      .then((res) => {
-        if (res.data.auth) {
-          setUserid(res.data.auth.userid);
-          setPassword(res.data.auth.password);
-        }
-      })
-      .catch((e) => {});
-  };
+import PageHeader from "../components/PageHeader";
+
+function SelectNum(props) {
+  const slideDOM = React.useRef(null);
+  React.useEffect(() => {
+    slideDOM.current.addEventListener("scroll", (e) => {
+      e.preventDefault();
+      //   console.log([
+      //     e.target.scrollHeight,
+      //     e.target.scrollTop + e.target.clientHeight,
+      //   ]);
+      let index =
+        21 -
+        Math.round(
+          (e.target.scrollHeight -
+            (e.target.scrollTop + e.target.clientHeight)) /
+            34.0
+        );
+      props.setNowIndex(index);
+    });
+  });
+  const array = [];
+  for (let i = 1; i < 22; i++) {
+    array.push({ index: i, id: i });
+  }
+  return (
+    <Slide ref={slideDOM}>
+      {array.map((o) => {
+        return <li key={o.id}>🐅</li>;
+      })}
+    </Slide>
+  );
+}
+
+function DebugPage() {
+  const [nowIndex, setNowIndex] = React.useState(1);
   return (
     <PageContainer>
-      <h1>JWT-TOKEN DEBUG</h1>
-      <button onClick={submit}>发起请求获取Token</button>
-      <button onClick={getAPI}>获取内容</button>
-      <h2>{userid}</h2>
-      <h2>{password}</h2>
+      <PageHeader title="DebugPage" />
+      <SelectNum setNowIndex={setNowIndex} />
+      <h2>{nowIndex}</h2>
     </PageContainer>
   );
 }
 
+const Slide = styled.ul`
+  position: absolute;
+  bottom: 50vh;
+  left: 0rem;
+  display: block;
+  width: 4rem;
+  height: 48px;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  &::-webkit-scrollbar {
+    width: 1px;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+  & > li {
+    text-align: center;
+    padding: calc(8px + 0.1rem);
+    font-size: 0.8rem;
+    color: green;
+    scroll-snap-align: center;
+    font-weight: bolder;
+  }
+`;
+
 export default DebugPage;
+export { SelectNum };

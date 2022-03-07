@@ -32,14 +32,14 @@ function WeekTable(props) {
   const bgFunc = randomBackground(); // 闭包颜色渲染
   /*列标题*/
   let colTags = [
-    { id: 0, style: {}, text: `${nowWeek}周` },
-    { id: 1, style: Coordinate.left(1), text: "周一" },
-    { id: 2, style: Coordinate.left(2), text: "周二" },
-    { id: 3, style: Coordinate.left(3), text: "周三" },
-    { id: 4, style: Coordinate.left(4), text: "周四" },
-    { id: 5, style: Coordinate.left(5), text: "周五" },
-    { id: 6, style: Coordinate.left(6), text: "周六" },
-    { id: 7, style: Coordinate.left(7), text: "周日" },
+    { id: 0, style: {}, text: `${nowWeek} 周` },
+    { id: 1, style: Coordinate.left(1), text: "一" },
+    { id: 2, style: Coordinate.left(2), text: "二" },
+    { id: 3, style: Coordinate.left(3), text: "三" },
+    { id: 4, style: Coordinate.left(4), text: "四" },
+    { id: 5, style: Coordinate.left(5), text: "五" },
+    { id: 6, style: Coordinate.left(6), text: "六" },
+    { id: 7, style: Coordinate.left(7), text: "日" },
   ];
   /*行标题*/
   let rowTags = [

@@ -4,6 +4,7 @@ import WeekTable from "../components/WeekTable.jsx";
 import DialogWindow from "../components/DialogWindow";
 import CourseDetailList from "../components/CourseDetailList";
 import courseBase from "../data/courseBase";
+import { SelectNum } from "../pages/DebugPage.jsx";
 
 //课程详情数据格式转换
 const detailListCreator = (courseItem) => {
@@ -28,13 +29,18 @@ const detailListCreator = (courseItem) => {
 function WeekView() {
   const [dialogShow, setDialogShow] = useState(false);
   const [detailList, setDetailList] = useState([]);
-  let nowWeek = courseBase.nowWeek(); //加载现在是第几周
-  let weekCourse = courseBase.weekViewFormat(nowWeek); //获取这一周的课表
+  const [nowWeek, setNowWeek] = useState(courseBase.nowWeek()); //加载现在是第几周
+  const [weekCourse, setWeekCourse] = useState(
+    courseBase.weekViewFormat(nowWeek)
+  ); //获取这一周的课表
   //课程块点击
   const courseItemClickHandle = async (e, item) => {
     setDetailList(detailListCreator(item));
     setDialogShow(true);
   };
+  React.useEffect(() => {
+    setWeekCourse(courseBase.weekViewFormat(nowWeek));
+  }, [nowWeek]);
   return (
     <React.Fragment>
       <Container className="animate__animated animate__slideInRight  animate__faster">
@@ -46,6 +52,7 @@ function WeekView() {
           />
         </Content>
       </Container>
+      <SelectNum setNowIndex={setNowWeek} />
       {/* 弹窗 */}
       {dialogShow && (
         <DialogWindow

@@ -46,7 +46,7 @@ const ViewPagerNavButton = styled.button`
     content: "";
     position: absolute;
     width: 100%;
-    height: 0.4rem;
+    height: 0.25rem;
     background-color: var(--color-primary);
     left: 0;
     bottom: -0.5rem;

@@ -13,7 +13,16 @@ function ExamPage(props) {
   const examList = courseBase.examList().data;
   console.log(examList);
   /*测试待办*/
-  if (examList.ok.length > 0) examList.todo.push(examList.ok[0]);
+  if (examList.ok.length > 0)
+    examList.todo.push({
+      cname: "卷起来！",
+      date: {
+        year: "2022",
+        month: " all ",
+        day: " all ",
+        obj: new Date(),
+      },
+    });
   return (
     <React.Fragment>
       {/*导航栏*/}
@@ -34,7 +43,7 @@ function ExamPage(props) {
               >
                 <CourseName>{o.cname}</CourseName>
                 <ExamTime>
-                  {o.date.year}年{o.date.month}月{o.date.day}日
+                  {o.date.year} 年 {o.date.month} 月 {o.date.day} 日
                 </ExamTime>
                 <ExamLocation>教室 {o.croomno}</ExamLocation>
                 <DeadLine>
@@ -51,8 +60,6 @@ function ExamPage(props) {
           color="var(--color-primary)"
         />
         <Scroll>
-          {/* cname: "数字逻辑" courseid: "BT0300041X0" courseno: "2010413" croomno:
-          "02106Y" */}
           {examList.ok.map((o) => {
             return (
               <Item

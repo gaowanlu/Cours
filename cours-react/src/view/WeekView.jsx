@@ -4,7 +4,7 @@ import WeekTable from "../components/WeekTable.jsx";
 import DialogWindow from "../components/DialogWindow";
 import CourseDetailList from "../components/CourseDetailList";
 import courseBase from "../data/courseBase";
-import { SelectNum } from "../pages/DebugPage.jsx";
+import TigerSelectNum from "./../components/TigerSelectNum";
 
 //课程详情数据格式转换
 const detailListCreator = (courseItem) => {
@@ -52,7 +52,7 @@ function WeekView() {
           />
         </Content>
       </Container>
-      <SelectNum setNowIndex={setNowWeek} />
+      <TigerSelectNum setNowIndex={setNowWeek} left={"0rem"} bottom={"50vh"} />
       {/* 弹窗 */}
       {dialogShow && (
         <DialogWindow

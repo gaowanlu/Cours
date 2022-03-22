@@ -160,6 +160,7 @@ const CourseBox = styled.div`
     word-break: break-all;
     word-wrap: break-word;
     white-space: break-spaces;
+    text-align:center;
   }
   transition: filter 0.25s;
   &:hover {

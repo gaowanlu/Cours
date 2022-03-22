@@ -159,8 +159,8 @@ const CourseBox = styled.div`
     /* zoom: 90%; */
     word-break: break-all;
     word-wrap: break-word;
-    white-space: break-spaces;
-    text-align:center;
+    /* white-space: break-spaces; */
+    text-align: center;
   }
   transition: filter 0.25s;
   &:hover {

@@ -139,8 +139,6 @@ const CourseBox = styled.div`
   background: ${(props) => props.bg};
   border-radius: 10px;
   padding: 6px;
-  font-size: 0.8rem;
-  zoom: 90%;
   box-sizing: border-box;
   /* font-weight: bold; */
   color: ${(props) => {
@@ -153,8 +151,13 @@ const CourseBox = styled.div`
   cursor: pointer;
   flex-wrap: wrap;
   -webkit-box-sizing: border-box;
-  word-break: break-all;
-  word-wrap: break-word;
+  & > p {
+    font-size: 0.7rem;
+    zoom: 90%;
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: break-spaces;
+  }
   transition: filter 0.25s;
   &:hover {
     filter: brightness(1.1);

@@ -142,10 +142,10 @@ const CourseBox = styled.div`
   box-sizing: border-box;
   /* font-weight: bold; */
   color: ${(props) => {
-    return props.size > 1 ? "#f5f793" : "#fafafa";
+    return props.size > 1 ? "#fafafa" : "#fafafa";
   }};
   text-shadow: ${(props) => {
-    return props.size > 1 ? "0 0 1px #dd6f6f" : "0 0 2px #707070";
+    return props.size > 1 ? "0 0 1px #707070" : "0 0 1px #707070";
   }};
   min-height: calc(10% - 0.14rem);
   cursor: pointer;
@@ -153,6 +153,8 @@ const CourseBox = styled.div`
   -webkit-box-sizing: border-box;
   font-size: 0.7rem;
   & > p {
+    width: 100%;
+    box-sizing: border-box;
     padding: 2px;
     /* zoom: 90%; */
     word-break: break-all;

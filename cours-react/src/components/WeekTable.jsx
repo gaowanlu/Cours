@@ -139,7 +139,8 @@ const CourseBox = styled.div`
   background: ${(props) => props.bg};
   border-radius: 10px;
   padding: 6px;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
+  zoom: 90%;
   box-sizing: border-box;
   /* font-weight: bold; */
   color: ${(props) => {

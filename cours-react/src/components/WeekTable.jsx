@@ -151,9 +151,10 @@ const CourseBox = styled.div`
   cursor: pointer;
   flex-wrap: wrap;
   -webkit-box-sizing: border-box;
+  font-size: 0.7rem;
   & > p {
-    font-size: 0.7rem;
-    zoom: 90%;
+    padding: 2px;
+    /* zoom: 90%; */
     word-break: break-all;
     word-wrap: break-word;
     white-space: break-spaces;

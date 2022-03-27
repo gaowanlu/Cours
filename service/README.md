@@ -78,6 +78,7 @@ socket.send({
     }
 ]
 ```
+
 ##### 影视服务  
 
 影视来源 <https://www.dqsj.cc/>
@@ -86,6 +87,11 @@ socket.send({
     地址 `GET` `https://{}:5557/movie/search?name={关键词}&page={页数}`
 * 影视详情  
     地址 `GET` `https://{}:5557/movie/detail?path={打驴路径}`  
+
+##### 用户记录
+
+* 提交（正在开发中）
+    地址 `POST` `https://{}:5557/user/register` 提交格式JOSN
 
 
 ##### rtmp视频推流  

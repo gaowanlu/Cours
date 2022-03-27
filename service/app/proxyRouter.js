@@ -7,14 +7,15 @@ const movieSearch = require('./route/movie/search');
 const movieDetail = require('./route/movie/detail');
 const noneRoute = require('./route/none.js');
 const analysis = require('./route/user/analysis');
+const register = require('./route/user/register');
 const token_login = require('./route/token/login');
 const token_get = require('./route/token/get');
 const authFilter = require('./filter/authFilter');
 
 /**
  * 业务代理请求服务器
- * @param {*} server 
- * @returns 
+ * @param {*} server
+ * @returns
  */
 function proxyServer(server) {
     return () => {
@@ -46,6 +47,7 @@ function proxyServer(server) {
             '/movie/detail': movieDetail,
             '/master': master,
             '/user/analysis': analysis,
+            '/user/register':register,
             '/token/login': token_login,
             '/token/get': authFilter(token_get),
             'none': noneRoute

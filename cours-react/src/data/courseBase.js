@@ -355,7 +355,7 @@ class CourseBaseFatory {
                     });
                     //console.log(formated[i].date.obj);
                 });
-                //排序formated 
+                //排序formated
                 formated.sort((a, b) => {
                     if (a.date.obj < b.date.obj) { // 按某种排序标准进行比较, a 小于 b
                         return 1;
@@ -395,8 +395,8 @@ class CourseBaseFatory {
     }
     /*获取现在的学期编号*/
     nowTermCode() {
-        //根据学年 、 春0秋1三2季 、获得学期编号 
-        //const last = ['2', '1', '3']; //后缀 
+        //根据学年 、 春0秋1三2季 、获得学期编号
+        //const last = ['2', '1', '3']; //后缀
         //const nowYear = this.nowYear();
         // console.log("nowyear", this.nowYear());
         // console.log("nowTerm", this.nowTerm());

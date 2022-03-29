@@ -35,10 +35,10 @@ class CourseBaseFatory {
             const now = new Date();
             const term_start = new Date(2022, 1, 21);
             real_time = Math.ceil((now - term_start) / (60 * 60 * 24 * 1000) / 7);
-            console.log((now - term_start) / (60 * 60 * 24 * 1000) / 7);
+            //console.log((now - term_start) / (60 * 60 * 24 * 1000) / 7);
             this.store.setItem('nowWeek', real_time.toString());
         }
-        console.log("现在为第几周", real_time);
+        //console.log("现在为第几周", real_time);
         return this.storeCheckBack('nowWeek', '1', newWeek);
         //return real_time;
     }
@@ -83,21 +83,23 @@ class CourseBaseFatory {
     /*获得第index周课表*/
     week(index) {
         //普通课表
-        console.log("this.stuTable().data", this.stuTable().data);
-        console.log("index", index);
-        console.log("nowTermCode", this.nowTermCode());
+        //console.log("this.stuTable().data", this.stuTable().data);
+        //console.log("index", index);
+        //console.log("nowTermCode", this.nowTermCode());
         let stuCourse = this.stuTable().data.filter(item => {
             return item.startweek <= index && item.endweek >= index && item.term === this.nowTermCode();
         });
         //实验课表
-        console.log("stuCourse", stuCourse);
+        //console.log("stuCourse", stuCourse);
         let labCourse = this.labTable().data.map(item => {
+            //console.log(item);
             return {
                 startweek: item.zc,
                 endweek: item.zc,
                 seq: item.jc.toString(),
                 week: item.xq,
                 croomno: item.srdd,
+                itemname: item.itemname,
                 ...item
             };
         }).filter(item => {
@@ -109,11 +111,10 @@ class CourseBaseFatory {
     day() {
         //获取这周的课表
         let weekCourse = this.weekFormat(this.nowWeek());
-        console.log("weekCourse", weekCourse);
         //获取现在时间
         let date = this.nowTime();
-        let day = date.weekNum === 0 ? 7 : date.weekNum;
-        let dayCourse = weekCourse[day];
+        let day = date.weekNum === 0 ? 7 : date.weekNum; //获取今天在周课表的下标
+        let dayCourse = weekCourse[day]; //取出今天的课程
         return dayCourse;
     }
     /*获取现在时间*/
@@ -136,7 +137,7 @@ class CourseBaseFatory {
     /*获得第index周课表：格式化*/
     weekFormat(index) {
         let table = this.week(index);
-        console.log("table", table);
+        //console.log("table", table);
         let courses = [
             [],
             [],
@@ -166,12 +167,17 @@ class CourseBaseFatory {
     weekViewFormat(index) {
         let weekCourse = this.weekFormat(index);
         let result = [];
-        //遍历一周的内容
+        //遍历整周的内容x为天
         for (let x = 0; x < weekCourse.length; x++) {
-            result.push([undefined, undefined, undefined, undefined, undefined]); //每天的五节任务初始化为undefined
+            result.push([undefined, undefined, undefined, undefined, undefined]); //每天的五节任务先初始化为undefined
+            //遍历x天
             for (let y = 0; y < weekCourse[x].length; y++) {
-                weekCourse[x][y].cname = weekCourse[x][y].cname.replace(" ", ""); //清楚课程名空格
+                weekCourse[x][y].cname = weekCourse[x][y].cname.replace(" ", ""); //清除课程名空格
                 let cname = weekCourse[x][y].cname.length >= 6 ? weekCourse[x][y].cname.substr(0, 6) : weekCourse[x][y].cname; //课程名长度限制
+                //判断课程节数代号seq 如果有seq超过5则将其分为第5节
+                if (parseInt(weekCourse[x][y].seq) > 5) {
+                    weekCourse[x][y].seq = "5";
+                }
                 if (result[x][Number(weekCourse[x][y].seq) - 1] === undefined) {
                     result[x][Number(weekCourse[x][y].seq) - 1] = {
                         text: cname + "@" + weekCourse[x][y].croomno,
@@ -216,8 +222,8 @@ class CourseBaseFatory {
      */
     dayViewFormat() {
         let hours = this.getHours().data;
-        let result = this.day();
-        console.log("result", result);
+        let result = this.day(); //获取这一周周课表
+        //console.log("coursbase.dayViewFormat day result", result);
         result = result.map(item => {
             return {
                 seq: `第${item.seq}节`,

@@ -8,6 +8,7 @@ import GrassIcon from "@mui/icons-material/Grass";
  * @returns
  */
 function CourseDetail(props) {
+  console.log(props);
   return (
     <Container>
       <GrassIcon
@@ -23,6 +24,7 @@ function CourseDetail(props) {
         <Row>教师 {props.teacher}</Row>
         <Row>教室 {props.room}</Row>
         <Row>课程 {props.courseId}</Row>
+        <Row>教授内容 {props.itemname}</Row>
         <Row>课号 {props.courseNo}</Row>
         <Row>考核方式 {props.exam}</Row>
       </ul>
@@ -59,7 +61,7 @@ const CourseName = styled.p`
 const Row = styled.li`
   padding: 0.4rem 0;
   position: relative;
-  height: 1.5rem;
+  min-height: 1.5rem;
   &::after {
     content: "";
     position: absolute;

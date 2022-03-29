@@ -11,7 +11,7 @@ import DownloadCard from "../components/DownloadCard";
 function DayView() {
   /*获取日课表数据*/
   let dayCourses = courseBase.dayViewFormat();
-  console.log(dayCourses);
+  //console.log(dayCourses);
   return (
     <React.Fragment>
       <PageContainerStyled className="animate__animated animate__slideInLeft animate__faster">

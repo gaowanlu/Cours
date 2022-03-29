@@ -17,6 +17,7 @@ const detailListCreator = (courseItem) => {
       courseId: course.courseid,
       courseNo: course.courseno,
       exam: course.examt,
+      itemname:course.itemname
     });
   }
   return list;

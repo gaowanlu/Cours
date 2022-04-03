@@ -10,7 +10,7 @@ function welcome() {
     console.log("我们携起手来改变世界 2022 @桂林电子科技大学");
     console.log("Cours " + version);
     //像平台提交访问记录
-    register.postUsername((res)=>{
+    registerAPI.postUsername((res)=>{
         console.log("Welcome");
     },String(Math.random()))
 }

@@ -1,8 +1,13 @@
+/*
+ *用于研究生课表数据的爬取 暂不能适应
+ *欢迎进行测试提交PR
+ * */
+
 const https = require('https');
 const http2 = require('http2');
 const cheerio = require('cheerio');
 const colors = require('colors');
-var iconv = require('iconv-lite');
+const iconv = require('iconv-lite');
 const setting = require('../utils/setting');
 const zlib = require('zlib');
 
@@ -308,7 +313,7 @@ function webVpnMasterService(callback, username, password) {
         req.on('error', (e) => {
             responseError(callback, e);
         });
-    } //	
+    } //
 
 
     function LoginRedirect(wengine_vpn_ticket, show_vpn, TGT, ST) {

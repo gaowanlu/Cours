@@ -5,7 +5,7 @@ const HOST = "www.dqsj.cc";
 
 /**
  * 视频详情
- * @param {*} callback 
+ * @param {*} callback
  */
 function movieDetail(callback, path) {
     //console.log("path=>", path);

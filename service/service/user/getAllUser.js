@@ -1,7 +1,7 @@
 const userDao = require('../../dao/userDao');
 /**
- * 获取所有用户
- * @returns 
+ * 获取所有用户即获取用户列表
+ * @returns
  */
 async function getAllUser() {
     //同步检索用户列表

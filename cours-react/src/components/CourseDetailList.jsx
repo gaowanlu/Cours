@@ -18,28 +18,12 @@ const listTest = [
     courseId: "",
     courseNo: "2",
     exam: "",
-  },
-  {
-    name: "Error",
-    teacher: "",
-    room: "",
-    courseId: "",
-    courseNo: "3",
-    exam: "",
-  },
-  {
-    name: "Error",
-    teacher: "",
-    room: "",
-    courseId: "",
-    courseNo: "4",
-    exam: "",
-  },
+  }
 ];
 
 /**
  *
- * @param {list[{name:课程名,teacher:教师,room: 教室,courseId: 课程ID,courseNo: 课号,exam: 考核方式,}]} props
+ * @param {list[{name:课程名,teacher:教师,room: 教室,courseId: 课程ID,courseNo: 课号,exam: 考核方式,itemname: 教授内容}]} props
  * @returns
  */
 function CourseDetailList(props) {

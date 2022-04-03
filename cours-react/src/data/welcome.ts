@@ -1,5 +1,5 @@
 import baseInfo from './baseInfo.json';
-import registerAPI from '../api/register.js';
+import registerAPI from '../api/registerAPI.js';
 
 /*
 * 做一些用户进入页面然后此时我们想做的事情

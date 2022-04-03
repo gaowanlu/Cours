@@ -1,6 +1,9 @@
 const fs = require("fs");
+const testJSON = fs.readFileSync('service/mock/test1.json', 'utf8');
 
-const testJSON = fs.readFileSync('service/test1.json', 'utf8');
+/*
+ *用于mock一些课表数据
+ * */
 
 /*测试账号*/
 const testAccount = {
@@ -14,7 +17,7 @@ const testAccount = {
 };
 
 /**
- * 
+ *
  * @param
  function ({sctCourse}) callback 代理服务回调
  * @param string username 学号

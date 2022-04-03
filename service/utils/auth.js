@@ -1,12 +1,15 @@
 const jwt = require('jsonwebtoken');
 const config = require('../coursConfig');
 
+/*
+ *JWT Auth
+ * */
 class Auth {
     /**
      * 生成Token
-     * @param {string} userid 
-     * @param {string} password 
-     * @returns 
+     * @param {string} userid 用户账号
+     * @param {string} password 用户密码
+     * @returns
      */
     static generateToken(userid, password) {
         const token = jwt.sign({
@@ -20,7 +23,7 @@ class Auth {
 
     /**
      * 校验身份token是否有效
-     * @param {string} token 
+     * @param {string} token
      */
     static verifyToken(token) {
         try {
@@ -38,7 +41,7 @@ class Auth {
 
     /**
      * token解析
-     * @param {string} token 
+     * @param {string} token
      */
     static decode(token) {
         if (Auth.verifyToken(token)) {

@@ -1,6 +1,6 @@
 /*
-import setting from './setting';
- * 声明:本工具禁止传播 传播者与使用者造成后果自负  
+ * 用于爬取教务系统本科课程表数据
+ * 声明:本工具禁止传播 传播者与使用者造成后果自负
  */
 require('colors');
 const https = require('https');
@@ -45,9 +45,9 @@ const BKJW_Referer = (ST) => {
 /**
  * 代理服务函数
  * @param function  callback 响应回调函数
- * @param string username 学号 
+ * @param string username 学号
  * @param string password 密码
- * @returns 
+ * @returns
  */
 function service(callback, username, password) {
     if (DEBUG) console.log(username, password);

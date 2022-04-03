@@ -1,6 +1,7 @@
 /**
  * 同步接收request object body内容
- * @param {Request} req 
+ * 解决在项目中的接受请求体数据代码复用方案
+ * @param {Request} req
  * @returns body内容
  */
 async function requestReceiver(req) {

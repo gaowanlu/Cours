@@ -1,7 +1,7 @@
 const mysql = require('mysql2');
 const coursConfig = require('../coursConfig');
 
-//创建连接池
+//创建mysql数据库连接池
 function connections() {
     return () => {
         const pool = mysql.createPool(coursConfig.DBInfo);

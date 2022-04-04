@@ -66,8 +66,8 @@ function movieSearch(callback, searchString, page) {
     });
 }
 
-// movieSearch((result) => {
-//     console.log(result);
-// }, "你的名字", 1);
+movieSearch((result) => {
+     console.log(result);
+}, "你的名字", 1);
 
 module.exports = movieSearch;

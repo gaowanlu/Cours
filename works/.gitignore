@@ -1,0 +1,8 @@
+/node_modules
+/.pnp
+.pnp.js
+
+npm-debug.log*
+*.swm
+*.swo
+*.swp

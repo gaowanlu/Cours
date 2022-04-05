@@ -1,5 +1,6 @@
-require("babel-register");
-const works = require('./src/works');
+const babel_register = require("babel-register");
+const babel_polyfill = require("babel-polyfill");
+const works = require('./works');
 
 /**
  * works初始化构造器

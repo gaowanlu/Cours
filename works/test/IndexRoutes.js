@@ -1,4 +1,4 @@
-const Works = require('../index.js');
+const Works = require('../lib/index.js');
 
 @Works.routes
 class Routes {

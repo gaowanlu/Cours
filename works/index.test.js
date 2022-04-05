@@ -1,4 +1,4 @@
-const Works = require('./index.js');
+const Works = require('./lib/index.js');
 const userRoutes = require('./test/UserRoutes');
 const indexRoutes = require('./test/IndexRoutes');
 

@@ -2,6 +2,15 @@
 
 使用nodejs构建轻便的后端服务，旨在简便业务开发
 
+## 构建此项目
+
+```bash
+$npm install
+$npm run build
+//将会使用babel编译代码到build目录
+$node index.test.js
+```
+
 ## 开发者文档
 
 ### 快速开始
@@ -89,6 +98,10 @@ works.js提供了限制request的Method的修饰器
 * path为请求的要匹配的路径
 * request为http server所接受到的Request对象
 * response为http server所接收到的Request对象
+
+## 我们使用的node
+
+v16.13.1
 
 ## 开源协议
 

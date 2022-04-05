@@ -1,3 +1,4 @@
+#Cours 后台数据库初始化SQL
 DROP DATABASE IF exists cours;
 CREATE DATABASE cours;
 USE cours;

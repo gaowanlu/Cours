@@ -41,15 +41,23 @@ function proxyServer(server) {
 
         /*路由映射*/
         const map = {
+            //根路径用于课表数据代理
             '/': index,
+            //直播推流
             '/live.flv': liveFlv,
+            //电影爬虫服务
             '/movie/search': movieSearch,
             '/movie/detail': movieDetail,
+            //硕士课表代理暂不可用
             '/master': master,
+            //用户数据数据分析
             '/user/analysis': analysis,
+            //用户提交记录 平台记录情况 暂不可用
             '/user/register':register,
+            //token 测试试验 将在平台添加身份鉴权
             '/token/login': token_login,
             '/token/get': authFilter(token_get),
+            //其他路径处理
             'none': noneRoute
         };
 

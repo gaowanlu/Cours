@@ -27,6 +27,17 @@ pm2 start cours.js
 pm2 list  
 pm2 monit  
  ```
+#### 项目目录
+
+```text
+/app server路由配置 以及以目录展开的路由形式存储服务函数
+/dao 数据库DAO层
+/service 业务服务层
+/utils 常用工具
+/SSL ssl证书以及加载器
+/coursConfig.js 项目配置信息
+/entity 返回实体类工厂函数
+```
 
 #### API  
 

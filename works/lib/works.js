@@ -1,8 +1,9 @@
-"use strict";
+'use strict';
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 var RouteRecognizer = require('route-recognizer');
+var checkSession = require('./session');
 /**
  * 用于构造Works实例
  * @returns 返回一个Works实例对象
@@ -50,40 +51,41 @@ function works() {
                     while (1) {
                         switch (_context.prev = _context.next) {
                             case 0:
+                                checkSession(req);
                                 //从router中进行匹配
                                 result = Works.router.recognize(path);
 
                                 if (!result) {
-                                    _context.next = 13;
+                                    _context.next = 14;
                                     break;
                                 }
 
                                 i = 0;
 
-                            case 3:
+                            case 4:
                                 if (!(i < result.length)) {
-                                    _context.next = 13;
+                                    _context.next = 14;
                                     break;
                                 }
 
                                 context = result[i];
-                                _context.next = 7;
+                                _context.next = 8;
                                 return result[i].handler(req, res, context);
 
-                            case 7:
+                            case 8:
                                 //获取方法所在routes实例
                                 target = Works.routesFinder.get(result[i].handler);
                                 allowedMethods = target.$works.routeMethods.get(result[i].handler);
 
                                 console.log("exec allowedMethods", allowedMethods);
 
-                            case 10:
+                            case 11:
                                 i++;
-                                _context.next = 3;
+                                _context.next = 4;
                                 break;
 
-                            case 13:
-                            case "end":
+                            case 14:
+                            case 'end':
                                 return _context.stop();
                         }
                     }

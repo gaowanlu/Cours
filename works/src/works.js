@@ -1,4 +1,5 @@
 const RouteRecognizer = require('route-recognizer');
+const checkSession = require('./session');
 /**
  * 用于构造Works实例
  * @returns 返回一个Works实例对象
@@ -38,6 +39,7 @@ function works() {
          *执行策略为将匹配的所有任务全部执行 
          * */
         exec: async (path, req, res) => {
+            checkSession(req);
             //从router中进行匹配
             const result = Works.router.recognize(path);
             if (result) {

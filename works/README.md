@@ -103,6 +103,15 @@ works.js提供了限制request的Method的修饰器
 
 v16.13.1
 
+## 计划
+
+* [ ] 集成server
+* [ ] 完善method机制
+* [ ] session
+* [ ] 拦截器机制
+* [ ] 服务层
+* [ ] DAO解决方案
+
 ## 开源协议
 
 MIT

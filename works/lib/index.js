@@ -2,13 +2,13 @@
 
 var babel_register = require("babel-register");
 var babel_polyfill = require("babel-polyfill");
-var works = require('./works');
+var Works = require('./works');
 
 /**
  * works初始化构造器
- * @returns 
+ * @returns
  */
-function WorksCreator() {
+function WorksCreator(port) {
     var worksInstance = null;
     return function () {
         if (worksInstance) {
@@ -17,12 +17,12 @@ function WorksCreator() {
             /*
              *Works namespace
              * */
-            worksInstance = works();
+            worksInstance = new Works(port);
             return worksInstance;
         }
     };
 }
 
-var worksCreatorInstance = WorksCreator();
+var worksCreatorInstance = WorksCreator(5553)();
 
-module.exports = worksCreatorInstance();
+module.exports = worksCreatorInstance;

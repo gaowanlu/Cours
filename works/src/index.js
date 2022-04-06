@@ -1,12 +1,12 @@
 const babel_register = require("babel-register");
 const babel_polyfill = require("babel-polyfill");
-const works = require('./works');
+const Works = require('./works');
 
 /**
  * works初始化构造器
- * @returns 
+ * @returns
  */
-function WorksCreator() {
+function WorksCreator(port) {
     let worksInstance = null;
     return () => {
         if (worksInstance) {
@@ -15,12 +15,12 @@ function WorksCreator() {
             /*
              *Works namespace
              * */
-            worksInstance = works();
+            worksInstance = new Works(port);
             return worksInstance;
         }
     }
 }
 
-const worksCreatorInstance = WorksCreator();
+const worksCreatorInstance = WorksCreator(5553)();
 
-module.exports = worksCreatorInstance();
+module.exports = worksCreatorInstance;

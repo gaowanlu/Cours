@@ -42,6 +42,7 @@ function Works(port) {
          *执行策略为将匹配的所有任务全部执行
          * */
         this.exec=async (path, req, res) => {
+            console.log("exec "+path);
             checkSession(req);
             //从router中进行匹配
             const result = this.router.recognize(path);

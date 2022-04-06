@@ -2,13 +2,10 @@
 
 使用nodejs构建轻便的后端服务，旨在简便业务开发
 
-## 构建此项目
+## Install
 
 ```bash
-$npm install
-$npm run build
-//将会使用babel编译代码到build目录
-$node index.test.js
+npm install works.js
 ```
 
 ## 开发者文档
@@ -25,13 +22,16 @@ class UserController {
     async user(req, res, context) {
         console.log("欢迎访问work.js /user");
         console.log(context);
+        res.end();
     }
 }
 //创建routes实例
 const userController = new UserController();
 
 /**
- * 模拟请求
+ * 模拟请求 这里只是展示我们的原理 
+ * 我们在框架中已经配置好了request机制
+ * 当然您有权利不使用它们
  */
 let request={name: 'request'};
 let response={name: 'response'};
@@ -59,6 +59,7 @@ Works.exec("/user/743843",request,response);
 使用 [route-recognizer](https://github.com/tildeio/route-recognizer) 作为works.js的路由管理工具、如需了解更多路由匹配规则请查看它
 
 ```js
+const Works=require('works.js');
 @Works.routes
 class UserController {
     @Works.route("/user/:id")

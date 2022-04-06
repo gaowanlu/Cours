@@ -1,7 +1,7 @@
 {
-  "name": "works",
-  "version": "0.0.1",
-  "description": "cours service frameworks",
+  "name": "works.js",
+  "version": "0.0.2",
+  "description": "a lightweight node server framework",
   "main": "index.js",
   "scripts": {
     "test": "babel-node index.test.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gaowanlu/Cours.git"
+    "url": "https://github.com/gaowanlu/Cours/works"
   },
   "keywords": [
     "node",

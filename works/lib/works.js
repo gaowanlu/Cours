@@ -54,42 +54,43 @@ function Works(port) {
                 while (1) {
                     switch (_context.prev = _context.next) {
                         case 0:
+                            console.log("exec " + path);
                             checkSession(req);
                             //从router中进行匹配
                             result = _this.router.recognize(path);
 
                             if (!result) {
-                                _context.next = 14;
+                                _context.next = 15;
                                 break;
                             }
 
                             i = 0;
 
-                        case 4:
+                        case 5:
                             if (!(i < result.length)) {
-                                _context.next = 13;
+                                _context.next = 14;
                                 break;
                             }
 
                             context = result[i];
-                            _context.next = 8;
+                            _context.next = 9;
                             return result[i].handler(req, res, context);
 
-                        case 8:
+                        case 9:
                             //获取方法所在routes实例
                             target = _this.routesFinder.get(result[i].handler);
                             allowedMethods = target.$works.routeMethods.get(result[i].handler);
                             //console.log("exec allowedMethods", allowedMethods);
 
-                        case 10:
+                        case 11:
                             i++;
-                            _context.next = 4;
+                            _context.next = 5;
                             break;
 
-                        case 13:
+                        case 14:
                             res.end(); //必须关闭 可能存在没有匹配到的情况
 
-                        case 14:
+                        case 15:
                         case 'end':
                             return _context.stop();
                     }

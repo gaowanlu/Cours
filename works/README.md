@@ -122,10 +122,19 @@ npm install -D babel-polyfill babel-preset-es2015 babel-preset-stage-3 babel-reg
 }
 ```
 
-转译代码,将src下的js代码转译后放入lib文件夹
+配置package.json  
+更多babel使用方式请见babel-cli文档
+
+```json
+  "scripts": {
+    "build":"babel index.js --out-file main.js"
+  },
+```
+
+运行
 
 ```shell
-babel src --out-dir lib
+node main.js
 ```
 
 

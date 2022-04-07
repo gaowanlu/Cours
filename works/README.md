@@ -16,6 +16,11 @@ node环境支持
 
 * 请使用支持ES7修饰器语法的node版本
 * 或者将您的项目使用babel以至于支持ES7修饰器语法
+* 使用[works-create-app](https://github.com/gaowanlu/works-create-app)项目模板 
+
+    ```bash
+    git clone https://github.com/gaowanlu/works-create-app.git
+    ```
 
 配置您的works.js在您的项目根目录下
 
@@ -141,9 +146,6 @@ $ node main.js
 
 ## 计划
 
-* [x] 集成server
-* [x] 完善method机制
-* [x] 引入works.json配置文件
 * [ ] session 也许在此环境下提供session机制并不是一件好事、视情况而定吧
 * [ ] 拦截器机制
 * [ ] 服务层

@@ -1,4 +1,4 @@
-const Works = require('./lib/index.js');
+const Works = require('./index.js');
 
 //console.log(Works);
 

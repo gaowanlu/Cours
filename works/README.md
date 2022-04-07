@@ -133,8 +133,9 @@ npm install -D babel-polyfill babel-preset-es2015 babel-preset-stage-3 babel-reg
 
 运行
 
-```shell
-node main.js
+```bash
+$ npm run build
+$ node main.js
 ```
 
 

@@ -9,10 +9,11 @@ var fs = require('fs');
  * */
 function sslload(keyPath, certPath) {
     //Load SSL key and cert
-    return {
+    var opstions = {
         key: fs.readFileSync(keyPath),
         cert: fs.readFileSync(certPath)
     };
+    return opstions;
 }
 
 module.exports = sslload;

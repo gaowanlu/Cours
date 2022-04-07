@@ -7,10 +7,11 @@ const fs = require('fs');
  * */
 function sslload(keyPath, certPath) {
     //Load SSL key and cert
-    return {
+    let opstions = {
         key: fs.readFileSync(keyPath),
         cert: fs.readFileSync(certPath)
-    }
+    };
+    return opstions;
 }
 
 module.exports = sslload;

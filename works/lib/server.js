@@ -1,6 +1,7 @@
 "use strict";
 
 var http = require("http");
+var https = require('https');
 var sslload = require("./sslload");
 
 /*
@@ -8,8 +9,12 @@ var sslload = require("./sslload");
  * */
 function server(ssl) {
     if (ssl && ssl.open) {
-        return http.createServer(sslload(ssl.pem, ssl.cert));
+        console.log("using https");
+        var OPSTIONS = sslload(ssl.pem, ssl.cert);
+        console.log("OPTIONS", OPSTIONS);
+        return https.createServer(OPSTIONS);
     }
+    console.log("using http");
     return http.createServer();
 }
 

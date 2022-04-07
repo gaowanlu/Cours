@@ -1,6 +1,6 @@
 # works.js
 
-一个使用解释器构建轻便的nodejs服务的框架
+一个使用javascript修饰器构建轻便的nodejs服务的框架
 
 ## 安装
 
@@ -14,8 +14,13 @@ npm install works.js
 
 node环境支持
 
-* 请使用支持ES7 解释器的node版本 如 v16.13.1
-* 或者将您的项目使用babel转译
+* 请使用支持ES7修饰器语法的node版本
+* 或者将您的项目使用babel以至于支持ES7修饰器语法
+* 使用[works-create-app](https://github.com/gaowanlu/works-create-app)项目模板 
+
+    ```bash
+    git clone https://github.com/gaowanlu/works-create-app.git
+    ```
 
 配置您的works.js在您的项目根目录下
 
@@ -107,11 +112,40 @@ works.js提供了限制request的Method的修饰器
 
 works.js开发使用了ES7等高级特性、因此您在开发中也应该使用babel进行node对解释器的支持
 
+下面简略进行配置
+
+```shell
+npm install -D babel-polyfill babel-preset-es2015 babel-preset-stage-3 babel-register babel-cli babel-plugin-transform-decorators-legacy
+```
+
+在项目根目录配置 .babelrc
+
+```json
+{
+    "presets":["es2015","stage-3"],
+    "plugins":["transform-decorators-legacy"]
+}
+```
+
+配置package.json  
+更多babel使用方式请见babel-cli文档
+
+```json
+  "scripts": {
+    "build":"babel index.js --out-file main.js"
+  },
+```
+
+运行
+
+```bash
+$ npm run build
+$ node main.js
+```
+
+
 ## 计划
 
-* [x] 集成server
-* [x] 完善method机制
-* [x] 引入works.json配置文件
 * [ ] session 也许在此环境下提供session机制并不是一件好事、视情况而定吧
 * [ ] 拦截器机制
 * [ ] 服务层

@@ -1,4 +1,5 @@
 const http = require("http");
+const https = require('https');
 const sslload = require("./sslload");
 
 /*
@@ -6,8 +7,12 @@ const sslload = require("./sslload");
  * */
 function server(ssl) {
     if (ssl && ssl.open) {
-        return http.createServer(sslload(ssl.pem, ssl.cert));
+        console.log("using https");
+        const OPSTIONS = sslload(ssl.pem, ssl.cert);
+        console.log("OPTIONS", OPSTIONS);
+        return https.createServer(OPSTIONS);
     }
+    console.log("using http");
     return http.createServer();
 }
 

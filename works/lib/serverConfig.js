@@ -9,8 +9,8 @@ var server = require('./server');
  * @param {number} port server需要
  * @param {Works} worksInstance works实例
  * */
-function serverConfig(port, worksInstance) {
-    var serverInstance = server();
+function serverConfig(port, ssl, worksInstance) {
+    var serverInstance = server(ssl);
     serverInstance.on('request', function (req, res) {
         //在此应该为开发者留出自定义的空间，允许开发者在所有请求时先做一些事情
         //TO DO

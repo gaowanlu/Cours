@@ -1,0 +1,8 @@
+{
+    "port":5554,
+    "ssl":{
+        "open":false,
+        "cert":"C:\\Users\\gaowanlu\\Desktop\\MyProject\\courses\\service\\SSL\\one.pem",
+        "pem":"C:\\Users\\gaowanlu\\Desktop\\MyProject\\courses\\service\\SSL\\key.pem"
+    }
+}

@@ -1,73 +1,87 @@
 const RouteRecognizer = require('route-recognizer');
 const checkSession = require('./session');
 const serverConfig = require('./serverConfig');
+
 /**
  * 用于构造Works实例
  * @returns 返回一个Works实例对象
  */
-function Works(port) {
-        this.$server=serverConfig(port,this);
-        //路由管理器
-        this.router=new RouteRecognizer();
-        //用于函数找到其相应的routes实例
-        this.routesFinder=new WeakMap();
-        /*@Works.route(path) 用于构建路由项
-         *@param {string} path URL路径匹配
-         * */
-        this.route=(path) => {
-            return (target, name, descriptor) => {
-                this.$addRoute(path, target[name], name, target);
-            }
-        };
+function Works(config) {
+    this.$server = serverConfig(config.port, config.ssl, this);
+    //路由管理器
+    this.router = new RouteRecognizer();
+    //用于函数找到其相应的routes实例
+    this.routesFinder = new WeakMap();
+    /*@Works.route(path) 用于构建路由项
+     *@param {string} path URL路径匹配
+     * */
+    this.route = (path) => {
+        return (target, name, descriptor) => {
+            this.$addRoute(path, target[name], name, target);
+        }
+    };
 
-        /*
-         * 添加path到routeMap以及urlTree的修改
-         * @param {string} path works路径
-         * @param {function} func 当匹配到path时使用func进行处理
-         * */
-        this.$addRoute=(path, func, name, target) => {
-            this.$worksCheck(target);
-            this.routesFinder.set(func, target);
-            //添加新的route到router
-            this.router.add([{
-                path,
-                handler: func
-            }], {
-                as: name
+    /*
+     * 添加path到routeMap以及urlTree的修改
+     * @param {string} path works路径
+     * @param {function} func 当匹配到path时使用func进行处理
+     * */
+    this.$addRoute = (path, func, name, target) => {
+        this.$worksCheck(target);
+        this.routesFinder.set(func, target);
+        //添加新的route到router
+        this.router.add([{
+            path,
+            handler: func
+        }], {
+            as: name
+        });
+    };
+
+    /*
+     *提供用户请求的path works对其进行处理
+     *执行策略为将匹配的所有任务全部执行
+     * */
+    this.exec = async (path, req, res) => {
+        function rejectToDo(res) {
+            //没有相应资源返回404
+            res.writeHead(404, {
+                'Content-Length': 0,
+                'Content-Type': 'text/plain'
             });
-        };
-
-        /*
-         *提供用户请求的path works对其进行处理
-         *执行策略为将匹配的所有任务全部执行
-         * */
-        this.exec=async (path, req, res) => {
-            console.log("exec "+path);
-            checkSession(req);
-            //从router中进行匹配
-            const result = this.router.recognize(path);
-            if (result) {
-                for (let i = 0; i < result.length; i++) {
+            res.end(); //必须关闭 可能存在没有匹配到的情况
+        }
+        console.log("exec " + path);
+        //checkSession(req);
+        //从router中进行匹配
+        const result = this.router.recognize(path);
+        if (result) {
+            for (let i = 0; i < result.length; i++) {
+                //获取方法所在routes实例
+                const target = this.routesFinder.get(result[i].handler);
+                const allowedMethods = target.$works.routeMethods.get(result[i].handler);
+                //检查是否允许
+                if (allowedMethods.includes('*') || allowedMethods.includes(req.method.toUpperCase())) {
                     let context = result[i];
                     await result[i].handler(
                         req,
                         res,
                         context
                     );
-                    //获取方法所在routes实例
-                    const target = this.routesFinder.get(result[i].handler);
-                    const allowedMethods = target.$works.routeMethods.get(result[i].handler);
-                    //console.log("exec allowedMethods", allowedMethods);
+                } else { //不允许
+                    rejectToDo(res);
                 }
-                res.end();//必须关闭 可能存在没有匹配到的情况
             }
-        };
+        } else {
+            rejectToDo(res);
+        }
+    };
 
-        /*
-         *Routes
-         *用于对Routes Class的处理
-         * */
-        this.routes= (CLASS) => {
+    /*
+     *Routes
+     *用于对Routes Class的处理
+     * */
+    this.routes = (CLASS) => {
             //这里的target为其class本身
             console.log(CLASS);
         },
@@ -75,7 +89,7 @@ function Works(port) {
         /*
          *Method 闲置处理Route函数所接受的HTTP Method
          * */
-        this.method=(methodList) => {
+        this.method = (methodList) => {
             return (target, name, descriptor) => {
                 let methods = [];
                 if (Array.isArray(methodList)) {
@@ -99,15 +113,14 @@ function Works(port) {
             }
         };
 
-        this.$worksCheck=(target) => {
-            if (target.$works === undefined) {
-                target.$works = {
-                    routeMethods: new WeakMap()
-                };
-            }
-        };
+    this.$worksCheck = (target) => {
+        if (target.$works === undefined) {
+            target.$works = {
+                routeMethods: new WeakMap()
+            };
+        }
+    };
 
-        return this;
+    return this;
 }
 module.exports = Works;
-

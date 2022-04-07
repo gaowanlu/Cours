@@ -9,17 +9,10 @@ var fs = require('fs');
  * */
 function sslload(keyPath, certPath) {
     //Load SSL key and cert
-    var OPTIONS_SSL = {
-        key: '',
-        cert: ''
+    return {
+        key: fs.readFileSync(keyPath),
+        cert: fs.readFileSync(certPath)
     };
-    if (coursConfig.HttpsOpen) {
-        OPTIONS_SSL = {
-            key: fs.readFileSync(keyPath),
-            cert: fs.readFileSync(certPath)
-        };
-    };
-    return OPTIONS_SSL;
 }
 
 module.exports = sslload;

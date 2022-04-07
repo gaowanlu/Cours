@@ -1,8 +1,8 @@
 # works.js
 
-使用nodejs构建轻便的后端服务，旨在简便业务开发
+一个使用解释器构建轻便的nodejs服务的框架
 
-## Install
+## 安装
 
 ```bash
 npm install works.js
@@ -11,6 +11,26 @@ npm install works.js
 ## 开发者文档
 
 ### 快速开始
+
+node环境支持
+
+* 请使用支持ES7 解释器的node版本 如 v16.13.1
+* 或者将您的项目使用babel转译
+
+配置您的works.js在您的项目根目录下
+
+```json
+{
+    "port":5554,
+    "ssl":{
+        "open":false,
+        "cert":"/.ssl/one.pem",
+        "pem":"/.ssl/key.pem"
+    }
+}
+```
+
+创建您的控制器
 
 ```js
 const Works = require('works.js');
@@ -27,24 +47,6 @@ class UserController {
 }
 //创建routes实例
 const userController = new UserController();
-
-/**
- * 模拟请求 这里只是展示我们的原理 
- * 我们在框架中已经配置好了request机制
- * 当然您有权利不使用它们
- */
-let request={name: 'request'};
-let response={name: 'response'};
-Works.exec("/user/743843",request,response);
-//使用exec将会执行与其相匹配的@Works.route 方法
-//并将request response作为参数调用时进行使用
-
-// 欢迎访问work.js /user
-// {
-//   handler: [Function: user],
-//   params: { id: '743843' },
-//   isDynamic: true
-// }
 ```
 
 ### @Works.routes
@@ -94,20 +96,22 @@ works.js提供了限制request的Method的修饰器
 
 ### Works.exec(path,request,response)
 
-当path匹配多个任务时、将会按照顺序全部执行
+当path匹配多个任务时、将会按照顺序全部执行、如果您只限于业务开发无需关注此接口  
+因为works.js集成了http server、会根据路由代理执行相应任务
 
 * path为请求的要匹配的路径
 * request为http server所接受到的Request对象
 * response为http server所接收到的Request对象
 
-## 我们使用的node
+## 关于babel
 
-v16.13.1
+works.js开发使用了ES7等高级特性、因此您在开发中也应该使用babel进行node对解释器的支持
 
 ## 计划
 
-* [ ] 集成server
-* [ ] 完善method机制
+* [x] 集成server
+* [x] 完善method机制
+* [x] 引入works.json配置文件
 * [ ] session 也许在此环境下提供session机制并不是一件好事、视情况而定吧
 * [ ] 拦截器机制
 * [ ] 服务层

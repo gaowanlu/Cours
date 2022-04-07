@@ -5,14 +5,15 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 var RouteRecognizer = require('route-recognizer');
 var checkSession = require('./session');
 var serverConfig = require('./serverConfig');
+
 /**
  * 用于构造Works实例
  * @returns 返回一个Works实例对象
  */
-function Works(port) {
+function Works(config) {
     var _this = this;
 
-    this.$server = serverConfig(port, this);
+    this.$server = serverConfig(config.port, config.ssl, this);
     //路由管理器
     this.router = new RouteRecognizer();
     //用于函数找到其相应的routes实例
@@ -49,18 +50,27 @@ function Works(port) {
      * */
     this.exec = function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(path, req, res) {
-            var result, i, context, target, allowedMethods;
+            var rejectToDo, result, i, target, allowedMethods, context;
             return regeneratorRuntime.wrap(function _callee$(_context) {
                 while (1) {
                     switch (_context.prev = _context.next) {
                         case 0:
+                            rejectToDo = function rejectToDo(res) {
+                                //没有相应资源返回404
+                                res.writeHead(404, {
+                                    'Content-Length': 0,
+                                    'Content-Type': 'text/plain'
+                                });
+                                res.end(); //必须关闭 可能存在没有匹配到的情况
+                            };
+
                             console.log("exec " + path);
-                            checkSession(req);
+                            //checkSession(req);
                             //从router中进行匹配
                             result = _this.router.recognize(path);
 
                             if (!result) {
-                                _context.next = 15;
+                                _context.next = 20;
                                 break;
                             }
 
@@ -68,29 +78,45 @@ function Works(port) {
 
                         case 5:
                             if (!(i < result.length)) {
+                                _context.next = 18;
+                                break;
+                            }
+
+                            //获取方法所在routes实例
+                            target = _this.routesFinder.get(result[i].handler);
+                            allowedMethods = target.$works.routeMethods.get(result[i].handler);
+                            //检查是否允许
+
+                            if (!(allowedMethods.includes('*') || allowedMethods.includes(req.method.toUpperCase()))) {
                                 _context.next = 14;
                                 break;
                             }
 
                             context = result[i];
-                            _context.next = 9;
+                            _context.next = 12;
                             return result[i].handler(req, res, context);
 
-                        case 9:
-                            //获取方法所在routes实例
-                            target = _this.routesFinder.get(result[i].handler);
-                            allowedMethods = target.$works.routeMethods.get(result[i].handler);
-                            //console.log("exec allowedMethods", allowedMethods);
+                        case 12:
+                            _context.next = 15;
+                            break;
 
-                        case 11:
+                        case 14:
+                            //不允许
+                            rejectToDo(res);
+
+                        case 15:
                             i++;
                             _context.next = 5;
                             break;
 
-                        case 14:
-                            res.end(); //必须关闭 可能存在没有匹配到的情况
+                        case 18:
+                            _context.next = 21;
+                            break;
 
-                        case 15:
+                        case 20:
+                            rejectToDo(res);
+
+                        case 21:
                         case 'end':
                             return _context.stop();
                     }

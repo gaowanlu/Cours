@@ -1,13 +1,14 @@
 "use strict";
 
 var http = require("http");
+var sslload = require("./sslload");
 
 /*
- *@param config {ssl:sslLoad()}
+ *@param  {open:boolean,cert:string,pem:string} ssl
  * */
-function server(config) {
-    if (config && config.ssl) {
-        return http.createServer(config.ssl);
+function server(ssl) {
+    if (ssl && ssl.open) {
+        return http.createServer(sslload(ssl.pem, ssl.cert));
     }
     return http.createServer();
 }

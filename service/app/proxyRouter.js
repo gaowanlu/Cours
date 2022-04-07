@@ -63,6 +63,7 @@ function proxyServer(server) {
 
         /*接收请求配置*/
         server.on('request', (req, res) => {
+            //console.log(">>request ",req.headers);
             //设置允许跨域的域名，*代表允许任意域名跨域
             res.setHeader("Access-Control-Allow-Origin", coursConfig.Ports.proxy.AccessControlAllowOrigin);
             //允许的header类型

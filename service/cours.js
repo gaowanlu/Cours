@@ -18,6 +18,4 @@ proxyRouter(server)();
 
 //Server start to listen
 server.listen(coursConfig.Ports.proxy.port); //webvpn 代理
-:q
-ls
 server_talk.listen(coursConfig.Ports.talk.port); //socketIO 在线聊天室

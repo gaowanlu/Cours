@@ -3,7 +3,7 @@
 var path = require('path');
 var fs = require('fs');
 /**
- * 用于加载works.json
+ * load works.json
  * @returns 
  */
 function worksProcess() {

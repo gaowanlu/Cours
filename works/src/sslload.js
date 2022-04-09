@@ -1,9 +1,9 @@
 const fs = require('fs');
 
 /*
- *加载SSL证书
- *@param {string} keyPath ssl key file 资源定位路径
- *@param {string} certPath ssl cert file 资源定位路径
+ * Load SSL certificate
+ *@param {string} keyPath ssl key file path
+ *@param {string} certPath ssl cert file path
  * */
 function sslload(keyPath, certPath) {
     //Load SSL key and cert

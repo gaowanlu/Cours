@@ -1,10 +1,15 @@
-const babel_register = require("babel-register");
-const babel_polyfill = require("babel-polyfill");
+/**
+ * works.js design by @gaowanlu , 2022
+ * github: https://github.com/gaowanlu/Cours/tree/main/works
+ * npm package: https: //www.npmjs.com/package/works.js
+ */
+require("babel-register");
+require("babel-polyfill");
 const Works = require('./works');
 const worksConfig = require('./works.config.js');
 
 /**
- * works初始化构造器
+ * works initializer
  * @returns
  */
 function WorksCreator(config) {
@@ -23,7 +28,7 @@ function WorksCreator(config) {
 }
 
 /**
- * 创建works实例
+ * Create a works instance
  */
 const worksCreatorInstance = WorksCreator({
     port: worksConfig().port,
@@ -35,6 +40,6 @@ const worksCreatorInstance = WorksCreator({
 })();
 
 /**
- * 暴露
+ * exposed
  */
 module.exports = worksCreatorInstance;

@@ -1,35 +1,60 @@
 const RouteRecognizer = require('route-recognizer');
-const checkSession = require('./session');
 const serverConfig = require('./serverConfig');
 
 /**
- * 用于构造Works实例
- * @returns 返回一个Works实例对象
+ * Used to construct Works instances
+ * @returns Returns a Works instance object
  */
 function Works(config) {
+
     this.$server = serverConfig(config.port, config.ssl, this);
-    //路由管理器
+
+    //Task Routing Manager
     this.router = new RouteRecognizer();
-    //用于函数找到其相应的routes实例
+
+    //Interceptor Route Manager
+    this.filterRouter = new RouteRecognizer();
+
+    //Used by a function to find its corresponding routes instance
     this.routesFinder = new WeakMap();
-    /*@Works.route(path) 用于构建路由项
-     *@param {string} path URL路径匹配
-     * */
+
+    /**
+     * @Works.route interpreter
+     * @param {string} path route path
+     * @returns 
+     */
     this.route = (path) => {
         return (target, name, descriptor) => {
-            this.$addRoute(path, target[name], name, target);
+            this.$addRoute(path, descriptor.value, name, target);
         }
     };
 
-    /*
-     * 添加path到routeMap以及urlTree的修改
-     * @param {string} path works路径
-     * @param {function} func 当匹配到path时使用func进行处理
-     * */
+    /**
+     * There are two routers, one is responsible
+     * for task triggering, and the other is responsible
+     * for executing the task bound to the filter before the task starts.
+     * @param {*} path 
+     */
+    this.filter = (path) => {
+        return (target, name, descriptor) => {
+            this.$addFilterRoute(path, descriptor.value, name, target);
+        }
+    }
+
+    /**
+     * add route to router
+     * @param {string} path route path
+     * @param {function} func handler function
+     * @param {string} name method name
+     * @param {object} target routes instance
+     */
     this.$addRoute = (path, func, name, target) => {
         this.$worksCheck(target);
-        this.routesFinder.set(func, target);
-        //添加新的route到router
+        this.routesFinder.set(func, {
+            target,
+            name
+        });
+        //add new route to router
         this.router.add([{
             path,
             handler: func
@@ -38,37 +63,110 @@ function Works(config) {
         });
     };
 
-    /*
-     *提供用户请求的path works对其进行处理
-     *执行策略为将匹配的所有任务全部执行
-     * */
+    /**
+     * Add route to filterRouter
+     * @param {string} path interception path
+     * @param {*} func handler function
+     * @param {*} name method name
+     * @param {*} target routes instance
+     */
+    this.$addFilterRoute = (path, func, name, target) => {
+        //Intercept Route and task Route share a routesFinder
+        this.$worksCheck(target);
+        this.routesFinder.set(func, {
+            target,
+            name
+        });
+        //Add new route to filterRouter
+        this.filterRouter.add([{
+            path,
+            handler: func
+        }], {
+            as: name
+        });
+    };
+
+    /**
+     * Provide the path works requested by the user to process it, and the execution strategy is to execute all matching tasks
+     * @param {string} path 
+     * @param {HttpRequest} req 
+     * @param {HttpResponse} res 
+     */
     this.exec = async (path, req, res) => {
+
+        /**
+         * task refusal
+         * @param {HttpResponse} res 
+         */
         function rejectToDo(res) {
-            //没有相应资源返回404
+            //No corresponding resource returns 404
             res.writeHead(404, {
                 'Content-Length': 0,
                 'Content-Type': 'text/plain'
             });
-            res.end(); //必须关闭 可能存在没有匹配到的情况
+            res.end(); //Must be closed There may be no match
         }
-        console.log("exec " + path);
-        //checkSession(req);
-        //从router中进行匹配
-        const result = this.router.recognize(path);
-        if (result) {
-            for (let i = 0; i < result.length; i++) {
-                //获取方法所在routes实例
-                const target = this.routesFinder.get(result[i].handler);
-                const allowedMethods = target.$works.routeMethods.get(result[i].handler);
-                //检查是否允许
+
+        //First, you need to execute the interceptor and get the interceptor that needs to be executed.
+        const filterResult = this.filterRouter.recognize(path);
+
+        if (filterResult) {
+            //iterate over all interceptors
+            for (let i = 0; i < filterResult.length; i++) {
+                /*As long as there is an interceptor that returns a class value in the middle, 
+                the processing of the request will be terminated in advance,
+                and if it returns true, 
+                the execution of the next interceptor will be performed.*/
+                //Get the routes instance where the method is located
+                const {
+                    target,
+                    name
+                } = this.routesFinder.get(filterResult[i].handler);
+                let allowedMethods = target.$works.routeMethods.get(filterResult[i].handler);
+                //If no method decorator is used, all methods are allowed by default
+                if (!allowedMethods) {
+                    allowedMethods = ['*'];
+                }
+                //Check if allowed
                 if (allowedMethods.includes('*') || allowedMethods.includes(req.method.toUpperCase())) {
-                    let context = result[i];
-                    await result[i].handler(
+                    let context = filterResult[i];
+                    //Execute interceptor tasks
+                    let execResult = await target[name].bind(target)(
                         req,
                         res,
                         context
                     );
-                } else { //不允许
+                    if (!execResult) { //Returning a false value will stop processing this request directly
+                        return res.end();
+                    }
+                }
+            }
+        }
+
+        //After the interceptor is executed, the matching task from the router will be performed
+        const result = this.router.recognize(path);
+
+        if (result) {
+            for (let i = 0; i < result.length; i++) {
+                //Get the routes instance where the method is located
+                const {
+                    target,
+                    name
+                } = this.routesFinder.get(result[i].handler);
+                let allowedMethods = target.$works.routeMethods.get(result[i].handler);
+                //If no method decorator is used, all methods are allowed by default
+                if (!allowedMethods) {
+                    allowedMethods = ['*'];
+                }
+                //Check if allowed
+                if (allowedMethods.includes('*') || allowedMethods.includes(req.method.toUpperCase())) {
+                    let context = result[i];
+                    await target[name].bind(target)(
+                        req,
+                        res,
+                        context
+                    );
+                } else { //not allowed
                     rejectToDo(res);
                 }
             }
@@ -77,42 +175,48 @@ function Works(config) {
         }
     };
 
-    /*
-     *Routes
-     *用于对Routes Class的处理
-     * */
+    /**
+     * Routes is used
+     for processing Routes Class
+     * @param {*} CLASS 
+     */
     this.routes = (CLASS) => {
-            //这里的target为其class本身
-            console.log(CLASS);
-        },
+        //The target here is the class itself
+        //console.log(CLASS);
+    };
 
-        /*
-         *Method 闲置处理Route函数所接受的HTTP Method
-         * */
-        this.method = (methodList) => {
-            return (target, name, descriptor) => {
-                let methods = [];
-                if (Array.isArray(methodList)) {
-                    methods = methodList;
-                } else if (typeof methodList === "string") {
-                    methods.push(methodList);
-                } else {
-                    methods.push("*"); //所有方法都接受
-                }
-                //forEach method
-                methods.forEach(item => {
-                    console.log("Allow Method", item);
-                });
-                //将method全部变为大写
-                methods.forEach((item, index, arr) => {
-                    arr[index] = item.toUpperCase();
-                })
-                //将其存入响应的routes上下文 即routesInstance.$works对象内
-                this.$worksCheck(target);
-                target.$works.routeMethods.set(target[name], methods);
+    /**
+     * Method limits the processing of HTTP methods accepted by the Route
+     * function
+     * @param {string[]} methodList 
+     * @returns 
+     */
+    this.method = (methodList) => {
+        return (target, name, descriptor) => {
+            let methods = [];
+            if (Array.isArray(methodList)) {
+                methods = methodList;
+            } else if (typeof methodList === "string") {
+                methods.push(methodList);
+            } else {
+                methods.push("*"); //All methods are accepted
             }
-        };
+            //Make the method all uppercase
+            methods.forEach((item, index, arr) => {
+                arr[index] = item.toUpperCase();
+            })
+            //Store it in the routes context of the response, i.e. the routesInstance.$works object
+            this.$worksCheck(target);
+            target.$works.routeMethods.set(target[name], methods);
+        }
+    };
 
+    /**
+     * Check
+     * if there is a works context in the routes instance $works
+     * if not create it
+     * @param {object} target routes instacne
+     */
     this.$worksCheck = (target) => {
         if (target.$works === undefined) {
             target.$works = {

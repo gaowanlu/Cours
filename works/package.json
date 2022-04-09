@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gaowanlu/Cours/works"
+    "url": "https://github.com/gaowanlu/Cours/tree/main/works"
   },
   "keywords": [
     "node",
@@ -23,7 +23,7 @@
   "bugs": {
     "url": "https://github.com/gaowanlu/Cours/issues"
   },
-  "homepage": "https://github.com/gaowanlu/Cours#readme",
+  "homepage": "https://github.com/gaowanlu/Cours/tree/main/works#readme",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",

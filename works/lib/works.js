@@ -4,6 +4,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var RouteRecognizer = require('route-recognizer');
 var serverConfig = require('./serverConfig');
+var initStaticRoute = require('./initStaticRoute');
+var staticRoute = require('./staticRoute');
 
 /**
  * Used to construct Works instances
@@ -19,6 +21,11 @@ function Works(config) {
 
     //Interceptor Route Manager
     this.filterRouter = new RouteRecognizer();
+
+    //Static Route Manager
+    this.staticRouter = new RouteRecognizer();
+    //file path mapping route path
+    this.staticPathMap = new Map();
 
     //Used by a function to find its corresponding routes instance
     this.routesFinder = new WeakMap();
@@ -92,6 +99,24 @@ function Works(config) {
     };
 
     /**
+     * add static routes
+     * @param {[{filePath,routePath},]} staticRoutes from initStaticRoute 
+     */
+    this.$addStaticRoute = function (staticRoutes) {
+        staticRoutes.forEach(function (item, index, arr) {
+            console.log(item);
+            _this.staticPathMap.set(item.routePath, item.filePath);
+            //添加到staticRouter
+            _this.staticRouter.add([{
+                path: item.routePath,
+                handler: function handler(req, res, context) {
+                    staticRoute(req, res, context, item.filePath);
+                }
+            }]);
+        });
+    };
+
+    /**
      * Provide the path works requested by the user to process it, and the execution strategy is to execute all matching tasks
      * @param {string} path 
      * @param {HttpRequest} req 
@@ -99,7 +124,7 @@ function Works(config) {
      */
     this.exec = function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(path, req, res) {
-            var rejectToDo, filterResult, i, _routesFinder$get, target, name, allowedMethods, context, execResult, result, _i, _routesFinder$get2, _allowedMethods, _context;
+            var rejectToDo, filterResult, i, _routesFinder$get, target, name, allowedMethods, context, execResult, staticResult, filePath, result, _i, _routesFinder$get2, _allowedMethods, _context;
 
             return regeneratorRuntime.wrap(function _callee$(_context2) {
                 while (1) {
@@ -178,19 +203,39 @@ function Works(config) {
 
                         case 18:
 
+                            //Match static router
+                            staticResult = _this.staticRouter.recognize(path);
+
+                            if (!(staticResult && staticResult.length === 1)) {
+                                _context2.next = 23;
+                                break;
+                            }
+
+                            //find filePath
+                            filePath = _this.staticPathMap.get(path);
+
+                            if (!filePath) {
+                                _context2.next = 23;
+                                break;
+                            }
+
+                            return _context2.abrupt('return', staticResult[0].handler(req, res, staticResult[0], filePath));
+
+                        case 23:
+
                             //After the interceptor is executed, the matching task from the router will be performed
                             result = _this.router.recognize(path);
 
                             if (!result) {
-                                _context2.next = 37;
+                                _context2.next = 42;
                                 break;
                             }
 
                             _i = 0;
 
-                        case 21:
+                        case 26:
                             if (!(_i < result.length)) {
-                                _context2.next = 35;
+                                _context2.next = 40;
                                 break;
                             }
 
@@ -205,35 +250,35 @@ function Works(config) {
                             //Check if allowed
 
                             if (!(_allowedMethods.includes('*') || _allowedMethods.includes(req.method.toUpperCase()))) {
-                                _context2.next = 31;
+                                _context2.next = 36;
                                 break;
                             }
 
                             _context = result[_i];
-                            _context2.next = 29;
+                            _context2.next = 34;
                             return target[name].bind(target)(req, res, _context);
 
-                        case 29:
-                            _context2.next = 32;
+                        case 34:
+                            _context2.next = 37;
                             break;
 
-                        case 31:
+                        case 36:
                             //not allowed
                             rejectToDo(res);
 
-                        case 32:
-                            _i++;
-                            _context2.next = 21;
-                            break;
-
-                        case 35:
-                            _context2.next = 38;
-                            break;
-
                         case 37:
+                            _i++;
+                            _context2.next = 26;
+                            break;
+
+                        case 40:
+                            _context2.next = 43;
+                            break;
+
+                        case 42:
                             rejectToDo(res);
 
-                        case 38:
+                        case 43:
                         case 'end':
                             return _context2.stop();
                     }
@@ -295,6 +340,9 @@ function Works(config) {
             };
         }
     };
+
+    //load static dir and add route to handler router
+    initStaticRoute(this);
 
     return this;
 }

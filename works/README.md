@@ -2,7 +2,7 @@
 
 A framework for building lightweight nodejs services using javascript decorators, we provide solutions for decorator-based control layers
 
-## quick start
+## Quick start
 
 1、Install
 
@@ -10,7 +10,7 @@ A framework for building lightweight nodejs services using javascript decorators
     npm install works.js
 ```
 
-2、node environment support
+2、environment support
 
 * Please use a version of node that supports ES7 decorator syntax
 * Or use babel for your project so that it supports ES7 decorator syntax
@@ -52,7 +52,21 @@ class UserController {
 const userController = new UserController();
 ```
 
-## decorator
+## Static router
+
+create a folder named static under the root directory of your project
+
+```text
+|-static
+    |-hello
+        |-logo.png => /hello/logo.png
+        |-index.html => /hello/index.html
+    |-logo.png => /logo.png
+```
+
+The matching rule is to match the filter and execute it first, then match the static route, and finally match the custom route
+
+## Decorator
 
 ### @Works.routes
 
@@ -195,6 +209,7 @@ node main.js
 
 MIT
 
-## contact us
+## Contact us
 
-email heizuboriyo@gmail.com
+* Email heizuboriyo@gmail.com
+* Github https://github.com/gaowanlu/Cours

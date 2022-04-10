@@ -1,5 +1,7 @@
 const RouteRecognizer = require('route-recognizer');
 const serverConfig = require('./serverConfig');
+const initStaticRoute = require('./initStaticRoute');
+const staticRoute = require('./staticRoute');
 
 /**
  * Used to construct Works instances
@@ -14,6 +16,11 @@ function Works(config) {
 
     //Interceptor Route Manager
     this.filterRouter = new RouteRecognizer();
+
+    //Static Route Manager
+    this.staticRouter = new RouteRecognizer();
+    //file path mapping route path
+    this.staticPathMap = new Map();
 
     //Used by a function to find its corresponding routes instance
     this.routesFinder = new WeakMap();
@@ -87,6 +94,24 @@ function Works(config) {
     };
 
     /**
+     * add static routes
+     * @param {[{filePath,routePath},]} staticRoutes from initStaticRoute 
+     */
+    this.$addStaticRoute = (staticRoutes) => {
+        staticRoutes.forEach((item, index, arr) => {
+            console.log(item);
+            this.staticPathMap.set(item.routePath, item.filePath);
+            //添加到staticRouter
+            this.staticRouter.add([{
+                path: item.routePath,
+                handler: (req, res, context) => {
+                    staticRoute(req, res, context, item.filePath);
+                }
+            }]);
+        });
+    }
+
+    /**
      * Provide the path works requested by the user to process it, and the execution strategy is to execute all matching tasks
      * @param {string} path 
      * @param {HttpRequest} req 
@@ -137,9 +162,19 @@ function Works(config) {
                         context
                     );
                     if (!execResult) { //Returning a false value will stop processing this request directly
-                        return res.end();
+                        return res.end(); //stop the process about this request 
                     }
                 }
+            }
+        }
+
+        //Match static router
+        const staticResult = this.staticRouter.recognize(path);
+        if (staticResult && staticResult.length === 1) {
+            //find filePath
+            const filePath = this.staticPathMap.get(path);
+            if (filePath) {
+                return staticResult[0].handler(req, res, staticResult[0], filePath); //returning if match static route successfully
             }
         }
 
@@ -224,6 +259,9 @@ function Works(config) {
             };
         }
     };
+
+    //load static dir and add route to handler router
+    initStaticRoute(this);
 
     return this;
 }

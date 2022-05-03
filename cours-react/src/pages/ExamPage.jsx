@@ -5,24 +5,44 @@ import styled from "styled-components";
 import stringHashRGB from "./../utils/stringHashRGB.ts";
 import PageContainer from "../components/PageContainer";
 import PageHeader from "../components/PageHeader";
+
+/**
+ * 考试卡片组件
+ * @param {info} props
+ * @returns
+ */
+function ExamCard({ info, deadline }) {
+  let { croomno, cname } = info;
+  let { day, year, month } = info.date;
+  let { start, end } = info.date.time;
+  if (String(start.minute).length < 2)
+    start.minute = "0" + start.minute.toString();
+  if (String(end.minute).length < 2) end.minute = "0" + end.minute.toString();
+  return (
+    <Item background={stringHashRGB(cname)}>
+      <CourseName>{cname}</CourseName>
+      <ExamTime>
+        {year}年{month}月{day}日
+      </ExamTime>
+      <ExamLocation>
+        教室 {croomno} {start.hours}:{start.minute} - {end.hours}:{end.minute}
+      </ExamLocation>
+      {deadline && (
+        <DeadLine>
+          {((info.date.obj - new Date()) / 86400000).toFixed(1)} 天
+        </DeadLine>
+      )}
+      <ItemFooter></ItemFooter>
+    </Item>
+  );
+}
+
 /**
  * 组件调试界面
  * @returns
  */
 function ExamPage(props) {
   const examList = courseBase.examList().data;
-  console.log(examList);
-  /*测试待办*/
-  if (examList.ok.length > 0)
-    examList.todo.push({
-      cname: "卷起来！",
-      date: {
-        year: "2022",
-        month: " all ",
-        day: " all ",
-        obj: new Date(),
-      },
-    });
   return (
     <React.Fragment>
       {/*导航栏*/}
@@ -37,20 +57,7 @@ function ExamPage(props) {
         <Scroll>
           {examList.todo.map((o) => {
             return (
-              <Item
-                key={o.courseid + o.croomno}
-                background={stringHashRGB(o.cname)}
-              >
-                <CourseName>{o.cname}</CourseName>
-                <ExamTime>
-                  {o.date.year} 年 {o.date.month} 月 {o.date.day} 日
-                </ExamTime>
-                <ExamLocation>教室 {o.croomno}</ExamLocation>
-                <DeadLine>
-                  {parseInt((o.date.obj - new Date()) / 86400000)} 天
-                </DeadLine>
-                <ItemFooter></ItemFooter>
-              </Item>
+              <ExamCard key={o.courseid + o.croomno} info={o} deadline={true} />
             );
           })}
         </Scroll>
@@ -61,20 +68,7 @@ function ExamPage(props) {
         />
         <Scroll>
           {examList.ok.map((o) => {
-            return (
-              <Item
-                key={o.courseid + o.croomno}
-                background={stringHashRGB(o.cname)}
-              >
-                <CourseName>{o.cname}</CourseName>
-                <ExamTime>
-                  {o.date.year}年{o.date.month}月{o.date.day}日
-                </ExamTime>
-                <ExamLocation>教室 {o.croomno}</ExamLocation>
-                <DeadLine></DeadLine>
-                <ItemFooter></ItemFooter>
-              </Item>
-            );
+            return <ExamCard key={o.courseid + o.croomno} info={o} />;
           })}
         </Scroll>
       </PageContainer>
@@ -153,15 +147,16 @@ const ExamTime = styled.p`
   margin-top: 1rem;
   line-height: 2rem;
 `;
+
 const DeadLine = styled.p`
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: bold;
   text-align: center;
   line-height: 5rem;
 `;
 
 const ExamLocation = styled.p`
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   font-weight: bold;
   line-height: 3rem;
 `;

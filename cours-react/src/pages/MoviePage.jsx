@@ -10,7 +10,7 @@ function MoviePage() {
   const [searchString, setSearchString] = React.useState("");
   const [queryDetail, setQueryDetail] = React.useState(null);
   const [iframeSrc, setIframeSrc] = React.useState(
-    "https://jx.dlbilibili.com/m3u8.php?url=LT-6e58e6fc4ec0e0560556d1922982b9a1"
+    "https://dm.dqsj.cc/?url=LT-6e58e6fc4ec0e0560556d1922982b9a1"
   );
   const [searchResult, setSearchResult] = React.useState(null);
   const [movieName, setMovieName] = React.useState("你的名字");

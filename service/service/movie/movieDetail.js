@@ -2,6 +2,7 @@ const cheerio = require('cheerio');
 const https = require('https');
 
 const HOST = "www.dqsj.cc";
+const VIDEOHOST = "https://dm.dqsj.cc/?url=";
 
 /**
  * 视频详情
@@ -42,7 +43,7 @@ function movieDetail(callback, path) {
             });
             let result = JSON.parse(scripts[0].split('=')[1]);
             if (result && result.url) {
-                result.url = 'https://jx.dlbilibili.com/m3u8.php?url=' + result.url
+                result.url = VIDEOHOST + result.url; //frame url
             }
             callback({
                 result,

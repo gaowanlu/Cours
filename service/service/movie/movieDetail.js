@@ -2,7 +2,7 @@ const cheerio = require('cheerio');
 const https = require('https');
 
 const HOST = "www.dqsj.cc";
-const VIDEOHOST = "https://dm.dqsj.cc/?url=";
+const VIDEOHOST = "https://dm.dqsj.cc/m3u8.php?url=";
 
 /**
  * 视频详情

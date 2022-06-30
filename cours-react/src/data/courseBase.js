@@ -418,7 +418,7 @@ class CourseBaseFatory {
     }
     /*获取本学期开始上课的日期*/
     termStart() {
-        return new Date(2022, 6 - 1, 27);
+        return new Date(2022, 2 - 1, 21);
     }
     defaultNowWeek() {
         return '1';

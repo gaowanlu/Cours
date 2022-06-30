@@ -16,17 +16,17 @@ function TigerSelectNum(props) {
       //     e.target.scrollTop + e.target.clientHeight,
       //   ]);
       let index =
-        20 -
+        25 -
         Math.round(
           (e.target.scrollHeight -
             (e.target.scrollTop + e.target.clientHeight)) /
-            34.0
+            36.0
         );
       props.setNowIndex(index);
     });
   });
   const array = [];
-  for (let i = 1; i < 22; i++) {
+  for (let i = 1; i < 28; i++) {
     array.push({ index: i, id: i });
   }
   return (

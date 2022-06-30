@@ -33,13 +33,14 @@ class CourseBaseFatory {
         if (autoTime) {
             //动态计算学期第几周
             const now = new Date();
-            const term_start = new Date(2022, 1, 21);
+            const term_start = this.termStart();
+            //console.log("realtime", term_start.toISOString());
             real_time = Math.ceil((now - term_start) / (60 * 60 * 24 * 1000) / 7);
             //console.log((now - term_start) / (60 * 60 * 24 * 1000) / 7);
             this.store.setItem('nowWeek', real_time.toString());
         }
         //console.log("现在为第几周", real_time);
-        return this.storeCheckBack('nowWeek', '1', newWeek);
+        return this.storeCheckBack('nowWeek', this.defaultNowWeek(), newWeek);
         //return real_time;
     }
     /*现在那个学习年*/
@@ -48,7 +49,7 @@ class CourseBaseFatory {
     }
     /*那个学期 0 1 2*/
     nowTerm(newTerm) {
-        return this.storeCheckBack('nowTerm', '0', newTerm);
+        return this.storeCheckBack('nowTerm', this.defaultNowTermCode(), newTerm);
     }
     /*是否进行时间自动校准*/
     autoTime(newAutoTime) {
@@ -412,7 +413,18 @@ class CourseBaseFatory {
         // if (term && term.data) {
         //     return term.data[0].term;
         // }
-        return '2021-2022_2';
+        //{
+        return '2021-2022_3';
+    }
+    /*获取本学期开始上课的日期*/
+    termStart() {
+        return new Date(2022, 6 - 1, 27);
+    }
+    defaultNowWeek() {
+        return '1';
+    }
+    defaultNowTermCode() {
+        return '2';
     }
     /*课程计划*/
     plancj() {
@@ -422,6 +434,7 @@ class CourseBaseFatory {
         }
         return [];
     }
+
 };
 
 const courseBase = new CourseBaseFatory();

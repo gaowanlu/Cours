@@ -34,8 +34,9 @@ const VPN_HASH = '77726476706e69737468656265737421f3f652d220256d44300d8db9d6562d
 const BKJW_HTTPS_HASH = () => {
     return `/https/77726476706e69737468656265737421f2fc4b8b69377d556a468ca88d1b203b`;
 }
+
 //现在的学期编号
-const NOW_TERM = '2021-2022_2';
+const NOW_TERM = '2021-2022_3';
 
 const BKJW_Referer = (ST) => {
     return `https://v.guet.edu.cn${BKJW_HTTPS_HASH()}/?ticket=${ST}`;
@@ -127,15 +128,15 @@ function service(callback, username, password) {
             },
         }, (res) => {
             res.setEncoding('utf8');
-            let raw="";
+            let raw = "";
             res.on('data', (ST) => {
-                raw+=ST;
+                raw += ST;
             });
-            res.on('end',()=>{
-                if(DEBUG) console.log("getST headers=>",res.headers);
+            res.on('end', () => {
+                if (DEBUG) console.log("getST headers=>", res.headers);
                 if (DEBUG) console.log(`ST=> ${raw}`.green);
                 raw = raw.replace(" ", "");
-                if(DEBUG) console.log("raw",raw);
+                if (DEBUG) console.log("raw", raw);
                 errorBack(() => {
                     stLogin(wengine_vpn_ticket, show_vpn, raw, TGT);
                 }, callback)
@@ -151,7 +152,7 @@ function service(callback, username, password) {
 
 
     function stLogin(wengine_vpn_ticket, show_vpn, ST, TGT) {
-        if(DEBUG) console.log("STLOGIN "+"ST=> "+ST+"\nTGT=> "+TGT+"\n");
+        if (DEBUG) console.log("STLOGIN " + "ST=> " + ST + "\nTGT=> " + TGT + "\n");
         const req = https.get({
             hostname: VPN_HOST,
             host: VPN_HOST,
@@ -168,7 +169,7 @@ function service(callback, username, password) {
             if (DEBUG) console.log("statusCode", res.statusCode);
             if (DEBUG) console.log(res.headers);
             let token = res.headers['location'];
-            if (DEBUG) console.log("token= ",token);
+            if (DEBUG) console.log("token= ", token);
             token = token.split('=');
             token = token[token.length - 1];
             errorBack(() => {
@@ -736,7 +737,7 @@ function service(callback, username, password) {
                 'Accept-Encoding': 'gzip',
             }
         }, (res) => {
-            if(DEBUG) console.log(res.headers);
+            if (DEBUG) console.log(res.headers);
             res.on('data', (slice) => {})
             res.on('end', () => {
                 errorBack(() => {

@@ -99,7 +99,7 @@ function Works(config) {
      */
     this.$addStaticRoute = (staticRoutes) => {
         staticRoutes.forEach((item, index, arr) => {
-            console.log(item);
+            // console.log(item);
             this.staticPathMap.set(item.routePath, item.filePath);
             //添加到staticRouter
             this.staticRouter.add([{
@@ -170,6 +170,7 @@ function Works(config) {
 
         //Match static router
         const staticResult = this.staticRouter.recognize(path);
+        console.log(path);
         if (staticResult && staticResult.length === 1) {
             //find filePath
             const filePath = this.staticPathMap.get(path);

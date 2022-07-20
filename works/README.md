@@ -4,14 +4,6 @@ A framework for building lightweight nodejs services using javascript decorators
 
 ## Quick start
 
-1、Install
-
-```bash
-    npm install works.js
-```
-
-2、environment support
-
 * Please use a version of node that supports ES7 decorator syntax
 * Or use babel for your project so that it supports ES7 decorator syntax
 * Use the [works-create-app](https://github.com/gaowanlu/works-create-app) project template
@@ -20,20 +12,7 @@ A framework for building lightweight nodejs services using javascript decorators
     git clone https://github.com/gaowanlu/works-create-app.git
 ```
 
-3、Configure your works.json in your project root directory
-
-```json
-{
-    "port":5554,
-    "ssl":{
-        "open":false,
-        "cert":"/.ssl/one.pem",
-        "pem":"/.ssl/key.pem"
-    }
-}
-```
-
-4、Create your controller
+Create your controller
 
 ```js
 const Works = require('works.js');

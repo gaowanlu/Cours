@@ -104,7 +104,7 @@ function Works(config) {
      */
     this.$addStaticRoute = function (staticRoutes) {
         staticRoutes.forEach(function (item, index, arr) {
-            console.log(item);
+            // console.log(item);
             _this.staticPathMap.set(item.routePath, item.filePath);
             //添加到staticRouter
             _this.staticRouter.add([{
@@ -206,8 +206,10 @@ function Works(config) {
                             //Match static router
                             staticResult = _this.staticRouter.recognize(path);
 
+                            console.log(path);
+
                             if (!(staticResult && staticResult.length === 1)) {
-                                _context2.next = 23;
+                                _context2.next = 24;
                                 break;
                             }
 
@@ -215,27 +217,27 @@ function Works(config) {
                             filePath = _this.staticPathMap.get(path);
 
                             if (!filePath) {
-                                _context2.next = 23;
+                                _context2.next = 24;
                                 break;
                             }
 
                             return _context2.abrupt('return', staticResult[0].handler(req, res, staticResult[0], filePath));
 
-                        case 23:
+                        case 24:
 
                             //After the interceptor is executed, the matching task from the router will be performed
                             result = _this.router.recognize(path);
 
                             if (!result) {
-                                _context2.next = 42;
+                                _context2.next = 43;
                                 break;
                             }
 
                             _i = 0;
 
-                        case 26:
+                        case 27:
                             if (!(_i < result.length)) {
-                                _context2.next = 40;
+                                _context2.next = 41;
                                 break;
                             }
 
@@ -250,35 +252,35 @@ function Works(config) {
                             //Check if allowed
 
                             if (!(_allowedMethods.includes('*') || _allowedMethods.includes(req.method.toUpperCase()))) {
-                                _context2.next = 36;
+                                _context2.next = 37;
                                 break;
                             }
 
                             _context = result[_i];
-                            _context2.next = 34;
+                            _context2.next = 35;
                             return target[name].bind(target)(req, res, _context);
 
-                        case 34:
-                            _context2.next = 37;
+                        case 35:
+                            _context2.next = 38;
                             break;
 
-                        case 36:
+                        case 37:
                             //not allowed
                             rejectToDo(res);
 
-                        case 37:
+                        case 38:
                             _i++;
-                            _context2.next = 26;
+                            _context2.next = 27;
                             break;
 
-                        case 40:
-                            _context2.next = 43;
+                        case 41:
+                            _context2.next = 44;
                             break;
-
-                        case 42:
-                            rejectToDo(res);
 
                         case 43:
+                            rejectToDo(res);
+
+                        case 44:
                         case 'end':
                             return _context2.stop();
                     }

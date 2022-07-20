@@ -170,7 +170,6 @@ function Works(config) {
 
         //Match static router
         const staticResult = this.staticRouter.recognize(path);
-        console.log(path);
         if (staticResult && staticResult.length === 1) {
             //find filePath
             const filePath = this.staticPathMap.get(path);

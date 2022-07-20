@@ -14,6 +14,21 @@ var staticRoute = function () {
             while (1) {
                 switch (_context.prev = _context.next) {
                     case 0:
+                        _context.prev = 0;
+
+                        fs.accessSync(filePath, fs.constants.R_OK);
+                        _context.next = 9;
+                        break;
+
+                    case 4:
+                        _context.prev = 4;
+                        _context.t0 = _context['catch'](0);
+
+                        res.writeHead(404, {});
+                        res.end();
+                        return _context.abrupt('return');
+
+                    case 9:
                         readStream = fs.ReadStream(filePath);
                         extName = path.extname(filePath);
                         contentType = mime.lookup(extName);
@@ -28,12 +43,12 @@ var staticRoute = function () {
                         });
                         readStream.pipe(res);
 
-                    case 6:
+                    case 15:
                     case 'end':
                         return _context.stop();
                 }
             }
-        }, _callee, this);
+        }, _callee, this, [[0, 4]]);
     }));
 
     return function staticRoute(_x, _x2, _x3, _x4) {

@@ -28,7 +28,7 @@ function errorBack(next, callback) {
     }
 }
 
-const USER_AGENT = 'insomnia/2021.7.2';
+const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36';
 const VPN_HOST = 'v.guet.edu.cn';
 const VPN_HASH = '77726476706e69737468656265737421f3f652d220256d44300d8db9d6562d';
 const BKJW_HTTPS_HASH = () => {
@@ -70,7 +70,7 @@ function service(callback, username, password) {
     function getTGT(wengine_vpn_ticket, show_vpn) {
         if (DEBUG) console.log(`getTGT wengine_vpn_ticket :${wengine_vpn_ticket}`.green);
         if (DEBUG) console.log(`getTGT show_vpn : ${show_vpn}`.green);
-        const requestBody = `loginType=&password=${password}&username=${username}`;
+        const requestBody = `loginType=&password=${password}&service=https://v.guet.edu.cn/login?cas_login=true&username=${username}`;
         let req = https.request({
             method: 'POST',
             host: VPN_HOST,
@@ -79,16 +79,16 @@ function service(callback, username, password) {
             headers: {
                 'User-Agent': USER_AGENT,
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket}; show_vpn=${show_vpn}`,
-                'X-Requested-With': 'XMLHttpRequest',
-                'Accept-Encoding': 'gzip',
+                'Cookie': `wengine_vpn_ticket=${wengine_vpn_ticket};show_vpn=${show_vpn}`,
                 'Connection': 'keep-alive',
+                'Referer': 'https://v.guet.edu.cn/https/' + VPN_HASH + "/cas/login"
             }
         }, (res) => {
             res.setEncoding('utf8');
             if (DEBUG) console.log("getTGT", res.headers);
             res.on('data', (chunk) => {
-                //console.log(chunk);
+                //let data = JSON.parse(chunk);
+                if (DEBUG) console.log("getTGT", chunk);
             })
             let location = res.headers['location'];
             if (DEBUG) console.log("getTGT location", location);

@@ -838,14 +838,14 @@ function master(req, res) {
     }
 }
 
-(function () {
-    const {
-        username,
-        password
-    } = setting('21062301013', '');
-    webVpnMasterService((result) => {
-        console.log(result.green);
-    }, username, password);
-})();
+// (function () {
+//     const {
+//         username,
+//         password
+//     } = setting('21062301013', '');
+//     webVpnMasterService((result) => {
+//         console.log(result.green);
+//     }, username, password);
+// })();
 
 module.exports = master;

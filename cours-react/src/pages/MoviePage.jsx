@@ -102,32 +102,27 @@ function MoviePage() {
                   );
                 })}
             </CardLayout>
-            <PageHeader title="搜索结果 暂不支持翻页" size={2} />
+            <PageHeader title="搜索结果" size={2} />
             <CardLayout>
               {searchResult &&
                 searchResult.map((item) => (
                   <VideoItem key={item.name}>
-                    <img
-                      style={{
-                        width: "auto",
-                        maxHeight: "20vh",
-                        borderRadius: "0.5rem",
-                      }}
+                    <VideoImg
                       src={item.img}
                       alt={item.name}
                     />
                     <p style={{ color: "var(--color-primary)" }}>
-                      资源名称: {item.name}
+                      {item.name}
                     </p>
                     <p>最新状态: {item.last}</p>
-                    <p>导演: {item.persons[0]}</p>
+                    <p>{item.persons[0]}</p>
                     <p>演员: {item.persons[1]}</p>
                     <p>简介: {item.persons[2]}</p>
-                    <button
+                    <DetailButton
                       onClick={(e) => detailHandler(item.path, item.name)}
                     >
-                      加载资源详情
-                    </button>
+                      详情
+                    </DetailButton>
                   </VideoItem>
                 ))}
             </CardLayout>
@@ -172,6 +167,7 @@ const Form = styled.form`
     padding: 0.5rem;
     background-color: var(--color-background);
     color: var(--color-color);
+    text-align:center;
   }
   button {
     margin-top: 1rem;
@@ -182,9 +178,11 @@ const Form = styled.form`
     cursor: pointer;
     font-size: 1rem;
     border: 0px;
-    background-color: var(--color-background);
     background-color: var(--color-primary);
     color: #fafafa;
+    &:hover{
+      background-color:#cc0066;
+    }
   }
   background-color: var(--color-background-front);
   padding: 2rem 1rem;
@@ -221,16 +219,6 @@ const VideoItem = styled.div`
   p {
     line-height: 1.4rem;
   }
-  button {
-    height: 2rem;
-    border: none;
-    cursor: pointer;
-    border-radius: 1rem;
-    margin-top: 1rem;
-    background-color: var(--color-primary);
-    color: #fafafa;
-    padding: 0 0.5rem;
-  }
   position: relative;
   padding: 1rem 0;
   &::after {
@@ -256,7 +244,7 @@ const SourceDetailItem = styled.div`
     border: none;
     margin: 1rem;
     &:hover {
-      background-color: var(--color-primary);
+      background-color: #cc0066;
       color: #fafafa;
     }
   }
@@ -277,5 +265,29 @@ const SourceDetailItem = styled.div`
     justify-content: space-around;
   }
 `;
+
+
+const VideoImg = styled.img`
+  width:10rem;
+  height:14rem;
+  object-fit:cover;
+  border-radius:0.5rem;
+  margin-bottom:1rem;
+`;
+
+const DetailButton = styled.button`
+    height: 2rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    background-color: var(--color-primary);
+    color: #fafafa;
+    padding: 0.5rem 1rem;
+    &:hover{
+      background-color: #cc0066;
+    }
+`;
+
 
 export default MoviePage;

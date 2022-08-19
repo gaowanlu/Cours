@@ -23,7 +23,7 @@ function proxyServer(server) {
         const POSTWork = (req, res) => {
             const pathname = url.parse(req.url, true).pathname;
             let runFun = map[pathname]; //根据路由选择响应服务
-            if (runFun === undefined) {
+            if (runFun === undefined || runFun == null) {
                 runFun = map['none'];
             }
             runFun(req, res);
@@ -33,7 +33,7 @@ function proxyServer(server) {
         const GETWork = (req, res) => {
             const pathname = url.parse(req.url, true).pathname;
             let runFun = map[pathname]; //根据路由选择响应服务
-            if (runFun === undefined) {
+            if (runFun === undefined || runFun == null) {
                 runFun = map['none'];
             }
             runFun(req, res);
@@ -53,7 +53,7 @@ function proxyServer(server) {
             //用户数据数据分析
             '/user/analysis': analysis,
             //用户提交记录 平台记录情况 暂不可用
-            '/user/register':register,
+            '/user/register': register,
             //token 测试试验 将在平台添加身份鉴权
             '/token/login': token_login,
             '/token/get': authFilter(token_get),

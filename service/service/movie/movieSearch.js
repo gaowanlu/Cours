@@ -28,33 +28,41 @@ function movieSearch(callback, searchString, page) {
         res.on('end', () => {
             //使用cheerio解析HTML
             const $ = cheerio.load(rawData);
-            //展示图片地址
-            $('div.module-search-item').each(function (i, elem) {
-                APP.imgs.push($(elem).find('div.module-item-pic').find('img').attr('data-src'));
-            });
-            //头部信息
-            $('div.video-info-header').find('a.video-serial').each((i, elem) => {
-                APP.headers.push({
-                    name: $(elem).attr('title'),
-                    text: $(elem).text()
-                });
-            });
-            //主题信息
-            $('div.video-info-main').each((i, elem) => {
-                let items = [];
-                $(elem).find('div.video-info-items').each((i, elem) => {
-                    let datas = [];
-                    $(elem).find('div.video-info-item').each((i1, elem1) => {
-                        datas.push($(elem1).text().replace("/\n\t\t\t\t\t", "").replace("/\t\t\t\t\t\t", "").replace("\t", "").replace(" ", ""));
+
+            //名称和更新状态
+            $('ul.hl-one-list').each((i, elem) => {
+                $(elem).find('li.hl-list-item').each((i, elem) => {
+                    let obj = {
+                        text: '',
+                        name: ''
+                    };
+                    $(elem).find('a.hl-item-thumb').each((i, elem) => {
+                        obj.name = $(elem).attr('title'); //名字
                     });
-                    items.push(datas);
+                    $(elem).find('span.hl-lc-1').each((i, elem) => {
+                        obj.text = $(elem).text(); //更新状态
+                    });
+                    APP.headers.push(obj);
                 });
-                APP.mains.push(items);
             });
-            //尾部信息
-            $('div.video-info-footer').each((i, elem) => {
-                APP.footers.push($(elem).find('a').attr('href'));
-            })
+
+            //封面url
+            $('a.hl-item-thumb').each((i, elem) => {
+                let img = $(elem).attr('data-original');
+                APP.imgs.push(img);
+                let path = $(elem).attr('href');
+                APP.footers.push(path);
+            });
+
+
+            $('div.hl-item-content').each((i, elem) => {
+                let texts = [];
+                $(elem).find('p.hl-item-sub').each((i, elem) => {
+                    texts.push($(elem).text());
+                });
+                APP.mains.push(texts);
+            });
+
             callback({
                 result: APP
             });

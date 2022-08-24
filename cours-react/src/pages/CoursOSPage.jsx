@@ -13,11 +13,10 @@ import { Link } from "react-router-dom";
 const ios = {
   chat: "https://cdn.jim-nielsen.com/ios/512/fonts-by-fontkey-chat-ig-2021-06-02.png",
   live: "https://cdn.jim-nielsen.com/ios/512/yubo-make-friends-go-live-2021-09-16.png",
-  debug:
-    "https://cdn.jim-nielsen.com/ios/512/scanner-air-scan-documents-2021-08-16.png",
+  debug: "https://cdn.jim-nielsen.com/ios/512/scanner-air-scan-documents-2021-08-16.png",
   movie: "https://cdn.jim-nielsen.com/ios/512/netflix-2018-11-01.png",
-  analysis:
-    "https://cdn.jim-nielsen.com/ios/128/mobile-cleaner-space-saver-2020-08-25.png",
+  analysis: "https://cdn.jim-nielsen.com/ios/128/mobile-cleaner-space-saver-2020-08-25.png",
+  colnago: "https://cdn.jim-nielsen.com/ios/512/mockfy-2022-05-19.png"
 };
 
 /**
@@ -73,25 +72,25 @@ function SimpleSlider() {
         <div>
           <ApplicationIconBlockLink to="/talk">
             <ApplicationIcon src={ios.chat} alt="" />
-            <p>Talk</p>
+            <p>talk</p>
           </ApplicationIconBlockLink>
         </div>
         <div>
           <ApplicationIconBlockLink to="/other/live">
             <ApplicationIcon src={ios.live} alt="" />
-            <p>Live</p>
+            <p>live</p>
           </ApplicationIconBlockLink>
         </div>
         <div>
           <ApplicationIconBlockLink to="/assembly">
             <ApplicationIcon src={ios.debug} alt="" />
-            <p>Assemb</p>
+            <p>assemb</p>
           </ApplicationIconBlockLink>
         </div>
         <div>
           <ApplicationIconBlockLink to="/movie">
             <ApplicationIcon src={ios.movie} alt="" />
-            <p>Movie</p>
+            <p>movie</p>
           </ApplicationIconBlockLink>
         </div>
         <div>
@@ -103,7 +102,16 @@ function SimpleSlider() {
             }}
           >
             <ApplicationIcon src={ios.analysis} alt="Cours 数据分析平台" />
-            <p>Analysis</p>
+            <p>analysis</p>
+          </ApplicationIconBlockLink>
+        </div>
+        <div>
+          <ApplicationIconBlockLink to="http://linkway.site:20003" onClick={(e) => {
+            e.preventDefault();
+            window.location.assign("http://linkway.site:20003");
+          }}>
+            <ApplicationIcon src={ios.colnago} alt="" />
+            <p>colnago</p>
           </ApplicationIconBlockLink>
         </div>
       </Section>

@@ -767,6 +767,7 @@ function service(callback, username, password) {
 //     } = setting('1901420313', '');
 //     //代理请求服务
 //     service((result) => {
+//         console.log(result);
 //         console.log("测试完毕");
 //     }, username, password);
 // })();

@@ -1,4 +1,4 @@
-# 桂电课程表 (Cours Web)  
+# 桂电课程表 (Cours Web) [暂停止维护] 
 
 简介 Cours桂电课程表\ios支持,简单易用的桂电课表应用Web方案   
 相关技术 React\Node\SocketIO\MySQL\Next ...  
